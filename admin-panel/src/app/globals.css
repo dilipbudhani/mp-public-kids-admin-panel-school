@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+@theme {
+  /* Institutional Colors */
+  --color-primary: #1A2744;
+  --color-accent: #C0392B;
+  --color-gold: #D4A017;
+  --color-secondary: var(--color-gold);
+  --color-text: #1A1A2E;
+  --color-surface: #F8F7F4;
+  --color-muted: #64748B;
+
+  /* Typography */
+  --font-inter: var(--font-inter);
+  --font-playfair: var(--font-playfair);
+
+  /* Spacing & Layout */
+  --spacing-grid: 8px;
+  --spacing-section-py: 80px;
+  --spacing-section-py-lg: 120px;
+
+  /* Shadows */
+  --shadow-subtle: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+/* Base Styles */
+@layer base {
+  html {
+    @apply text-text;
+    overflow: hidden;
+  }
+
+  body {
+    @apply bg-surface font-inter;
+    overflow: hidden;
+  }
+
+  /* Custom Scrollbar Styles */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #d1d5db transparent;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-playfair font-bold;
+  }
+
+  section {
+    @apply py-20 lg:py-32;
+  }
+
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Institutional Components */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3 border border-transparent text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 ring-primary disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider h-12;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white;
+
+    &:hover {
+      @apply opacity-90;
+    }
+  }
+
+  .btn-accent {
+    @apply bg-accent text-white;
+
+    &:hover {
+      @apply bg-accent/90;
+    }
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-primary font-bold;
+
+    &:hover {
+      @apply bg-white text-primary;
+    }
+  }
+
+  .btn-outline {
+    @apply border-primary text-primary hover:bg-primary hover:text-white;
+  }
+
+  .card {
+    @apply bg-white border border-gray-200 shadow-subtle p-6 hover:shadow-md transition-shadow duration-300;
+  }
+
+  .section-heading {
+    @apply text-3xl md:text-4xl lg:text-5xl mb-12 font-playfair font-bold text-primary;
+  }
+
+  .section-subheading {
+    @apply text-accent uppercase tracking-widest text-xs sm:text-sm font-bold mb-4 block;
+  }
+
+  .section-subheading-gold {
+    @apply text-gold uppercase tracking-widest text-xs sm:text-sm font-bold mb-4 block;
+  }
+
+  .input-field {
+    @apply w-full p-4 bg-slate-50 border border-slate-100 rounded-xl outline-none focus:ring-2 focus:ring-primary/20 transition-all text-primary placeholder:text-slate-400;
+  }
+}
+
+/* Animations Helper */
+.ag-fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+}
