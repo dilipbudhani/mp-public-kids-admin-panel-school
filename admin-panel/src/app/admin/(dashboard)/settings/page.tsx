@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Save, Phone, Mail, MapPin, Globe, Facebook, Instagram, Bell, Shield, Database } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { Save, Phone, Mail, MapPin, Globe, Facebook, Instagram, Bell, Shield, Database, Download, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { Youtube as YoutubeIcon, Twitter as XIcon } from "lucide-react";
 
@@ -28,6 +28,8 @@ export default function SettingsAdminPage() {
     const [settings, setSettings] = useState<SiteSettings | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
+    const [isImporting, setIsImporting] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         fetchSettings();
@@ -69,6 +71,51 @@ export default function SettingsAdminPage() {
             toast.error("An error occurred");
         } finally {
             setIsSaving(false);
+        }
+    };
+
+    const handleExport = () => {
+        window.location.href = "/api/database/export";
+    };
+
+    const handleImportClick = () => {
+        fileInputRef.current?.click();
+    };
+
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        if (window.confirm("WARNING: Importing a database backup will OVERWRITE all current data. Are you absolutely sure?")) {
+            setIsImporting(true);
+            const formData = new FormData();
+            formData.append("file", file);
+
+            try {
+                const res = await fetch("/api/database/import", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                if (res.ok) {
+                    toast.success("Database imported successfully");
+                    fetchSettings();
+                } else {
+                    const err = await res.json();
+                    toast.error(err.error || "Failed to import database");
+                }
+            } catch {
+                toast.error("An error occurred during import");
+            } finally {
+                setIsImporting(false);
+                if (fileInputRef.current) {
+                    fileInputRef.current.value = "";
+                }
+            }
+        } else {
+            if (fileInputRef.current) {
+                fileInputRef.current.value = "";
+            }
         }
     };
 
@@ -303,6 +350,56 @@ export default function SettingsAdminPage() {
                                 className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary transition-all text-sm"
                                 placeholder="Paste the iframe src URL from Google Maps"
                             />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Database Management */}
+                <div className="bg-white rounded-3xl border border-gray-100 p-8 shadow-sm">
+                    <h2 className="text-lg font-bold mb-6 flex items-center gap-2">
+                        <Database className="w-5 h-5 text-primary" />
+                        Database Management
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-4">
+                            <div>
+                                <h3 className="font-semibold text-gray-800">Export Database</h3>
+                                <p className="text-sm text-gray-500">Download a complete backup of the database as a ZIP file.</p>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={handleExport}
+                                className="flex items-center gap-2 bg-blue-50 text-blue-600 px-6 py-3 rounded-xl hover:bg-blue-100 transition-all font-semibold"
+                            >
+                                <Download className="w-5 h-5" />
+                                Export Database
+                            </button>
+                        </div>
+                        <div className="space-y-4">
+                            <div>
+                                <h3 className="font-semibold text-gray-800">Import Database</h3>
+                                <p className="text-sm text-gray-500">Upload a database ZIP file to restore data. Warning: This replaces existing data.</p>
+                            </div>
+                            <input
+                                type="file"
+                                accept=".zip"
+                                ref={fileInputRef}
+                                onChange={handleFileChange}
+                                className="hidden"
+                            />
+                            <button
+                                type="button"
+                                onClick={handleImportClick}
+                                disabled={isImporting}
+                                className="flex items-center gap-2 bg-red-50 text-red-600 px-6 py-3 rounded-xl hover:bg-red-100 transition-all font-semibold disabled:opacity-50"
+                            >
+                                {isImporting ? (
+                                    <div className="w-4 h-4 border-2 border-red-600/30 border-t-red-600 rounded-full animate-spin" />
+                                ) : (
+                                    <Upload className="w-5 h-5" />
+                                )}
+                                {isImporting ? "Importing..." : "Import Database"}
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${inter.variable} antialiased font-sans`}>
+            <body className={`${inter.variable} antialiased font-sans`} cz-shortcut-listen="true">
                 <AuthProvider>
                     {children}
                     <Toaster position="top-right" />
