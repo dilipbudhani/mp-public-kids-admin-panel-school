@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
-const MONGODB_URI = "mongodb+srv://mppublic:mppublic_school@mppublic.qo0bnof.mongodb.net/?appName=mppublic";
+const MONGODB_URI = process.env.MONGODB_URI;
+if (!MONGODB_URI) throw new Error('MONGODB_URI is not defined');
 const DEFAULT_SCHOOL_ID = 'mp-kids-school';
 
 async function migrate() {
