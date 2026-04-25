@@ -1,0 +1,77 @@
+[
+  {
+    "_id": "69ebd00fb9b143a673f2b6a3",
+    "schoolIds": [
+      "mp-public",
+      "mp-kids-school"
+    ],
+    "title": "Pre-Primary Wing",
+    "description": "Nursery to UKG - Nurturing young minds through play-based learning.",
+    "icon": "Baby",
+    "href": "/academics/pre-primary",
+    "color": "pink",
+    "displayOrder": 0,
+    "isActive": true,
+    "__v": 0
+  },
+  {
+    "_id": "69ebd00fb9b143a673f2b6a4",
+    "schoolIds": [
+      "mp-public",
+      "mp-kids-school"
+    ],
+    "title": "Primary Wing",
+    "description": "Standard I to V - Building strong foundational skills in core subjects.",
+    "icon": "BookOpen",
+    "href": "/academics/primary",
+    "color": "blue",
+    "displayOrder": 1,
+    "isActive": true,
+    "__v": 0
+  },
+  {
+    "_id": "69ebd00fb9b143a673f2b6a5",
+    "schoolIds": [
+      "mp-public",
+      "mp-kids-school"
+    ],
+    "title": "Middle Wing",
+    "description": "Standard VI to VIII - Fostering curiosity and critical thinking.",
+    "icon": "Users",
+    "href": "/academics/middle",
+    "color": "green",
+    "displayOrder": 2,
+    "isActive": true,
+    "__v": 0
+  },
+  {
+    "_id": "69ebd00fb9b143a673f2b6a6",
+    "schoolIds": [
+      "mp-public",
+      "mp-kids-school"
+    ],
+    "title": "Secondary Wing",
+    "description": "Standard IX to X - Preparing students for academic excellence.",
+    "icon": "GraduationCap",
+    "href": "/academics/secondary",
+    "color": "purple",
+    "displayOrder": 3,
+    "isActive": true,
+    "__v": 0
+  },
+  {
+    "_id": "69ebd00fb9b143a673f2b6a7",
+    "schoolIds": [
+      "mp-public",
+      "mp-kids-school"
+    ],
+    "title": "Senior Secondary Wing",
+    "description": "Standard XI to XII - Empowering students for higher education and leadership.",
+    "icon": "Award",
+    "href": "/academics/senior-secondary",
+    "color": "amber",
+    "displayOrder": 4,
+    "isActive": true,
+    "__v": 0
+  }
+]

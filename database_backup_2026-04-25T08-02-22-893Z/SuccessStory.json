@@ -1,0 +1,82 @@
+[
+  {
+    "_id": "69e240beb24995160f99beec",
+    "headline": "Secured AIR 452 in JEE Advanced",
+    "name": "Aarav Sharma",
+    "__v": 0,
+    "batch": "2023",
+    "category": "IIT/NIT",
+    "color": "bg-blue-100 text-blue-600",
+    "createdAt": "2026-04-17T14:16:30.726Z",
+    "displayOrder": 1,
+    "initials": "AS",
+    "isActive": true,
+    "schoolIds": [
+      "mp-public",
+      "mp-kids-school"
+    ],
+    "story": "Aarav joined MP Kids School in Class 6. He was always interested in Mathematics and Science. Under the mentorship of our expert faculty, he cleared JEE Advanced with a remarkable rank.",
+    "summary": "Aarav's journey from a curious student to an IITian is a testament to his hard work and the school's guidance.",
+    "updatedAt": "2026-04-17T15:33:19.872Z"
+  },
+  {
+    "_id": "69e240beb24995160f99beed",
+    "headline": "Cleared NEET with 680 Marks",
+    "name": "Isha Verma",
+    "__v": 0,
+    "batch": "2022",
+    "category": "Medical",
+    "color": "bg-red-100 text-red-600",
+    "createdAt": "2026-04-17T14:16:30.918Z",
+    "displayOrder": 2,
+    "initials": "IV",
+    "isActive": true,
+    "schoolIds": [
+      "mp-public",
+      "mp-kids-school"
+    ],
+    "story": "Isha's passion for Biology was evident since middle school. She consistently topped her classes and worked tirelessly to achieve her dream of becoming a doctor.",
+    "summary": "Isha's dedication to medicine led her to secure a seat in one of India's top medical colleges.",
+    "updatedAt": "2026-04-17T15:33:20.092Z"
+  },
+  {
+    "_id": "69e240beb24995160f99beee",
+    "headline": "Selected for State Civil Services",
+    "name": "Rohan Gupta",
+    "__v": 0,
+    "batch": "2024",
+    "category": "Civil Services",
+    "color": "bg-emerald-100 text-emerald-600",
+    "createdAt": "2026-04-17T14:16:30.938Z",
+    "displayOrder": 3,
+    "initials": "RG",
+    "isActive": true,
+    "schoolIds": [
+      "mp-public",
+      "mp-kids-school"
+    ],
+    "story": "Rohan was the head boy of the school and was always active in debates and social work. His selection in the civil services is a proud moment for all of us.",
+    "summary": "An aspiring leader, Rohan has always shown a keen interest in public service and social reform.",
+    "updatedAt": "2026-04-17T15:33:20.113Z"
+  },
+  {
+    "_id": "69e240beb24995160f99beef",
+    "name": "Sanya Malhotra",
+    "headline": "National Gold Medalist in Athletics",
+    "__v": 0,
+    "batch": "2023",
+    "category": "Sports",
+    "color": "bg-orange-100 text-orange-600",
+    "createdAt": "2026-04-17T14:16:30.958Z",
+    "displayOrder": 4,
+    "initials": "SM",
+    "isActive": true,
+    "schoolIds": [
+      "mp-public",
+      "mp-kids-school"
+    ],
+    "story": "From early morning training sessions to winning on the track, Sanya's discipline and perseverance have been inspirational for her peers.",
+    "summary": "Sanya's speed and agility have brought numerous laurels to the school at various national levels.",
+    "updatedAt": "2026-04-17T15:33:20.136Z"
+  }
+]

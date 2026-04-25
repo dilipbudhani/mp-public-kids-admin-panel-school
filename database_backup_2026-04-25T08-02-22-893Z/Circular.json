@@ -1,0 +1,105 @@
+[
+  {
+    "_id": "69eb68f71ae9e29fdea6aa8c",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Summer Vacation Schedule",
+    "date": "2026-04-24T12:58:31.933Z",
+    "category": "Holiday",
+    "description": "The school will remain closed for summer break from May 15th to June 30th.",
+    "isActive": true,
+    "__v": 0,
+    "createdAt": "2026-04-24T12:58:31.934Z",
+    "updatedAt": "2026-04-24T12:58:31.934Z"
+  },
+  {
+    "_id": "69eb68f71ae9e29fdea6aa8d",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "New Uniform Guidelines",
+    "date": "2026-04-24T12:58:31.933Z",
+    "category": "General",
+    "description": "Revised dress code for the upcoming academic session has been released.",
+    "isActive": true,
+    "__v": 0,
+    "createdAt": "2026-04-24T12:58:31.934Z",
+    "updatedAt": "2026-04-24T12:58:31.934Z"
+  },
+  {
+    "_id": "69ec4965c525e32010661770",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Admissions Open for Session 2026–27",
+    "date": "2026-04-25T00:00:00.000Z",
+    "category": "Admission Form",
+    "description": "Admissions are now open for the academic session 2026–27. Parents are requested to visit the school campus or contact the office for admission details, fee structure, and required documents. Limited seats available.",
+    "pdfUrl": "",
+    "isActive": true,
+    "createdAt": "2026-04-25T04:56:05.522Z",
+    "updatedAt": "2026-04-25T04:57:09.557Z",
+    "__v": 0
+  },
+  {
+    "_id": "69ec498fc525e32010661773",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Fee Submission Notice – April 2026",
+    "date": "2026-04-25T00:00:00.000Z",
+    "category": "Circular",
+    "description": "All parents are informed to submit the monthly fee for April 2026 before the due date to avoid late charges. Kindly contact the office for any queries.",
+    "pdfUrl": "",
+    "isActive": true,
+    "createdAt": "2026-04-25T04:56:47.400Z",
+    "updatedAt": "2026-04-25T04:56:47.400Z",
+    "__v": 0
+  },
+  {
+    "_id": "69ec49bfc525e32010661778",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Holiday Notice – Summer Break",
+    "date": "2026-04-25T00:00:00.000Z",
+    "category": "Other",
+    "description": "The school will remain closed for summer vacation from [start date] to [end date]. Regular classes will resume after the break.",
+    "pdfUrl": "",
+    "isActive": true,
+    "createdAt": "2026-04-25T04:57:35.065Z",
+    "updatedAt": "2026-04-25T04:57:52.448Z",
+    "__v": 0
+  },
+  {
+    "_id": "69ec49eac525e3201066177d",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Annual Result Declaration 2025–26",
+    "date": "2026-04-25T00:00:00.000Z",
+    "category": "Other",
+    "description": "Annual examination results have been declared. Parents are requested to visit the school to collect report cards.",
+    "pdfUrl": "",
+    "isActive": true,
+    "createdAt": "2026-04-25T04:58:18.814Z",
+    "updatedAt": "2026-04-25T04:58:18.814Z",
+    "__v": 0
+  },
+  {
+    "_id": "69ec4a05c525e32010661780",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Documents Required for New Admission",
+    "date": "2026-04-25T00:00:00.000Z",
+    "category": "Admission Form",
+    "description": "Parents must submit the following documents during admission:\n• Birth Certificate\n• Passport Size Photos\n• Previous Class Report Card\n• Aadhar Card Copy",
+    "pdfUrl": "",
+    "isActive": true,
+    "createdAt": "2026-04-25T04:58:45.985Z",
+    "updatedAt": "2026-04-25T04:58:45.985Z",
+    "__v": 0
+  }
+]

@@ -123,11 +123,15 @@ const FAQS = [
 
 /* ─────────────────── FAQ ACCORDION ─────────────────── */
 
-function FAQAccordion() {
+interface FAQAccordionProps {
+    faqs: { q: string; a: string }[];
+}
+
+function FAQAccordion({ faqs }: FAQAccordionProps) {
     const [open, setOpen] = useState<number | null>(null);
     return (
         <div className="space-y-3 max-w-3xl mx-auto">
-            {FAQS.map((faq, i) => (
+            {faqs.map((faq, i) => (
                 <div
                     key={i}
                     className={`border rounded-2xl overflow-hidden transition-all duration-300 ${open === i ? 'border-primary/30 shadow-md' : 'border-neutral-200'}`}
@@ -168,6 +172,17 @@ export default function RTEClient({ pageData }: RTEClientProps) {
         title: "What is the RTE Act?",
         content: "The Right of Children to Free and Compulsory Education (RTE) Act, 2009 is a landmark legislation that makes free and compulsory education a fundamental right for all children between the ages of 6 and 14 years in India."
     };
+
+    // Dynamic Lists from Sections
+    const dynamicProcess = sections.find((s: any) => s.key === 'rte_process')?.items;
+    const dynamicDates = sections.find((s: any) => s.key === 'rte_dates')?.items;
+    const dynamicFAQs = sections.find((s: any) => s.key === 'rte_faqs')?.items;
+    const dynamicPhone = sections.find((s: any) => s.key === 'rte_contact_phone')?.content || "+91 73140 01234";
+    const dynamicEmail = sections.find((s: any) => s.key === 'rte_contact_email')?.content || "info@mppublicschool.edu.in";
+
+    const processSteps = dynamicProcess || PROCESS_STEPS;
+    const datesList = dynamicDates || DATES;
+    const faqsList = dynamicFAQs || FAQS;
 
     return (
         <main className="bg-neutral-50 min-h-screen">
@@ -227,11 +242,15 @@ export default function RTEClient({ pageData }: RTEClientProps) {
                             <span className="text-sm font-bold uppercase tracking-[0.25em] text-primary/50">Background</span>
                             <h2 className="text-3xl md:text-4xl font-playfair font-bold text-primary mt-2 mb-6">{mainSection.title}</h2>
                             <div className="prose prose-neutral text-neutral-600 text-[15px] leading-7 space-y-4">
-                                <div dangerouslySetInnerHTML={{ __html: mainSection.content.replace(/\n/g, '<br/>') }} />
-                                {sections.filter((s: any) => s.order > 0).map((section: any, idx: number) => (
+                                {mainSection.content && (
+                                    <div dangerouslySetInnerHTML={{ __html: mainSection.content.replace(/\n/g, '<br/>') }} />
+                                )}
+                                {sections.filter((s: any) => s.order > 0 && s.type !== 'featured' && s.type !== 'grid' && s.key !== 'rte_faqs').map((section: any, idx: number) => (
                                     <div key={idx} className="mt-8">
                                         <h3 className="text-xl font-bold text-primary mb-2">{section.title}</h3>
-                                        <div dangerouslySetInnerHTML={{ __html: section.content.replace(/\n/g, '<br/>') }} />
+                                        {section.content && (
+                                            <div dangerouslySetInnerHTML={{ __html: section.content.replace(/\n/g, '<br/>') }} />
+                                        )}
                                     </div>
                                 ))}
                             </div>
@@ -341,10 +360,10 @@ export default function RTEClient({ pageData }: RTEClientProps) {
                     {/* Steps */}
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-16 relative">
                         <div className="hidden md:block absolute top-8 left-[15%] right-[15%] h-0.5 bg-neutral-200" />
-                        {PROCESS_STEPS.map((step, i) => (
+                        {processSteps.map((step: any, i: number) => (
                             <div key={i} className="flex flex-col items-center text-center relative">
                                 <div className="w-16 h-16 rounded-full bg-primary text-white font-playfair font-bold text-xl flex items-center justify-center shadow-xl shadow-primary/20 mb-5 relative z-10">
-                                    {step.n}
+                                    {step.n || i + 1}
                                 </div>
                                 <h3 className="font-bold text-primary text-sm mb-2">{step.title}</h3>
                                 <p className="text-neutral-500 text-xs leading-relaxed mb-3">{step.desc}</p>
@@ -371,7 +390,7 @@ export default function RTEClient({ pageData }: RTEClientProps) {
                             </h3>
                         </div>
                         <div className="divide-y divide-neutral-100">
-                            {DATES.map((d, i) => (
+                            {datesList.map((d: any, i: number) => (
                                 <div key={i} className="flex items-center justify-between px-8 py-4">
                                     <span className="text-sm text-neutral-600 font-medium">{d.label}</span>
                                     <span className="font-bold text-primary text-sm bg-primary/8 px-4 py-1.5 rounded-full">{d.date}</span>
@@ -393,7 +412,7 @@ export default function RTEClient({ pageData }: RTEClientProps) {
                         <span className="text-sm font-bold uppercase tracking-[0.25em] text-primary/50">Common Questions</span>
                         <h2 className="text-3xl md:text-4xl font-playfair font-bold text-primary mt-2 mb-3">Frequently Asked Questions</h2>
                     </div>
-                    <FAQAccordion />
+                    <FAQAccordion faqs={faqsList} />
                 </div>
             </section>
 
@@ -406,16 +425,16 @@ export default function RTEClient({ pageData }: RTEClientProps) {
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <a
-                            href="tel:+917314001234"
+                            href={`tel:${dynamicPhone.replace(/\s+/g, '')}`}
                             className="flex items-center gap-3 bg-primary text-white px-8 py-4 rounded-2xl font-bold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 justify-center"
                         >
-                            <Phone className="w-5 h-5" /> +91 73140 01234
+                            <Phone className="w-5 h-5" /> {dynamicPhone}
                         </a>
                         <a
-                            href="mailto:rte@mpkidsschool.edu.in"
+                            href={`mailto:${dynamicEmail}`}
                             className="flex items-center gap-3 border-2 border-primary text-primary px-8 py-4 rounded-2xl font-bold hover:bg-primary hover:text-white transition-all justify-center"
                         >
-                            <Mail className="w-5 h-5" /> rte@mpkidsschool.edu.in
+                            <Mail className="w-5 h-5" /> {dynamicEmail}
                         </a>
                     </div>
 

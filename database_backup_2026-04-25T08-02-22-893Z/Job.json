@@ -1,0 +1,21 @@
+[
+  {
+    "_id": "69ec729db59f9241ca1c4c05",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Primary Teacher (PRT)",
+    "department": "Academics",
+    "category": "Teaching",
+    "experience": "1–3 Years",
+    "qualification": "Graduate with B.Ed (D.Ed preferred)",
+    "type": "Full-time",
+    "location": "MP Kids School Campus",
+    "vacancies": 2,
+    "isActive": true,
+    "displayOrder": 0,
+    "createdAt": "2026-04-25T07:51:57.563Z",
+    "updatedAt": "2026-04-25T07:51:57.563Z",
+    "__v": 0
+  }
+]

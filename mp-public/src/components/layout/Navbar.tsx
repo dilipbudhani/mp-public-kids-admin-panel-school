@@ -149,7 +149,7 @@ export function Navbar({ settings }: { settings?: any }) {
                                 <MapPin className="w-3.5 h-3.5 text-gold" /> {settings?.address?.split(',').slice(-2).join(',').trim() || "New Delhi, India"}
                             </span>
                             <Link href="/admissions" className="text-gold hover:text-white transition-colors">
-                                CBSE Affiliation: {settings?.cbseAffiliation || "1234567"}
+                                CBSE Affiliation: {settings?.affiliationNo || "1030919"}
                             </Link>
                         </div>
                     </div>

@@ -141,6 +141,39 @@ export default function HeroAdminPage() {
         }
     };
 
+    const handleMove = async (slide: HeroSlide, direction: 'up' | 'down') => {
+        // Sort current slides just to be safe
+        const sortedSlides = [...slides].sort((a, b) => a.displayOrder - b.displayOrder);
+        const currentIndex = sortedSlides.findIndex(s => s._id === slide._id);
+
+        if (currentIndex === -1) return;
+        const newIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1;
+
+        if (newIndex < 0 || newIndex >= sortedSlides.length) return; // Out of bounds
+
+        const swapSlide = sortedSlides[newIndex];
+        const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+
+        try {
+            // Swap display order
+            await Promise.all([
+                fetch(`/api/hero/${slide._id}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json", ...(schoolId && { "x-school-id": schoolId }) },
+                    body: JSON.stringify({ displayOrder: swapSlide.displayOrder })
+                }),
+                fetch(`/api/hero/${swapSlide._id}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json", ...(schoolId && { "x-school-id": schoolId }) },
+                    body: JSON.stringify({ displayOrder: slide.displayOrder })
+                })
+            ]);
+            fetchSlides();
+        } catch (err) {
+            toast.error("Failed to reorder");
+        }
+    };
+
     if (isLoading) {
         return <div className="animate-pulse">Loading slides...</div>;
     }
@@ -361,10 +394,16 @@ export default function HeroAdminPage() {
                                                     <span className="px-3 py-1 bg-gray-100 text-gray-500 rounded-full text-xs font-bold">Inactive</span>
                                                 )}
                                                 <div className="flex items-center gap-1">
-                                                    <button className="p-1 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-gray-600 transition-all">
+                                                    <button
+                                                        onClick={() => handleMove(slide, 'up')}
+                                                        className="p-1 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-gray-600 transition-all disabled:opacity-30"
+                                                    >
                                                         <MoveUp className="w-4 h-4" />
                                                     </button>
-                                                    <button className="p-1 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-gray-600 transition-all">
+                                                    <button
+                                                        onClick={() => handleMove(slide, 'down')}
+                                                        className="p-1 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-gray-600 transition-all disabled:opacity-30"
+                                                    >
                                                         <MoveDown className="w-4 h-4" />
                                                     </button>
                                                 </div>

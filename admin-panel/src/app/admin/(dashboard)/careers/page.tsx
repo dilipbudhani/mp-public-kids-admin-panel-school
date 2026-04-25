@@ -460,7 +460,7 @@ export default function CareersAdminPage() {
                             <input
                                 required
                                 type="number"
-                                value={formData.vacancies}
+                                value={Number.isNaN(formData.vacancies) ? "" : formData.vacancies}
                                 onChange={(e) => setFormData({ ...formData, vacancies: parseInt(e.target.value) })}
                                 className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary transition-all"
                             />
@@ -469,7 +469,7 @@ export default function CareersAdminPage() {
                             <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Display Order</label>
                             <input
                                 type="number"
-                                value={formData.displayOrder}
+                                value={Number.isNaN(formData.displayOrder) ? "" : formData.displayOrder}
                                 onChange={(e) => setFormData({ ...formData, displayOrder: parseInt(e.target.value) })}
                                 className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary transition-all"
                             />

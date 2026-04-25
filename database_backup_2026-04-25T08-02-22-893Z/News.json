@@ -1,0 +1,59 @@
+[
+  {
+    "_id": "69ec32f5c525e320106616f1",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Admissions Open 2026–27 – Secure Your Child’s Future Today",
+    "slug": "admissions-open-2026-27-secure-your-child-s-future-today",
+    "date": "2026-04-25T00:00:00.000Z",
+    "category": "Others",
+    "content": "Admissions are now open for the academic session 2026–27 at MP Kids School.\n\nWe provide a nurturing environment where children grow academically, socially, and emotionally. Our focus is on quality education, experienced teachers, and engaging activities that help every child succeed.\n\nKey Highlights:\n• Experienced and caring faculty\n• Safe and child-friendly campus\n• Activity-based learning approach\n• Focus on overall development\n\nLimited seats available. Early admission is highly recommended.\n\nContact us today or visit the school campus for more details.",
+    "summary": "Admissions are now open for the academic session 2026–27. Limited seats available.",
+    "imageUrl": "https://res.cloudinary.com/dpdvkx6zw/image/upload/v1777087112/news/2025-01-0220093A323A33_b94jsy.webp",
+    "isFeatured": false,
+    "isPublished": true,
+    "showPopup": true,
+    "createdAt": "2026-04-25T03:20:21.682Z",
+    "updatedAt": "2026-04-25T03:20:21.682Z",
+    "__v": 0
+  },
+  {
+    "_id": "69ec34ffc525e320106616f6",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Our Students Shine Bright – Academic Excellence 2025",
+    "slug": "student-achievements-2025",
+    "date": "2026-04-25T00:00:00.000Z",
+    "category": "Achievements",
+    "content": "We are proud to announce the outstanding academic performance of our students in the recent examinations.\n\nOur students have once again demonstrated excellence through their hard work, dedication, and determination.\n\nHighlights:\n• High overall pass percentage\n• Multiple students scored top grades\n• Consistent performance across all classes\n\nThis achievement reflects the combined efforts of our students, teachers, and supportive parents.\n\nWe congratulate all our students and wish them continued success in the future.",
+    "summary": "We are proud of our students for their outstanding academic performance this year.",
+    "imageUrl": "https://res.cloudinary.com/dpdvkx6zw/image/upload/v1777087680/news/581306944_17924432808178652_2686420103694939886_n.heic_fpd4ch.jpg",
+    "isFeatured": false,
+    "isPublished": true,
+    "showPopup": false,
+    "createdAt": "2026-04-25T03:29:03.968Z",
+    "updatedAt": "2026-04-25T03:31:16.227Z",
+    "__v": 0
+  },
+  {
+    "_id": "69ec357dc525e320106616f9",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Engaging Activities for Holistic Development",
+    "slug": "school-activities-development",
+    "date": "2026-04-25T00:00:00.000Z",
+    "category": "Events",
+    "content": "At MP Kids School, we believe learning goes beyond textbooks.\n\nStudents recently participated in various engaging activities designed to enhance creativity, teamwork, and confidence.\n\nActivities Included:\n• Art and craft sessions\n• Group learning exercises\n• Outdoor play and sports\n\nSuch activities help in the overall development of children and make learning enjoyable.",
+    "summary": "Students participated in fun and educational activities to boost creativity and learning.",
+    "imageUrl": "https://res.cloudinary.com/dpdvkx6zw/image/upload/v1777087799/news/586708671_17924442723178652_9083242174449990027_n.heic_jy3xm2.jpg",
+    "isFeatured": false,
+    "isPublished": true,
+    "showPopup": false,
+    "createdAt": "2026-04-25T03:31:09.428Z",
+    "updatedAt": "2026-04-25T03:31:09.428Z",
+    "__v": 0
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "_id": "69eb70e0741b7ad76f8aae69",
+    "email": "admin@mppublicschool.edu.in",
+    "password": "$2b$10$xkeP4ZR06La5vgHiNwTqLesKU5VQzFMKVduGp3BYsT52fABNVP7Me",
+    "name": "MP Public Admin",
+    "role": "admin",
+    "__v": 0,
+    "createdAt": "2026-04-24T13:32:16.043Z",
+    "updatedAt": "2026-04-24T13:32:16.043Z"
+  },
+  {
+    "_id": "69eb70e0741b7ad76f8aae6a",
+    "email": "admin@mpkidsschool.edu.in",
+    "password": "$2b$10$xkeP4ZR06La5vgHiNwTqLesKU5VQzFMKVduGp3BYsT52fABNVP7Me",
+    "name": "MP Kids Admin",
+    "role": "admin",
+    "__v": 0,
+    "createdAt": "2026-04-24T13:32:16.043Z",
+    "updatedAt": "2026-04-24T13:32:16.043Z"
+  },
+  {
+    "_id": "69eb8c0a5ca1f093ae174af2",
+    "email": "admin@example.com",
+    "__v": 0,
+    "createdAt": "2026-04-24T15:28:09.882Z",
+    "name": "Admin User",
+    "password": "$2b$10$7lSNInub/EJPMKe9ClKdouK6Po2IgSZp96CRfv2EfCDxFVgqpHEr.",
+    "role": "admin",
+    "updatedAt": "2026-04-24T15:28:09.882Z"
+  }
+]

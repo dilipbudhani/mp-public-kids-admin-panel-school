@@ -1,0 +1,190 @@
+[
+  {
+    "_id": "69e24514c00a791aba88196d",
+    "schoolIds": [],
+    "name": "Test Alumni MP Public",
+    "batch": 2020,
+    "profession": "Test Profession",
+    "organization": "Test Profession",
+    "city": "Test City",
+    "quote": "Proud to be an alumnus of MP Public School!",
+    "initials": "TA",
+    "color": "#3B82F6",
+    "isActive": false,
+    "displayOrder": 0,
+    "createdAt": "2026-04-17T14:35:00.107Z",
+    "updatedAt": "2026-04-17T14:35:00.107Z",
+    "__v": 0
+  },
+  {
+    "_id": "69e246cbb1ac55bb5d071151",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "name": "Kids Test",
+    "batch": 2021,
+    "profession": "Data Scientist",
+    "organization": "Data Scientist",
+    "city": "Bhopal",
+    "quote": "Proud to be an alumnus of MP Kids School!",
+    "initials": "KT",
+    "color": "#3B82F6",
+    "isActive": false,
+    "displayOrder": 0,
+    "createdAt": "2026-04-17T14:42:19.130Z",
+    "updatedAt": "2026-04-17T14:42:19.130Z",
+    "__v": 0
+  },
+  {
+    "_id": "69e246dab1ac55bb5d071153",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "name": "Kids Test",
+    "batch": 2021,
+    "profession": "Data Scientist",
+    "organization": "Data Scientist",
+    "city": "Bhopal",
+    "quote": "Proud to be an alumnus of MP Kids School!",
+    "initials": "KT",
+    "color": "#3B82F6",
+    "isActive": false,
+    "displayOrder": 0,
+    "createdAt": "2026-04-17T14:42:34.566Z",
+    "updatedAt": "2026-04-17T14:42:34.566Z",
+    "__v": 0
+  },
+  {
+    "_id": "69e2536520960afef5c15b41",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "name": "John Doe",
+    "batch": 2020,
+    "profession": "Software Engineer",
+    "organization": "Software Engineer",
+    "city": "New York",
+    "quote": "Proud to be an alumnus of MP Kids School!",
+    "initials": "JD",
+    "color": "#3B82F6",
+    "isActive": false,
+    "displayOrder": 0,
+    "createdAt": "2026-04-17T15:36:05.350Z",
+    "updatedAt": "2026-04-17T15:36:05.350Z",
+    "__v": 0
+  },
+  {
+    "_id": "69e2537720960afef5c15b43",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "name": "John Doe",
+    "batch": 2020,
+    "profession": "Software Engineer",
+    "organization": "Software Engineer",
+    "city": "New York",
+    "quote": "Proud to be an alumnus of MP Kids School!",
+    "initials": "JD",
+    "color": "#3B82F6",
+    "isActive": false,
+    "displayOrder": 0,
+    "createdAt": "2026-04-17T15:36:23.558Z",
+    "updatedAt": "2026-04-17T15:36:23.558Z",
+    "__v": 0
+  },
+  {
+    "_id": "69e2539020960afef5c15b45",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "name": "John Doe",
+    "batch": 2020,
+    "profession": "Software Engineer",
+    "organization": "Software Engineer",
+    "city": "New York",
+    "quote": "Proud to be an alumnus of MP Kids School!",
+    "initials": "JD",
+    "color": "#3B82F6",
+    "isActive": false,
+    "displayOrder": 0,
+    "createdAt": "2026-04-17T15:36:48.655Z",
+    "updatedAt": "2026-04-17T15:36:48.655Z",
+    "__v": 0
+  },
+  {
+    "_id": "69e25e66fde6ca0fbd98f103",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "name": "Kids Verified",
+    "batch": 2024,
+    "profession": "Student",
+    "organization": "MP Kids",
+    "city": "Bhopal",
+    "quote": "Proud to be an alumnus of MP Kids School!",
+    "initials": "KV",
+    "color": "#3B82F6",
+    "isActive": false,
+    "displayOrder": 0,
+    "createdAt": "2026-04-17T16:23:02.095Z",
+    "updatedAt": "2026-04-17T16:23:02.095Z",
+    "__v": 0
+  },
+  {
+    "_id": "69e26483fde6ca0fbd98f109",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "name": "Jane Kids",
+    "batch": 2018,
+    "profession": "Teacher",
+    "organization": "MP Kids School",
+    "city": "Indore",
+    "quote": "Proud to be an alumnus of MP Kids School!",
+    "initials": "JK",
+    "color": "#3B82F6",
+    "isActive": false,
+    "displayOrder": 0,
+    "createdAt": "2026-04-17T16:49:07.653Z",
+    "updatedAt": "2026-04-17T16:49:07.653Z",
+    "__v": 0
+  },
+  {
+    "_id": "69e264a5fde6ca0fbd98f10b",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "name": "Jane Kids",
+    "batch": 2018,
+    "profession": "Teacher",
+    "organization": "MP Kids School",
+    "city": "Indore",
+    "quote": "Proud to be an alumnus of MP Kids School!",
+    "initials": "JK",
+    "color": "#3B82F6",
+    "isActive": false,
+    "displayOrder": 0,
+    "createdAt": "2026-04-17T16:49:41.039Z",
+    "updatedAt": "2026-04-17T16:49:41.039Z",
+    "__v": 0
+  },
+  {
+    "_id": "69e265c3fde6ca0fbd98f111",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "name": "Jane Kids",
+    "batch": 2018,
+    "profession": "Teacher",
+    "organization": "MP Kids School",
+    "city": "Indore",
+    "quote": "Proud to be an alumnus of MP Kids School!",
+    "initials": "JK",
+    "color": "#3B82F6",
+    "isActive": false,
+    "displayOrder": 0,
+    "createdAt": "2026-04-17T16:54:27.723Z",
+    "updatedAt": "2026-04-17T16:54:27.723Z",
+    "__v": 0
+  }
+]

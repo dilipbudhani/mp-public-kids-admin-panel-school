@@ -1,0 +1,90 @@
+[
+  {
+    "_id": "69eb94283801968f147458e7",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Admissions Open 2026–27",
+    "highlight": "Enroll Today for a Bright Future",
+    "description": "Admissions are now open at MP Kids School for the academic session 2026–27. Give your child a strong foundation with quality education, experienced teachers, and a safe learning environment.",
+    "badge": "",
+    "cta1Text": "Apply Now",
+    "cta1Href": "/admissions",
+    "cta2Text": "Contact Us",
+    "cta2Href": "/contact",
+    "imageUrl": "https://content.jdmagicbox.com/comp/indore/d8/0731px731.x731.220417202850.c2d8/catalogue/m-p-kids-school-indore-nursery-schools-8jg5mwo4z2.jpg",
+    "statValue": "100%",
+    "statLabel": "Parent Satisfaction",
+    "displayOrder": 1,
+    "isActive": true,
+    "createdAt": "2026-04-24T16:02:48.665Z",
+    "updatedAt": "2026-04-25T07:19:27.336Z",
+    "__v": 0
+  },
+  {
+    "_id": "69ec62a2c525e32010661916",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "",
+    "highlight": "",
+    "description": "",
+    "badge": "",
+    "cta1Text": "",
+    "cta1Href": "",
+    "cta2Text": "",
+    "cta2Href": "",
+    "imageUrl": "https://res.cloudinary.com/dpdvkx6zw/image/upload/v1777099645/hero/School_Final_Render_3_rcx7ox.jpg",
+    "statValue": "",
+    "statLabel": "",
+    "displayOrder": 2,
+    "isActive": true,
+    "createdAt": "2026-04-25T06:43:46.244Z",
+    "updatedAt": "2026-04-25T07:06:09.874Z",
+    "__v": 0
+  },
+  {
+    "_id": "69ec644cc525e3201066191c",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Class 5th Toppers 2025–26",
+    "highlight": "Celebrating Academic Excellence",
+    "description": "We are proud of our Class 5 students for their excellent academic performance. Their hard work and dedication have brought great results and made the school proud.",
+    "badge": "RESULT",
+    "cta1Text": "View Results",
+    "cta1Href": "/results",
+    "cta2Text": "Apply Now",
+    "cta2Href": "/admissions",
+    "imageUrl": "https://res.cloudinary.com/dpdvkx6zw/image/upload/v1777099895/hero/WhatsApp_Image_2026-04-23_at_4.26.39_PM_i9bpwx.jpg",
+    "statValue": "100%",
+    "statLabel": "Result Achievement",
+    "displayOrder": 3,
+    "isActive": true,
+    "createdAt": "2026-04-25T06:50:52.966Z",
+    "updatedAt": "2026-04-25T07:06:06.255Z",
+    "__v": 0
+  },
+  {
+    "_id": "69ec6725c525e32010661927",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "",
+    "highlight": "",
+    "description": "",
+    "badge": "",
+    "cta1Text": "",
+    "cta1Href": "",
+    "cta2Text": "",
+    "cta2Href": "",
+    "imageUrl": "https://res.cloudinary.com/dpdvkx6zw/image/upload/v1777100600/hero/Untitled_design_7_rpctvr.png",
+    "statValue": "",
+    "statLabel": "",
+    "displayOrder": 1,
+    "isActive": true,
+    "createdAt": "2026-04-25T07:03:01.633Z",
+    "updatedAt": "2026-04-25T07:19:11.386Z",
+    "__v": 0
+  }
+]

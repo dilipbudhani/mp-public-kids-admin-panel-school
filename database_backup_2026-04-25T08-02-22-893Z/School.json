@@ -1,0 +1,22 @@
+[
+  {
+    "_id": "mp-kids-school",
+    "__v": 0,
+    "createdAt": "2026-04-16T12:19:45.010Z",
+    "domain": "mpkidsschool.edu.in",
+    "isActive": true,
+    "name": "MP Kids School",
+    "themeColor": "#000000",
+    "updatedAt": "2026-04-16T12:19:45.010Z"
+  },
+  {
+    "_id": "mp-public",
+    "__v": 0,
+    "createdAt": "2026-04-16T12:19:45.369Z",
+    "domain": "mppublicschool.com",
+    "isActive": true,
+    "name": "MP Public School",
+    "themeColor": "#000000",
+    "updatedAt": "2026-04-16T12:19:45.369Z"
+  }
+]

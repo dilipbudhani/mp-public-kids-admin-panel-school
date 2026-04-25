@@ -1,0 +1,54 @@
+[
+  {
+    "_id": "69eb2b455ca1f093ae174533",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "year": "2024",
+    "studentName": "Piyush Gurjar",
+    "class": "5th",
+    "category": "Other",
+    "displayOrder": 0,
+    "isActive": true,
+    "marks": "88.25%"
+  },
+  {
+    "_id": "69eb2b455ca1f093ae174534",
+    "studentName": "Tanaya Soni",
+    "year": "2024",
+    "class": "5th",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "category": "Other",
+    "displayOrder": 0,
+    "isActive": true,
+    "marks": "85.5%"
+  },
+  {
+    "_id": "69eb2b455ca1f093ae174535",
+    "studentName": "Aradhya Singh",
+    "year": "2024",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "class": "5th",
+    "category": "Other",
+    "displayOrder": 0,
+    "isActive": true,
+    "marks": "81.25%"
+  },
+  {
+    "_id": "69eb2b455ca1f093ae174536",
+    "studentName": "Yuvraj Goyal",
+    "year": "2024",
+    "class": "5th",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "category": "Other",
+    "displayOrder": 0,
+    "isActive": true,
+    "marks": "78.75%"
+  }
+]

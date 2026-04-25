@@ -1,0 +1,378 @@
+[
+  {
+    "_id": "69ec5a04d70e6f1fb527a898",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "categories": [
+      {
+        "id": "pre-primary",
+        "label": "Pre-Primary",
+        "fees": [
+          {
+            "head": "Admission Fee",
+            "amount": "5,000",
+            "frequency": "One-time",
+            "notes": "For new admissions only",
+            "_id": "69ec5a04d70e6f1fb527a89a"
+          },
+          {
+            "head": "Tuition Fee",
+            "amount": "2,800",
+            "frequency": "Monthly",
+            "notes": "Payable quarterly",
+            "_id": "69ec5a04d70e6f1fb527a89b"
+          },
+          {
+            "head": "Annual Charges",
+            "amount": "4,500",
+            "frequency": "Annually",
+            "notes": "Includes insurance & diary",
+            "_id": "69ec5a04d70e6f1fb527a89c"
+          },
+          {
+            "head": "Development Fund",
+            "amount": "2,000",
+            "frequency": "Annually",
+            "notes": "Facility maintenance",
+            "_id": "69ec5a04d70e6f1fb527a89d"
+          },
+          {
+            "head": "Computer Fee",
+            "amount": "N/A",
+            "frequency": "-",
+            "notes": "-",
+            "_id": "69ec5a04d70e6f1fb527a89e"
+          }
+        ],
+        "_id": "69ec5a04d70e6f1fb527a899"
+      },
+      {
+        "id": "primary",
+        "label": "Primary (1-5)",
+        "fees": [
+          {
+            "head": "Admission Fee",
+            "amount": "5500",
+            "frequency": "One-time",
+            "notes": "For new admissions only",
+            "_id": "69ec5a04d70e6f1fb527a8a0"
+          },
+          {
+            "head": "Tuition Fee",
+            "amount": "3,200",
+            "frequency": "Monthly",
+            "notes": "Payable quarterly",
+            "_id": "69ec5a04d70e6f1fb527a8a1"
+          },
+          {
+            "head": "Annual Charges",
+            "amount": "5,500",
+            "frequency": "Annually",
+            "notes": "Resource materials & events",
+            "_id": "69ec5a04d70e6f1fb527a8a2"
+          },
+          {
+            "head": "Development Fund",
+            "amount": "2,500",
+            "frequency": "Annually",
+            "notes": "Facility maintenance",
+            "_id": "69ec5a04d70e6f1fb527a8a3"
+          },
+          {
+            "head": "Exam Fee",
+            "amount": "1,200",
+            "frequency": "Annually",
+            "notes": "End of session exams",
+            "_id": "69ec5a04d70e6f1fb527a8a4"
+          },
+          {
+            "head": "Library Fee",
+            "amount": "500",
+            "frequency": "Annually",
+            "notes": "Access to physical & digital library",
+            "_id": "69ec5a04d70e6f1fb527a8a5"
+          },
+          {
+            "head": "Computer Fee",
+            "amount": "400",
+            "frequency": "Monthly",
+            "notes": "Smart class & lab access",
+            "_id": "69ec5a04d70e6f1fb527a8a6"
+          }
+        ],
+        "_id": "69ec5a04d70e6f1fb527a89f"
+      },
+      {
+        "id": "middle",
+        "label": "Middle (6-8)",
+        "fees": [
+          {
+            "head": "Admission Fee",
+            "amount": "5,000",
+            "frequency": "One-time",
+            "notes": "For new admissions only",
+            "_id": "69ec5a04d70e6f1fb527a8a8"
+          },
+          {
+            "head": "Tuition Fee",
+            "amount": "3,800",
+            "frequency": "Monthly",
+            "notes": "Payable quarterly",
+            "_id": "69ec5a04d70e6f1fb527a8a9"
+          },
+          {
+            "head": "Annual Charges",
+            "amount": "6,500",
+            "frequency": "Annually",
+            "notes": "Includes sports & activities",
+            "_id": "69ec5a04d70e6f1fb527a8aa"
+          },
+          {
+            "head": "Development Fund",
+            "amount": "3,000",
+            "frequency": "Annually",
+            "notes": "Infrastructure विकास",
+            "_id": "69ec5a04d70e6f1fb527a8ab"
+          },
+          {
+            "head": "Exam Fee",
+            "amount": "1,500",
+            "frequency": "Annually",
+            "notes": "Mid-term & Annual exams",
+            "_id": "69ec5a04d70e6f1fb527a8ac"
+          },
+          {
+            "head": "Library Fee",
+            "amount": "800",
+            "frequency": "Annually",
+            "notes": "Advanced resources access",
+            "_id": "69ec5a04d70e6f1fb527a8ad"
+          },
+          {
+            "head": "Lab Fee (Science)",
+            "amount": "600",
+            "frequency": "Monthly",
+            "notes": "Practical sessions",
+            "_id": "69ec5a04d70e6f1fb527a8ae"
+          },
+          {
+            "head": "Computer Fee",
+            "amount": "500",
+            "frequency": "Monthly",
+            "notes": "Coding & Robotics",
+            "_id": "69ec5a04d70e6f1fb527a8af"
+          }
+        ],
+        "_id": "69ec5a04d70e6f1fb527a8a7"
+      },
+      {
+        "id": "secondary",
+        "label": "Secondary (9-10)",
+        "fees": [
+          {
+            "head": "Admission Fee",
+            "amount": "5,000",
+            "frequency": "One-time",
+            "notes": "For new admissions only",
+            "_id": "69ec5a04d70e6f1fb527a8b1"
+          },
+          {
+            "head": "Tuition Fee",
+            "amount": "4,500",
+            "frequency": "Monthly",
+            "notes": "Payable quarterly",
+            "_id": "69ec5a04d70e6f1fb527a8b2"
+          },
+          {
+            "head": "Annual Charges",
+            "amount": "7,500",
+            "frequency": "Annually",
+            "notes": "Board registration support",
+            "_id": "69ec5a04d70e6f1fb527a8b3"
+          },
+          {
+            "head": "Development Fund",
+            "amount": "3,500",
+            "frequency": "Annually",
+            "notes": "Upgraded facilities",
+            "_id": "69ec5a04d70e6f1fb527a8b4"
+          },
+          {
+            "head": "Exam Fee",
+            "amount": "2,000",
+            "frequency": "Annually",
+            "notes": "Includes Pre-boards",
+            "_id": "69ec5a04d70e6f1fb527a8b5"
+          },
+          {
+            "head": "Lab Fee",
+            "amount": "800",
+            "frequency": "Monthly",
+            "notes": "Composite Science Lab",
+            "_id": "69ec5a04d70e6f1fb527a8b6"
+          },
+          {
+            "head": "Computer Fee",
+            "amount": "600",
+            "frequency": "Monthly",
+            "notes": "IT & AI subjects",
+            "_id": "69ec5a04d70e6f1fb527a8b7"
+          }
+        ],
+        "_id": "69ec5a04d70e6f1fb527a8b0"
+      },
+      {
+        "id": "sr-secondary",
+        "label": "Sr. Secondary (11-12)",
+        "fees": [
+          {
+            "head": "Admission Fee",
+            "amount": "5,000",
+            "frequency": "One-time",
+            "notes": "For new admissions only",
+            "_id": "69ec5a04d70e6f1fb527a8b9"
+          },
+          {
+            "head": "Tuition Fee",
+            "amount": "5,500",
+            "frequency": "Monthly",
+            "notes": "Stream specific",
+            "_id": "69ec5a04d70e6f1fb527a8ba"
+          },
+          {
+            "head": "Annual Charges",
+            "amount": "8,500",
+            "frequency": "Annually",
+            "notes": "Career counseling included",
+            "_id": "69ec5a04d70e6f1fb527a8bb"
+          },
+          {
+            "head": "Development Fund",
+            "amount": "4,000",
+            "frequency": "Annually",
+            "notes": "High-tech infrastructure",
+            "_id": "69ec5a04d70e6f1fb527a8bc"
+          },
+          {
+            "head": "Exam Fee",
+            "amount": "2,500",
+            "frequency": "Annually",
+            "notes": "Practical & Theory exams",
+            "_id": "69ec5a04d70e6f1fb527a8bd"
+          },
+          {
+            "head": "Lab Fee (PCB/PCM)",
+            "amount": "1,200",
+            "frequency": "Monthly",
+            "notes": "Physics/Chem/Bio labs",
+            "_id": "69ec5a04d70e6f1fb527a8be"
+          },
+          {
+            "head": "Library Fee",
+            "amount": "1,000",
+            "frequency": "Annually",
+            "notes": "Reference section access",
+            "_id": "69ec5a04d70e6f1fb527a8bf"
+          }
+        ],
+        "_id": "69ec5a04d70e6f1fb527a8b8"
+      }
+    ],
+    "transportZones": [
+      {
+        "zone": "Zone A",
+        "area": "Within 3 KM (City Core)",
+        "fee": "1,200",
+        "_id": "69ec5a04d70e6f1fb527a8c0"
+      },
+      {
+        "zone": "Zone B",
+        "area": "3-6 KM (Suburbs North)",
+        "fee": "1,800",
+        "_id": "69ec5a04d70e6f1fb527a8c1"
+      },
+      {
+        "zone": "Zone C",
+        "area": "6-9 KM (East/West Extension)",
+        "fee": "2,400",
+        "_id": "69ec5a04d70e6f1fb527a8c2"
+      },
+      {
+        "zone": "Zone D",
+        "area": "9-12 KM (Industrial Belt)",
+        "fee": "3,000",
+        "_id": "69ec5a04d70e6f1fb527a8c3"
+      },
+      {
+        "zone": "Zone E",
+        "area": "12-15 KM (Satellite Town)",
+        "fee": "3,600",
+        "_id": "69ec5a04d70e6f1fb527a8c4"
+      },
+      {
+        "zone": "Zone F",
+        "area": "Night Halt (Remote Areas)",
+        "fee": "4,500",
+        "_id": "69ec5a04d70e6f1fb527a8c5"
+      }
+    ],
+    "paymentMethods": [
+      {
+        "name": "Online Payment",
+        "iconName": "Smartphone",
+        "color": "text-blue-600",
+        "bg": "bg-blue-50",
+        "note": "Quick and secure via Net Banking, UPI (GPay/PhonePe), or Credit/Debit Cards.",
+        "_id": "69ec5a04d70e6f1fb527a8c6"
+      },
+      {
+        "name": "Cheque/DD",
+        "iconName": "CreditCard",
+        "color": "text-purple-600",
+        "bg": "bg-purple-50",
+        "note": "Drawn in favor of \"MP Kids School\" payable at local branch.",
+        "_id": "69ec5a04d70e6f1fb527a8c7"
+      },
+      {
+        "name": "Cash",
+        "iconName": "Banknote",
+        "color": "text-green-600",
+        "bg": "bg-green-50",
+        "note": "Acceptable at the School Accounts Office during working hours (9 AM - 2 PM).",
+        "_id": "69ec5a04d70e6f1fb527a8c8"
+      }
+    ],
+    "importantNotes": [
+      {
+        "title": "Payment Schedule",
+        "text": "Fees are collected on a quarterly basis. Quarters start in April, July, October, and January.",
+        "_id": "69ec5a04d70e6f1fb527a8c9"
+      },
+      {
+        "title": "Late Fee Policy",
+        "text": "A late fee of ₹50 per day will be applicable if fees are not paid within the first 10 working days of the quarter month.",
+        "_id": "69ec5a04d70e6f1fb527a8ca"
+      },
+      {
+        "title": "Sibling Concession",
+        "text": "A 10% concession on tuition fees is provided to the younger sibling as long as both siblings are enrolled.",
+        "_id": "69ec5a04d70e6f1fb527a8cb"
+      },
+      {
+        "title": "Fee Revision",
+        "text": "Fees are subject to an annual revision of 5-10% as approved by the School Management Committee.",
+        "_id": "69ec5a04d70e6f1fb527a8cc"
+      },
+      {
+        "title": "Refund Policy",
+        "text": "Admission fees and annual charges are non-refundable. Tuition fees for the remaining months of a quarter may be refunded upon withdrawal.",
+        "_id": "69ec5a04d70e6f1fb527a8cd"
+      }
+    ],
+    "academicYear": "2025-26",
+    "createdAt": "2026-04-25T06:07:00.496Z",
+    "updatedAt": "2026-04-25T06:10:14.295Z",
+    "__v": 0
+  }
+]

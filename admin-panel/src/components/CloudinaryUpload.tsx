@@ -60,7 +60,6 @@ export default function CloudinaryUpload({
                     <CldUploadWidget
                         onSuccess={onUpload}
                         signatureEndpoint="/api/cloudinary/sign"
-                        uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
                         options={{
                             maxFiles: 1,
                             folder: folder,

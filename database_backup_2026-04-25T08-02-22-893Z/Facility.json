@@ -1,0 +1,50 @@
+[
+  {
+    "_id": "69eb6ae5aaab5817cdb99a96",
+    "schoolIds": [
+      "mp-public",
+      "mp-kids-school"
+    ],
+    "title": "Science Labs",
+    "description": "Advanced physics, chemistry, and biology laboratories.",
+    "icon": "beaker",
+    "image": "/images/lab.jpg",
+    "displayOrder": 0,
+    "isActive": true,
+    "__v": 0,
+    "createdAt": "2026-04-24T13:06:45.143Z",
+    "updatedAt": "2026-04-24T13:06:45.143Z"
+  },
+  {
+    "_id": "69eb6ae5aaab5817cdb99a97",
+    "schoolIds": [
+      "mp-public",
+      "mp-kids-school"
+    ],
+    "title": "Computer Lab",
+    "description": "Modern IT center with high-speed internet and latest software.",
+    "icon": "monitor",
+    "image": "/images/computer-lab.jpg",
+    "displayOrder": 1,
+    "isActive": true,
+    "__v": 0,
+    "createdAt": "2026-04-24T13:06:45.143Z",
+    "updatedAt": "2026-04-24T13:06:45.143Z"
+  },
+  {
+    "_id": "69eb6ae5aaab5817cdb99a98",
+    "schoolIds": [
+      "mp-public",
+      "mp-kids-school"
+    ],
+    "title": "Library",
+    "description": "Spacious library with over 10,000 books and digital resources.",
+    "icon": "library",
+    "image": "/images/library.jpg",
+    "displayOrder": 2,
+    "isActive": true,
+    "__v": 0,
+    "createdAt": "2026-04-24T13:06:45.143Z",
+    "updatedAt": "2026-04-24T13:06:45.143Z"
+  }
+]

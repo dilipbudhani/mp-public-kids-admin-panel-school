@@ -1,0 +1,32 @@
+[
+  {
+    "_id": "69eb70e0741b7ad76f8aae75",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "label": "Students",
+    "value": 1200,
+    "suffix": "+",
+    "icon": "Star",
+    "displayOrder": 0,
+    "isActive": true,
+    "__v": 0,
+    "createdAt": "2026-04-24T13:32:16.185Z",
+    "updatedAt": "2026-04-24T13:32:16.185Z"
+  },
+  {
+    "_id": "69eb70e0741b7ad76f8aae76",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "label": "Teachers",
+    "value": 85,
+    "suffix": "+",
+    "icon": "Star",
+    "displayOrder": 1,
+    "isActive": true,
+    "__v": 0,
+    "createdAt": "2026-04-24T13:32:16.185Z",
+    "updatedAt": "2026-04-24T13:32:16.185Z"
+  }
+]

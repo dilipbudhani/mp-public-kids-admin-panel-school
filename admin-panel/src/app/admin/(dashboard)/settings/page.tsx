@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Save, Phone, Mail, MapPin, Globe, Facebook, Instagram, Bell, Shield, Database, Download, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { Youtube as YoutubeIcon, Twitter as XIcon } from "lucide-react";
+import Modal from "@/components/Modal";
 
 interface SiteSettings {
     _id: string;
@@ -51,6 +52,9 @@ export default function SettingsAdminPage() {
     const [isSyncingFacebook, setIsSyncingFacebook] = useState(false);
     const [isImporting, setIsImporting] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const [importMode, setImportMode] = useState<'restore' | 'merge'>('restore');
+    const [showImportDialog, setShowImportDialog] = useState(false);
 
     useEffect(() => {
         fetchSettings();
@@ -143,25 +147,39 @@ export default function SettingsAdminPage() {
     };
 
     const handleExport = () => {
-        window.location.href = "/api/database/export";
+        const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+        window.location.href = `/api/database/export${schoolId ? `?schoolId=${schoolId}` : ''}`;
     };
 
     const handleImportClick = () => {
-        fileInputRef.current?.click();
+        setShowImportDialog(true);
     };
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        if (!file) return;
+        if (!file) {
+            setShowImportDialog(false);
+            return;
+        }
 
-        if (window.confirm("WARNING: Importing a database backup will OVERWRITE all current data. Are you absolutely sure?")) {
+        const confirmMsg = importMode === 'restore'
+            ? "WARNING: Restore mode will DELETE existing data for the current school before applying the backup. Are you absolutely sure?"
+            : "Merge mode will clone the backup records into your current school alongside existing data without deleting anything. Proceed?";
+
+        if (window.confirm(confirmMsg)) {
             setIsImporting(true);
             const formData = new FormData();
             formData.append("file", file);
 
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+
             try {
                 const res = await fetch("/api/database/import", {
                     method: "POST",
+                    headers: {
+                        "x-import-mode": importMode,
+                        ...(schoolId && { "x-school-id": schoolId })
+                    },
                     body: formData,
                 });
 
@@ -176,11 +194,13 @@ export default function SettingsAdminPage() {
                 toast.error("An error occurred during import");
             } finally {
                 setIsImporting(false);
+                setShowImportDialog(false);
                 if (fileInputRef.current) {
                     fileInputRef.current.value = "";
                 }
             }
         } else {
+            setShowImportDialog(false);
             if (fileInputRef.current) {
                 fileInputRef.current.value = "";
             }
@@ -748,6 +768,76 @@ export default function SettingsAdminPage() {
                     </button>
                 </div>
             </form>
+
+            <Modal
+                isOpen={showImportDialog}
+                onClose={() => setShowImportDialog(false)}
+                title="Database Import Options"
+            >
+                <div className="space-y-6">
+                    <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 mb-4">
+                        <p className="text-sm text-blue-700 font-medium">
+                            Choose how you want to apply the uploaded JSON database files.
+                        </p>
+                    </div>
+
+                    <div className="space-y-3">
+                        <label className="flex items-start gap-4 p-4 border rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+                            <input
+                                type="radio"
+                                name="importMode"
+                                value="restore"
+                                checked={importMode === 'restore'}
+                                onChange={() => setImportMode('restore')}
+                                className="mt-1 w-4 h-4 text-primary focus:ring-primary"
+                            />
+                            <div>
+                                <h4 className="font-bold text-gray-900">Restore (Overwrite)</h4>
+                                <p className="text-sm text-gray-500 mt-1">
+                                    Wipes existing data for the current school and fully replaces it with the backup. Use this when restoring from a crash.
+                                </p>
+                            </div>
+                        </label>
+
+                        <label className="flex items-start gap-4 p-4 border rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+                            <input
+                                type="radio"
+                                name="importMode"
+                                value="merge"
+                                checked={importMode === 'merge'}
+                                onChange={() => setImportMode('merge')}
+                                className="mt-1 w-4 h-4 text-primary focus:ring-primary"
+                            />
+                            <div>
+                                <h4 className="font-bold text-gray-900">Merge (Clone & Append)</h4>
+                                <p className="text-sm text-gray-500 mt-1">
+                                    Safely adds records from your backup as brand new duplicate entries alongside existing data. Safe for importing cross-domain backups.
+                                </p>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div className="flex justify-end gap-3 pt-6 border-t border-gray-100">
+                        <button
+                            type="button"
+                            onClick={() => setShowImportDialog(false)}
+                            className="px-6 py-3 rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 transition-all font-bold"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setShowImportDialog(false);
+                                fileInputRef.current?.click();
+                            }}
+                            className="bg-primary text-white px-10 py-3 rounded-xl hover:bg-primary/90 transition-all font-bold shadow-lg shadow-primary/20"
+                        >
+                            Continue to Upload
+                        </button>
+                    </div>
+                </div>
+            </Modal>
         </div>
     );
 }

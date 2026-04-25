@@ -1,0 +1,122 @@
+[
+  {
+    "_id": "69eb6ae5aaab5817cdb99aa4",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Kids Carnival",
+    "date": "2026-05-09T13:06:45.263Z",
+    "type": "Academic",
+    "category": "Event",
+    "isActive": true,
+    "__v": 0,
+    "createdAt": "2026-04-24T13:06:45.263Z",
+    "updatedAt": "2026-04-25T04:39:23.172Z"
+  },
+  {
+    "_id": "69ec3f868e1d5415d88563b9",
+    "title": "School Reopening",
+    "date": "2026-04-01T00:00:00.000Z",
+    "category": "Academic",
+    "description": "Beginning of the New Academic Session 2026-27.",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "isActive": true,
+    "createdAt": "2026-04-25T04:13:58.835Z",
+    "updatedAt": "2026-04-25T04:39:23.172Z"
+  },
+  {
+    "_id": "69ec3f868e1d5415d88563ba",
+    "title": "Summer Vacation",
+    "date": "2026-05-15T00:00:00.000Z",
+    "endDate": "2026-06-30T00:00:00.000Z",
+    "category": "Holiday",
+    "description": "Summer break for all students.",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "isActive": true,
+    "createdAt": "2026-04-25T04:13:58.854Z",
+    "updatedAt": "2026-04-25T04:39:23.172Z"
+  },
+  {
+    "_id": "69ec3f868e1d5415d88563bb",
+    "title": "Unit Test I",
+    "date": "2026-07-10T00:00:00.000Z",
+    "category": "Exam",
+    "description": "First unit test for all classes.",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "isActive": true,
+    "createdAt": "2026-04-25T04:13:58.872Z",
+    "updatedAt": "2026-04-25T04:39:23.172Z"
+  },
+  {
+    "_id": "69ec3f868e1d5415d88563bc",
+    "title": "Independence Day Celebration",
+    "date": "2026-08-15T00:00:00.000Z",
+    "category": "Celebration",
+    "description": "National holiday and cultural program.",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "isActive": true,
+    "createdAt": "2026-04-25T04:13:58.890Z",
+    "updatedAt": "2026-04-25T04:39:23.172Z"
+  },
+  {
+    "_id": "69ec3f868e1d5415d88563bd",
+    "title": "Teacher's Day",
+    "date": "2026-09-05T00:00:00.000Z",
+    "category": "Celebration",
+    "description": "Special assembly and student-teacher interaction.",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "isActive": true,
+    "createdAt": "2026-04-25T04:13:58.909Z",
+    "updatedAt": "2026-04-25T04:39:23.172Z"
+  },
+  {
+    "_id": "69ec3f868e1d5415d88563be",
+    "title": "Term I Examination",
+    "date": "2026-09-20T00:00:00.000Z",
+    "category": "Exam",
+    "description": "First term examinations.",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "isActive": true,
+    "createdAt": "2026-04-25T04:13:58.927Z",
+    "updatedAt": "2026-04-25T04:39:23.172Z"
+  },
+  {
+    "_id": "69ec3f868e1d5415d88563bf",
+    "title": "Gandhi Jayanti",
+    "date": "2026-10-02T00:00:00.000Z",
+    "category": "Holiday",
+    "description": "National Holiday.",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "isActive": true,
+    "createdAt": "2026-04-25T04:13:58.947Z",
+    "updatedAt": "2026-04-25T04:39:23.172Z"
+  },
+  {
+    "_id": "69ec3f868e1d5415d88563c0",
+    "title": "Dussehra Holidays",
+    "date": "2026-10-15T00:00:00.000Z",
+    "endDate": "2026-10-20T00:00:00.000Z",
+    "category": "Holiday",
+    "description": "Festive break.",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "isActive": true,
+    "createdAt": "2026-04-25T04:13:58.966Z",
+    "updatedAt": "2026-04-25T04:39:23.172Z"
+  }
+]

@@ -1,0 +1,740 @@
+[
+  {
+    "_id": "69eb70e0741b7ad76f8aae86",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "About Our School - MP Kids",
+    "subtitle": "",
+    "slug": "about-overview",
+    "sections": [
+      {
+        "title": "Our Overview",
+        "content": "MP Kids School is committed to providing quality education in a safe, nurturing, and engaging environment. Our aim is to build a strong foundation for every child by focusing on both academic excellence and overall personality development.\n\nWe believe that every child is unique and has the potential to succeed. With experienced teachers, modern teaching methods, and activity-based learning, we ensure that students not only learn but also enjoy the process of learning.",
+        "order": 0,
+        "subheading": "Shaping Young Minds for a Better Tomorrow",
+        "quote": "Education is not just about books, it’s about building character and shaping the future."
+      }
+    ],
+    "__v": 0,
+    "createdAt": "2026-04-24T13:32:16.231Z",
+    "updatedAt": "2026-04-25T05:11:09.240Z",
+    "bannerImage": "https://res.cloudinary.com/dpdvkx6zw/image/upload/v1777093293/banners/mpps_l54rj4.jpg",
+    "description": "A legacy of excellence in education, nurturing tomorrow's leaders since inception."
+  },
+  {
+    "_id": "69eb70e0741b7ad76f8aae87",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Vision & Mission - MP Kids",
+    "subtitle": "",
+    "slug": "about-vision",
+    "content": "Welcome to the Vision & Mission page of our school. This content is dynamically managed via the Admin Panel.",
+    "sections": [
+      {
+        "title": "Our Mission",
+        "content": "To provide a stimulating environment where every child feels valued, safe, and happy.",
+        "order": 1
+      },
+      {
+        "title": "Our Vision",
+        "content": "To impart quality education and create a global community of lifelong learners.",
+        "order": 0
+      }
+    ],
+    "__v": 0,
+    "createdAt": "2026-04-24T13:32:16.231Z",
+    "updatedAt": "2026-04-25T04:30:38.224Z",
+    "bannerImage": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=2073&auto=format&fit=crop",
+    "description": "Defining our commitment to quality education and the future goals of our institution."
+  },
+  {
+    "_id": "69eb70e0741b7ad76f8aae88",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Our History - MP Kids",
+    "subtitle": "",
+    "slug": "about-history",
+    "content": "Welcome to the Our History page of our school. This content is dynamically managed via the Admin Panel.",
+    "sections": [
+      {
+        "year": "1995",
+        "title": "1995 Founding Stone Laid",
+        "content": "MP Kids School was established with a small cohort of 50 students and a vision for holistic growth.",
+        "order": 0
+      },
+      {
+        "year": "2005",
+        "title": "2005 CBSE Secondary Affiliation",
+        "content": "Received formal affiliation from CBSE for secondary classes, marking our first decade of excellence.",
+        "order": 1
+      },
+      {
+        "year": "2012",
+        "title": "2012 Senior Secondary Expansion",
+        "content": "Inaugurated the senior secondary block with Science and Commerce streams.",
+        "order": 2
+      },
+      {
+        "year": "2020",
+        "title": "2020 Silver Jubilee & Tech Integration",
+        "content": "Celebrated 25 years with a complete digital transformation of classrooms and labs.",
+        "order": 3
+      },
+      {
+        "year": "2025",
+        "title": "2025 New Modern Campus Wing",
+        "content": "Opening of the state-of-the-art Research and Arts center to cater to 21st-century skills.",
+        "order": 4
+      }
+    ],
+    "__v": 0,
+    "createdAt": "2026-04-24T13:32:16.231Z",
+    "updatedAt": "2026-04-25T04:30:38.224Z",
+    "bannerImage": "https://images.unsplash.com/photo-1523050853064-85a92790642f?q=80&w=2070&auto=format&fit=crop",
+    "description": "A timeline of growth, dedication, and academic leadership since our founding."
+  },
+  {
+    "_id": "69eb70e0741b7ad76f8aae89",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Principal's Message - MP Kids",
+    "subtitle": "",
+    "slug": "about-principal",
+    "content": "Welcome to the Principal's Message page of our school. This content is dynamically managed via the Admin Panel.",
+    "sections": [
+      {
+        "title": "Dr. Rajesh Sharma",
+        "subheading": "Principal | M.Ed, Ph.D | 25+ Years Experience",
+        "content": "Dear Parents, Students, and Well-wishers,\nWelcome to MP Kids School, where we believe that education is the most powerful weapon which you can use to change the world. Our mission is to nurture children into confident, disciplined, and responsible citizens who are prepared to face the challenges of the 21st century.",
+        "quote": "Education is not the filling of a pail, but the lighting of a fire. We strive to ignite that spark of curiosity in every heart.",
+        "image": "/images/leadership/principal.png",
+        "order": 0
+      },
+      {
+        "title": "Ms. Priya Sharma",
+        "subheading": "Director | MBA in Educational Management",
+        "content": "At MP Kids School, our vision is to create a global community of lifelong learners. We are committed to providing an education that balances traditional integrity with modern innovation, ensuring our students are equipped to lead with empathy and wisdom.",
+        "quote": "Our goal is to foster an environment where every student discovers their true potential and contributes meaningfully to society.",
+        "image": "/images/leadership/director.png",
+        "order": 1
+      }
+    ],
+    "__v": 0,
+    "createdAt": "2026-04-24T13:32:16.231Z",
+    "updatedAt": "2026-04-25T04:30:38.224Z",
+    "bannerImage": "https://images.unsplash.com/photo-1544717297-fa95b35c76d5?q=80&w=2070&auto=format&fit=crop",
+    "description": "A warm welcome and shared vision from the principal of our institution."
+  },
+  {
+    "_id": "69eb70e0741b7ad76f8aae8a",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Our Leadership - MP Kids",
+    "subtitle": "",
+    "slug": "about-leadership",
+    "content": "Welcome to the Our Leadership page of our school. This content is dynamically managed via the Admin Panel.",
+    "sections": [
+      {
+        "title": "Dr. Vikram Malhotra",
+        "subheading": "Founder & Chairman",
+        "content": "An educationist with 40 years of experience in transformative learning paradigms.",
+        "image": "/images/leadership/chairman.png",
+        "order": 0
+      },
+      {
+        "title": "Ms. Priya Sharma",
+        "subheading": "Director",
+        "content": "At MP Kids School, our vision is to create a global community of lifelong learners.",
+        "image": "/images/leadership/director.png",
+        "order": 1
+      },
+      {
+        "title": "Dr. Rajesh Sharma",
+        "subheading": "Principal",
+        "content": "Dedicated to fostering a culture of academic rigor and emotional intelligence.",
+        "image": "/images/leadership/principal.png",
+        "order": 2
+      }
+    ],
+    "__v": 0,
+    "createdAt": "2026-04-24T13:32:16.231Z",
+    "updatedAt": "2026-04-25T04:30:38.224Z",
+    "bannerImage": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop",
+    "description": "The visionary team dedicated to excellence and the holistic development of every student."
+  },
+  {
+    "_id": "69eb70e0741b7ad76f8aae8b",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Academic Calendar - MP Kids",
+    "subtitle": "",
+    "slug": "academic-calendar",
+    "content": "Welcome to the Academic Calendar page of our school. This content is dynamically managed via the Admin Panel.",
+    "sections": [
+      {
+        "title": "Yearly Roadmap",
+        "content": "Stay updated with our comprehensive schedule of academic terms, holidays, and co-curricular activities.",
+        "order": 0
+      }
+    ],
+    "__v": 0,
+    "createdAt": "2026-04-24T13:32:16.231Z",
+    "updatedAt": "2026-04-25T04:30:38.224Z",
+    "bannerImage": "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=2068&auto=format&fit=crop",
+    "description": "Our yearly roadmap for learning, celebrations, and achievements."
+  },
+  {
+    "_id": "69eb70e0741b7ad76f8aae8c",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Fee Structure - MP Kids",
+    "subtitle": "",
+    "slug": "fee-structure",
+    "content": "Welcome to the Fee Structure page of our school. This content is dynamically managed via the Admin Panel.",
+    "sections": [
+      {
+        "title": "Fee Policy",
+        "content": "Our fee structure is designed to be fair and transparent, reflecting the high-quality resources and facilities provided to our students.",
+        "order": 0
+      }
+    ],
+    "__v": 0,
+    "createdAt": "2026-04-24T13:32:16.231Z",
+    "updatedAt": "2026-04-25T04:30:38.224Z",
+    "bannerImage": "https://images.unsplash.com/photo-1554224155-6726b3f8981c?q=80&w=2026&auto=format&fit=crop",
+    "description": "Transparent information regarding our academic investment and fee schedules."
+  },
+  {
+    "_id": "69eb70e0741b7ad76f8aae8d",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "CBSE Mandatory Disclosure - MP Kids",
+    "subtitle": "",
+    "slug": "cbse-disclosure",
+    "content": "Welcome to the CBSE Mandatory Disclosure page of our school. This content is dynamically managed via the Admin Panel.",
+    "sections": [
+      {
+        "title": "Official School Record",
+        "content": "As per CBSE Circular No. CBSE/Aff./4/2021 regarding transparency in school operations.",
+        "order": 0
+      }
+    ],
+    "__v": 0,
+    "createdAt": "2026-04-24T13:32:16.231Z",
+    "updatedAt": "2026-04-25T04:30:38.224Z",
+    "bannerImage": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop",
+    "description": "Appendix IX | CBSE Affiliation Norms and School Transparency Data"
+  },
+  {
+    "_id": "69eb70e0741b7ad76f8aae8e",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Join the Excellence Family - MP Kids",
+    "subtitle": "",
+    "slug": "admissions",
+    "content": "Welcome to the Join the Excellence Family page of our school. This content is dynamically managed via the Admin Panel.",
+    "sections": [
+      {
+        "title": "Admission Process",
+        "content": "Our admission process is designed to be transparent and fair, ensuring that we welcome students who will thrive in our academic environment.",
+        "order": 0
+      },
+      {
+        "title": "Steps to Apply",
+        "type": "grid",
+        "items": [
+          {
+            "title": "Online Registration",
+            "description": "Fill the online application form on our website.",
+            "icon": "FileText"
+          },
+          {
+            "title": "Interaction",
+            "description": "A friendly meeting with the child and parents.",
+            "icon": "Users"
+          },
+          {
+            "title": "Documentation",
+            "description": "Submit required certificates and records.",
+            "icon": "ClipboardList"
+          }
+        ],
+        "order": 1
+      }
+    ],
+    "__v": 0,
+    "createdAt": "2026-04-24T13:32:16.231Z",
+    "updatedAt": "2026-04-25T04:30:38.224Z",
+    "bannerImage": "https://images.unsplash.com/photo-1523050853064-85a92790642f?q=80&w=2070&auto=format&fit=crop",
+    "description": "Experience a world-class education that shapes minds and builds futures. Admissions open for session 2026-27."
+  },
+  {
+    "_id": "69eb70e0741b7ad76f8aae8f",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "World-Class Facilities - MP Kids",
+    "subtitle": "",
+    "slug": "facilities",
+    "content": "Welcome to the World-Class Facilities page of our school. This content is dynamically managed via the Admin Panel.",
+    "sections": [
+      {
+        "key": "overview",
+        "title": "Infrastructure Hub",
+        "content": "Our campus is a masterstroke of design, integrating green spaces with high-tech learning environments. Every corner of our school is designed with the student in mind—safe, inspiring, and technologically advanced.",
+        "order": 0
+      },
+      {
+        "key": "pillars",
+        "title": "Core Infrastructure Pillars",
+        "type": "grid",
+        "items": [
+          {
+            "title": "Science Hub",
+            "description": "Integrated labs for Physics, Chemistry, and Biology.",
+            "icon": "FlaskConical",
+            "color": "bg-blue-50 text-blue-600"
+          },
+          {
+            "title": "Digital Labs",
+            "description": "Next-gen computer labs with AI and coding kits.",
+            "icon": "Laptop",
+            "color": "bg-indigo-50 text-indigo-600"
+          },
+          {
+            "title": "Knowledge Center",
+            "description": "A library with over 20,000 titles and digital access.",
+            "icon": "Library",
+            "color": "bg-amber-50 text-amber-600"
+          }
+        ],
+        "order": 1
+      },
+      {
+        "key": "checklist",
+        "title": "Campus Highlights",
+        "items": [
+          {
+            "title": "Smart Classrooms in Every Wing"
+          },
+          {
+            "title": "Eco-friendly Solar Powered Campus"
+          },
+          {
+            "title": "CCTV Secured Learning Spaces"
+          }
+        ],
+        "order": 2
+      }
+    ],
+    "__v": 0,
+    "createdAt": "2026-04-24T13:32:16.231Z",
+    "updatedAt": "2026-04-25T04:30:38.224Z",
+    "bannerImage": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop",
+    "description": "An environment designed for growth, innovation, and holistic development."
+  },
+  {
+    "_id": "69eb70e0741b7ad76f8aae90",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Capturing Moments - MP Kids",
+    "subtitle": "",
+    "slug": "gallery",
+    "content": "Welcome to the Capturing Moments page of our school. This content is dynamically managed via the Admin Panel.",
+    "sections": [
+      {
+        "title": "School Life in Pictures",
+        "content": "Explore our vibrant campus life and the many achievements of our students through this curated collection of memories.",
+        "order": 0
+      }
+    ],
+    "__v": 0,
+    "createdAt": "2026-04-24T13:32:16.231Z",
+    "updatedAt": "2026-04-25T04:30:38.224Z",
+    "bannerImage": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop",
+    "description": "A visual journey through school life, events, and campus memories."
+  },
+  {
+    "_id": "69eb70e0741b7ad76f8aae91",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "News & Updates - MP Kids",
+    "subtitle": "",
+    "slug": "news",
+    "content": "Welcome to the News & Updates page of our school. This content is dynamically managed via the Admin Panel.",
+    "sections": [
+      {
+        "title": "The School Pulse",
+        "content": "Witness the vibrant life of our school through our latest stories and academic celebrations.",
+        "order": 0
+      }
+    ],
+    "__v": 0,
+    "createdAt": "2026-04-24T13:32:16.231Z",
+    "updatedAt": "2026-04-25T04:30:38.224Z",
+    "bannerImage": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=2070&auto=format&fit=crop",
+    "description": "Stay connected with the latest happens, achievements, and milestones at our school."
+  },
+  {
+    "_id": "69eb70e0741b7ad76f8aae92",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Notice Board - MP Kids",
+    "subtitle": "",
+    "slug": "notices",
+    "content": "Welcome to the Notice Board page of our school. This content is dynamically managed via the Admin Panel.",
+    "sections": [
+      {
+        "title": "Official Announcements",
+        "content": "Important updates and circulars for parents, students, and staff members.",
+        "order": 0
+      }
+    ],
+    "__v": 0,
+    "createdAt": "2026-04-24T13:32:16.231Z",
+    "updatedAt": "2026-04-25T04:30:38.224Z",
+    "bannerImage": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=2074&auto=format&fit=crop",
+    "description": "Access all official announcements, circulars, and events. Keep track of academic schedules in real-time."
+  },
+  {
+    "_id": "69ec529ae1db767433df2f58",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "RTE Admissions 2026-27",
+    "description": "Apply for RTE (Right to Education) admissions at MP Kids School under Section 12(1)(c). 25% seats reserved for economically weaker sections and disadvantaged groups.",
+    "subtitle": "Right to Education Act, 2009",
+    "slug": "admissions-rte",
+    "bannerImage": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=2022&auto=format&fit=crop",
+    "sections": [
+      {
+        "title": "What is the RTE Act?",
+        "content": "The Right of Children to Free and Compulsory Education (RTE) Act, 2009 is a landmark legislation that makes free and compulsory education a fundamental right for all children between the ages of 6 and 14 years in India.",
+        "order": 0,
+        "type": "standard"
+      },
+      {
+        "title": "Application Process",
+        "key": "rte_process",
+        "items": [
+          {
+            "n": "01",
+            "title": "Apply on State RTE Portal",
+            "desc": "Visit the official Madhya Pradesh RTE portal and complete the online application form. Select MP Kids School as your preferred school.",
+            "link": {
+              "label": "Visit mp.gov.in/rte",
+              "href": "https://rteportal.mp.gov.in"
+            }
+          },
+          {
+            "n": "02",
+            "title": "Lottery-Based Seat Allotment",
+            "desc": "Seats are allotted through a transparent computerised lottery conducted by the state government. Results are published on the portal.",
+            "link": null
+          },
+          {
+            "n": "03",
+            "title": "Report to School with Documents",
+            "desc": "If your child is allotted a seat, visit the school within 7 days of allotment with all original documents for verification.",
+            "link": null
+          },
+          {
+            "n": "04",
+            "title": "Admission Confirmed",
+            "desc": "After document verification, admission is confirmed at zero cost. No fees of any kind are charged from RTE students.",
+            "link": null
+          }
+        ],
+        "order": 1,
+        "type": "featured",
+        "content": "RTE Application Process Information."
+      },
+      {
+        "title": "Important Dates",
+        "key": "rte_dates",
+        "items": [
+          {
+            "label": "Application Start",
+            "date": "01 May 2026",
+            "status": "upcoming"
+          },
+          {
+            "label": "Application End",
+            "date": "31 May 2026",
+            "status": "upcoming"
+          },
+          {
+            "label": "Lottery Date",
+            "date": "15 June 2026",
+            "status": "upcoming"
+          },
+          {
+            "label": "Admission Deadline",
+            "date": "30 June 2026",
+            "status": "upcoming"
+          }
+        ],
+        "order": 2,
+        "type": "grid",
+        "content": "RTE Important Dates and Timeline."
+      },
+      {
+        "title": "Frequently Asked Questions",
+        "key": "rte_faqs",
+        "items": [
+          {
+            "q": "Is RTE admission completely free?",
+            "a": "Yes. Under Section 12(1)(c) of the RTE Act, private unaided schools must admit children from EWS/disadvantaged groups free of charge. The school cannot charge any fee — tuition, development, or otherwise — from RTE students. The state government reimburses the school at a prescribed rate."
+          },
+          {
+            "q": "Can a private school refuse to admit an RTE-allotted student?",
+            "a": "No. Once a seat is allotted through the official state lottery, the school is legally obligated to admit the child. Refusal is a punishable offence under the RTE Act. Parents may lodge a complaint with the District Education Officer (DEO) if a school refuses."
+          },
+          {
+            "q": "What if my child is not selected in the lottery?",
+            "a": "RTE seats are limited to 25% of Class 1 intake. If your child is not selected in the first lottery, they may be placed on a waiting list. If seats remain after all waiting-list students are accommodated, a second lottery may be held. You can re-apply in the next academic session."
+          },
+          {
+            "q": "Are textbooks and uniforms provided to RTE students?",
+            "a": "Yes. The state government provides free textbooks to RTE students. Schools are also required to provide uniforms as per the Madhya Pradesh government norms. These are supplied at the beginning of the session."
+          },
+          {
+            "q": "Can I apply to multiple schools under RTE?",
+            "a": "Yes. The MP RTE portal allows you to list up to 3 schools in order of preference. Seats are allotted based on your preference list and distance from your residence to the school as per neighbourhood norms."
+          },
+          {
+            "q": "What happens to my child after Class 8 under RTE?",
+            "a": "The RTE Act guarantees free and compulsory education from Class 1 to Class 8. After Class 8, the entitlement under RTE ends. Parents will need to make separate arrangements for Classes 9 onwards, though many state governments offer scholarship schemes for continuation."
+          }
+        ],
+        "order": 3,
+        "type": "standard",
+        "content": "FAQs about RTE admissions."
+      },
+      {
+        "title": "Contact Phone",
+        "key": "rte_contact_phone",
+        "content": "+91 90919 29384",
+        "order": 4,
+        "type": "standard"
+      },
+      {
+        "title": "Contact Email",
+        "key": "rte_contact_email",
+        "content": "rte@mppublicschool.com",
+        "order": 5,
+        "type": "standard"
+      }
+    ],
+    "createdAt": "2026-04-25T05:35:22.102Z",
+    "updatedAt": "2026-04-25T06:01:37.642Z",
+    "__v": 0
+  },
+  {
+    "_id": "69ec5cb0a77a125502c9e356",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Student Registration",
+    "description": "Complete the form below to initiate the admission process for the academic session 2026-27.",
+    "subtitle": "Apply Online",
+    "slug": "admissions-apply",
+    "sections": [
+      {
+        "id": "available_classes",
+        "type": "classes",
+        "title": "Available Classes",
+        "content": "Nursery, KG, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12"
+      }
+    ],
+    "__v": 1
+  },
+  {
+    "_id": "69ec5f547b61759d6b3683a3",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Beyond the Classroom",
+    "description": "We nurture hidden talents and build character through a rich spectrum of co-curricular activities, ensuring every student finds their passion.",
+    "subtitle": "Holistic Growth",
+    "slug": "co-curricular",
+    "sections": [
+      {
+        "id": "clubs_societies",
+        "type": "standard",
+        "title": "Clubs & Societies",
+        "content": "Explore our diverse range of clubs designed to develop skills in art, tech, sports, and leadership."
+      },
+      {
+        "key": "activities",
+        "type": "grid",
+        "title": "Clubs & Activities List",
+        "items": [
+          {
+            "title": "Music Club",
+            "icon": "Music",
+            "content": "Vocal and instrumental training covering both Indian Classical and Western styles.",
+            "age": "Class 3-12",
+            "schedule": "Every Wed, 2:00-4:00 PM",
+            "color": "bg-blue-500"
+          },
+          {
+            "title": "Dance Academy",
+            "icon": "Mic2",
+            "content": "Fusion of Bharatanatyam, Kathak, and contemporary dance forms.",
+            "age": "Class 1-12",
+            "schedule": "Every Tue & Thu, 3:00-4:30 PM",
+            "color": "bg-rose-500"
+          },
+          {
+            "title": "Art & Craft",
+            "icon": "Palette",
+            "content": "Unleash creativity through painting, sculpture, and origami.",
+            "age": "Class Nur-12",
+            "schedule": "Every Mon, 2:30-4:00 PM",
+            "color": "bg-amber-500"
+          },
+          {
+            "title": "Robotics Club",
+            "icon": "Cpu",
+            "content": "Building and programming autonomous robots for real-world challenges.",
+            "age": "Class 6-12",
+            "schedule": "Every Fri, 2:00-5:00 PM",
+            "color": "bg-slate-700"
+          },
+          {
+            "title": "Debate Society",
+            "icon": "MessageSquare",
+            "content": "Enhancing public speaking and critical thinking through structured arguments.",
+            "age": "Class 8-12",
+            "schedule": "Every Sat, 10:00 AM-12:00 PM",
+            "color": "bg-indigo-600"
+          },
+          {
+            "title": "Science Club",
+            "icon": "FlaskConical",
+            "content": "Hands-on experiments and innovation projects beyond the curriculum.",
+            "age": "Class 5-10",
+            "schedule": "Every Wed, 3:00-4:30 PM",
+            "color": "bg-emerald-600"
+          },
+          {
+            "title": "NCC",
+            "icon": "Flag",
+            "content": "National Cadet Corps training for discipline, unity, and patriotism.",
+            "age": "Class 9-12",
+            "schedule": "Every Sat, 7:00-9:00 AM",
+            "color": "bg-green-700"
+          },
+          {
+            "title": "Scouts & Guides",
+            "icon": "Compass",
+            "content": "Outdoor skills and community service for younger students.",
+            "age": "Class 4-8",
+            "schedule": "Every Fri, 3:00-5:00 PM",
+            "color": "bg-orange-600"
+          },
+          {
+            "title": "Photography Club",
+            "icon": "Camera",
+            "content": "Mastering light, composition, and digital editing of visual stories.",
+            "age": "Class 7-12",
+            "schedule": "Every Tue, 3:30-5:00 PM",
+            "color": "bg-pink-500"
+          },
+          {
+            "title": "Chess Club",
+            "icon": "Activity",
+            "content": "Strategy and concentration sessions for beginners and masters.",
+            "age": "Class 2-12",
+            "schedule": "Every Mon & Wed, 3:00-4:00 PM",
+            "color": "bg-zinc-800"
+          },
+          {
+            "title": "Football Academy",
+            "icon": "Trophy",
+            "content": "Professional coaching focus on teamwork and physical endurance.",
+            "age": "Class 5-12",
+            "schedule": "Daily, 6:30-8:00 AM",
+            "color": "bg-lime-600"
+          },
+          {
+            "title": "Basketball",
+            "icon": "Dribbble",
+            "content": "Elite court training and inter-school tournament preparation.",
+            "age": "Class 6-12",
+            "schedule": "Mon to Fri, 4:00-6:00 PM",
+            "color": "bg-orange-500"
+          },
+          {
+            "title": "Yoga & Meditation",
+            "icon": "Sun",
+            "content": "Cultivating mental peace and physical flexibility through Asanas.",
+            "age": "Class Nur-12",
+            "schedule": "Daily, 8:00-8:30 AM",
+            "color": "bg-yellow-500"
+          },
+          {
+            "title": "Environmental Club",
+            "icon": "Leaf",
+            "content": "Promoting sustainability through gardening and conservation campaigns.",
+            "age": "Class 4-10",
+            "schedule": "Every Thu, 2:30-4:00 PM",
+            "color": "bg-green-500"
+          },
+          {
+            "title": "Literary Club",
+            "icon": "BookOpen",
+            "content": "Creative writing, poetry slams, and annual magazine production.",
+            "age": "Class 6-12",
+            "schedule": "Every Fri, 2:30-4:00 PM",
+            "color": "bg-purple-600"
+          }
+        ]
+      },
+      {
+        "key": "achievements",
+        "type": "standard",
+        "title": "Achievements Reel",
+        "items": [
+          {
+            "title": "Robotics Club won State Championship 2024"
+          },
+          {
+            "title": "Debate team runners-up National Level"
+          },
+          {
+            "title": "U-17 Football Team won Inter-School Trophy"
+          },
+          {
+            "title": "Photography Club exhibition at City Art Gallery"
+          },
+          {
+            "title": "Chess team qualified for Zonal level masters"
+          },
+          {
+            "title": "Eco Club received 'Green School' certificate"
+          },
+          {
+            "title": "Music Group won 1st Prize in State Harmony Meet"
+          }
+        ]
+      }
+    ],
+    "createdAt": "2026-04-25T06:29:40.192Z",
+    "updatedAt": "2026-04-25T06:29:40.192Z",
+    "__v": 0
+  }
+]

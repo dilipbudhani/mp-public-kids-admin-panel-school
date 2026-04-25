@@ -31,16 +31,26 @@ import "@/models/FeeStructure";
 
 export const dynamic = "force-dynamic";
 
-export async function GET() {
+export async function GET(req: Request) {
     try {
         await dbConnect();
+
+        const url = new URL(req.url);
+        const schoolId = url.searchParams.get("schoolId");
 
         const zip = new AdmZip();
         const models = mongoose.models;
 
         for (const modelName of Object.keys(models)) {
             const Model = models[modelName];
-            const data = await Model.find({}).lean().exec();
+            const hasSchoolId = !!Model.schema.paths.schoolId;
+            const hasSchoolIds = !!Model.schema.paths.schoolIds;
+
+            let filter: any = {};
+            if (hasSchoolId && schoolId) filter = { schoolId };
+            else if (hasSchoolIds && schoolId) filter = { schoolIds: schoolId };
+
+            const data = await Model.find(filter).lean().exec();
 
             if (data && data.length > 0) {
                 zip.addFile(

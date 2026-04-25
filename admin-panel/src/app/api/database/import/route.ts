@@ -49,6 +49,8 @@ export async function POST(req: Request) {
         const zipEntries = zip.getEntries();
 
         const models = mongoose.models;
+        const targetSchoolId = req.headers.get("x-school-id");
+        const importMode = req.headers.get("x-import-mode") || "restore";
 
         for (const zipEntry of zipEntries) {
             if (!zipEntry.isDirectory && zipEntry.entryName.endsWith(".json")) {
@@ -60,8 +62,56 @@ export async function POST(req: Request) {
 
                     if (Array.isArray(data) && data.length > 0) {
                         try {
-                            await Model.deleteMany({});
-                            await Model.insertMany(data, { lean: true });
+                            const hasSchoolId = !!Model.schema.paths.schoolId;
+                            const hasSchoolIds = !!Model.schema.paths.schoolIds;
+
+                            if (importMode === "merge") {
+                                // Clone data without erasing anything
+                                if (!hasSchoolId && !hasSchoolIds) {
+                                    // Skip global models during merge to prevent duplicating global data like users unnecessarily
+                                    continue;
+                                }
+
+                                const safeData = data.map((item: any) => {
+                                    delete item._id;
+                                    delete item.createdAt;
+                                    delete item.updatedAt;
+                                    if (hasSchoolId && targetSchoolId) {
+                                        item.schoolId = targetSchoolId;
+                                    }
+                                    if (hasSchoolIds && targetSchoolId) {
+                                        item.schoolIds = [targetSchoolId];
+                                    }
+                                    return item;
+                                });
+                                await Model.insertMany(safeData, { lean: true });
+                            } else {
+                                // Restore Mode
+                                if ((hasSchoolId || hasSchoolIds) && targetSchoolId) {
+                                    if (hasSchoolId) {
+                                        await Model.deleteMany({ schoolId: targetSchoolId });
+                                    } else {
+                                        await Model.deleteMany({ schoolIds: targetSchoolId });
+                                    }
+                                    const safeData = data.map((item: any) => {
+                                        if (hasSchoolId) {
+                                            item.schoolId = targetSchoolId;
+                                        }
+                                        if (hasSchoolIds) {
+                                            item.schoolIds = [targetSchoolId];
+                                        }
+                                        return item;
+                                    });
+                                    await Model.insertMany(safeData, { lean: true });
+                                } else {
+                                    // Global collection restore (upsert to avoid wiping items not in backup)
+                                    for (const item of data) {
+                                        if (item._id) {
+                                            await Model.findByIdAndUpdate(item._id, item, { upsert: true });
+                                        }
+                                    }
+                                }
+                            }
                         } catch (err: any) {
                             console.error(`Error importing ${modelName}:`, err.message);
                         }

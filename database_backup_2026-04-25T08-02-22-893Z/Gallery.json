@@ -1,0 +1,130 @@
+[
+  {
+    "_id": "69eb68f71ae9e29fdea6aa92",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Sports Day",
+    "imageUrl": "https://res.cloudinary.com/dpdvkx6zw/image/upload/v1777088907/gallery/topper_8th_board_1_bnevzr.jpg",
+    "publicId": "gallery/topper_8th_board_1_bnevzr",
+    "type": "image",
+    "category": "Sports",
+    "date": "2026-04-24T00:00:00.000Z",
+    "__v": 0,
+    "createdAt": "2026-04-24T12:58:31.992Z",
+    "updatedAt": "2026-04-25T03:48:31.322Z",
+    "thumbnailUrl": ""
+  },
+  {
+    "_id": "69ec6fd2b59f9241ca1c4bf1",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Events Upload 1",
+    "imageUrl": "https://res.cloudinary.com/dpdvkx6zw/video/upload/v1777102786/gallery/montessori_ukg_video_ksrcpq.mp4",
+    "publicId": "gallery/montessori_ukg_video_ksrcpq",
+    "type": "video",
+    "thumbnailUrl": "",
+    "category": "Events",
+    "date": "2026-04-25T00:00:00.000Z",
+    "createdAt": "2026-04-25T07:40:02.550Z",
+    "updatedAt": "2026-04-25T07:40:02.550Z",
+    "__v": 0
+  },
+  {
+    "_id": "69ec6fd2b59f9241ca1c4bf3",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Events Upload 2",
+    "imageUrl": "https://res.cloudinary.com/dpdvkx6zw/video/upload/v1777102787/gallery/montessori_beat_activity_w9wtds.mp4",
+    "publicId": "gallery/montessori_beat_activity_w9wtds",
+    "type": "video",
+    "thumbnailUrl": "",
+    "category": "Events",
+    "date": "2026-04-25T00:00:00.000Z",
+    "createdAt": "2026-04-25T07:40:02.558Z",
+    "updatedAt": "2026-04-25T07:40:02.558Z",
+    "__v": 0
+  },
+  {
+    "_id": "69ec6fd2b59f9241ca1c4bf5",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Events Upload 3",
+    "imageUrl": "https://res.cloudinary.com/dpdvkx6zw/video/upload/v1777102789/gallery/VID-20250321-WA0002_xbzyjd.mp4",
+    "publicId": "gallery/VID-20250321-WA0002_xbzyjd",
+    "type": "video",
+    "thumbnailUrl": "",
+    "category": "Events",
+    "date": "2026-04-25T00:00:00.000Z",
+    "createdAt": "2026-04-25T07:40:02.560Z",
+    "updatedAt": "2026-04-25T07:40:02.560Z",
+    "__v": 0
+  },
+  {
+    "_id": "69ec718bb59f9241ca1c4bfa",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Events Upload 1",
+    "imageUrl": "https://res.cloudinary.com/dpdvkx6zw/video/upload/v1777103210/gallery/WhatsApp_Video_2025-04-28_at_7.33.08_PM_ngbhhp.mp4",
+    "publicId": "gallery/WhatsApp_Video_2025-04-28_at_7.33.08_PM_ngbhhp",
+    "type": "video",
+    "thumbnailUrl": "https://res.cloudinary.com/dpdvkx6zw/video/upload/v1777103210/gallery/WhatsApp_Video_2025-04-28_at_7.33.08_PM_ngbhhp.jpg",
+    "category": "Events",
+    "date": "2026-04-25T00:00:00.000Z",
+    "createdAt": "2026-04-25T07:47:23.038Z",
+    "updatedAt": "2026-04-25T07:47:23.038Z",
+    "__v": 0
+  },
+  {
+    "_id": "69ec718bb59f9241ca1c4bfe",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Events Upload 3",
+    "imageUrl": "https://res.cloudinary.com/dpdvkx6zw/video/upload/v1777103222/gallery/WhatsApp_Video_2025-04-28_at_7.33.11_PM_cimifp.mp4",
+    "publicId": "gallery/WhatsApp_Video_2025-04-28_at_7.33.11_PM_cimifp",
+    "type": "video",
+    "thumbnailUrl": "https://res.cloudinary.com/dpdvkx6zw/video/upload/v1777103222/gallery/WhatsApp_Video_2025-04-28_at_7.33.11_PM_cimifp.jpg",
+    "category": "Events",
+    "date": "2026-04-25T00:00:00.000Z",
+    "createdAt": "2026-04-25T07:47:23.045Z",
+    "updatedAt": "2026-04-25T07:47:23.045Z",
+    "__v": 0
+  },
+  {
+    "_id": "69ec718bb59f9241ca1c4c00",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Events Upload 4",
+    "imageUrl": "https://res.cloudinary.com/dpdvkx6zw/video/upload/v1777103231/gallery/WhatsApp_Video_2025-04-28_at_7.33.31_PM_xpgl3y.mp4",
+    "publicId": "gallery/WhatsApp_Video_2025-04-28_at_7.33.31_PM_xpgl3y",
+    "type": "video",
+    "thumbnailUrl": "https://res.cloudinary.com/dpdvkx6zw/video/upload/v1777103231/gallery/WhatsApp_Video_2025-04-28_at_7.33.31_PM_xpgl3y.jpg",
+    "category": "Events",
+    "date": "2026-04-25T00:00:00.000Z",
+    "createdAt": "2026-04-25T07:47:23.046Z",
+    "updatedAt": "2026-04-25T07:47:23.046Z",
+    "__v": 0
+  },
+  {
+    "_id": "69ec718bb59f9241ca1c4bfc",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "title": "Events Upload 2",
+    "imageUrl": "https://res.cloudinary.com/dpdvkx6zw/video/upload/v1777103214/gallery/parents_v_up1t3k.mp4",
+    "publicId": "gallery/parents_v_up1t3k",
+    "type": "video",
+    "thumbnailUrl": "https://res.cloudinary.com/dpdvkx6zw/video/upload/v1777103214/gallery/parents_v_up1t3k.jpg",
+    "category": "Events",
+    "date": "2026-04-25T00:00:00.000Z",
+    "createdAt": "2026-04-25T07:47:23.043Z",
+    "updatedAt": "2026-04-25T07:47:23.043Z",
+    "__v": 0
+  }
+]

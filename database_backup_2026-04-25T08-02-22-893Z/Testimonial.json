@@ -1,0 +1,97 @@
+[
+  {
+    "_id": "69eb6ae5aaab5817cdb99a9c",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "name": "Suresh Gupta",
+    "role": "Parent",
+    "content": "The level of individual attention my child receives is truly commendable.",
+    "rating": 5,
+    "isActive": true,
+    "displayOrder": 0,
+    "__v": 0,
+    "createdAt": "2026-04-24T13:06:45.181Z",
+    "updatedAt": "2026-04-24T13:06:45.181Z"
+  },
+  {
+    "_id": "69ebceb5c0f77bdfdfded2ca",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "name": "Rajesh Ahirwal",
+    "role": "Parent",
+    "content": "Kids who go to MP Kids School have a good time. The staff is kind, and they plan a lot of fun things to do. My kid is happy here. The playground is also nice. I thank the school for its work.",
+    "rating": 5,
+    "avatarUrl": "",
+    "isActive": true,
+    "displayOrder": 1,
+    "createdAt": "2026-04-24T20:12:37.934Z",
+    "updatedAt": "2026-04-24T20:12:37.934Z",
+    "__v": 0
+  },
+  {
+    "_id": "69ebceefc0f77bdfdfded2cd",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "name": "Mangesh Nawkar",
+    "role": "Parent",
+    "content": "Very nice and clean school for kids. Very good staff.",
+    "rating": 5,
+    "avatarUrl": "",
+    "isActive": true,
+    "displayOrder": 2,
+    "createdAt": "2026-04-24T20:13:35.088Z",
+    "updatedAt": "2026-04-24T20:13:35.088Z",
+    "__v": 0
+  },
+  {
+    "_id": "69ebcf03c0f77bdfdfded2d0",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "name": "Manikarnika Tiwari",
+    "role": "Parent",
+    "content": "Good in social activities. Vaccination was also organized properly.",
+    "rating": 5,
+    "avatarUrl": "",
+    "isActive": true,
+    "displayOrder": 3,
+    "createdAt": "2026-04-24T20:13:55.610Z",
+    "updatedAt": "2026-04-24T20:13:55.610Z",
+    "__v": 0
+  },
+  {
+    "_id": "69ebcf36c0f77bdfdfded2d3",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "name": "DEEPTI RANI Panda",
+    "role": "Parent",
+    "content": "Excellent experience with the school.",
+    "rating": 5,
+    "avatarUrl": "",
+    "isActive": true,
+    "displayOrder": 4,
+    "createdAt": "2026-04-24T20:14:46.255Z",
+    "updatedAt": "2026-04-24T20:14:46.255Z",
+    "__v": 0
+  },
+  {
+    "_id": "69ebcf54c0f77bdfdfded2d6",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "name": "Ashish Upadhyay",
+    "role": "Parent",
+    "content": "Process was easy and quick. Could improve on hygiene.",
+    "rating": 4,
+    "avatarUrl": "",
+    "isActive": true,
+    "displayOrder": 5,
+    "createdAt": "2026-04-24T20:15:16.942Z",
+    "updatedAt": "2026-04-24T20:15:16.942Z",
+    "__v": 0
+  }
+]

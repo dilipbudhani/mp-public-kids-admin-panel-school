@@ -1,0 +1,44 @@
+[
+  {
+    "_id": "mp-public",
+    "schoolIds": [],
+    "schoolName": "MP Public School",
+    "contactEmail": "info@mppublicschool.edu.in",
+    "contactPhone": "+91 11223 34455",
+    "address": "Sector 10, Public Colony",
+    "admissionOpen": true,
+    "whatsappNumber": "911122334455",
+    "__v": 0,
+    "createdAt": "2026-04-24T13:32:16.315Z",
+    "updatedAt": "2026-04-24T13:32:16.315Z"
+  },
+  {
+    "_id": "mp-kids-school",
+    "schoolIds": [
+      "mp-kids-school"
+    ],
+    "schoolName": "MP Kids School",
+    "contactEmail": "info@mpkidsschool.com",
+    "contactPhone": "+91 9091929384",
+    "address": "182, Anjani Nagar, Aerodrum Road, Indore (M.P.)",
+    "admissionOpen": true,
+    "whatsappNumber": "+919091929384",
+    "__v": 0,
+    "createdAt": "2026-04-24T13:32:16.316Z",
+    "updatedAt": "2026-04-25T03:37:41.824Z",
+    "facebookEnabled": false,
+    "instagramEnabled": false,
+    "youtubeApiKey": "AIzaSyBQnLi6R0UvGWpAVoLCfWOFjtBPNDn58BE",
+    "youtubeChannelId": "UCxW6c8wbGOFOJHeew_ca7Cw",
+    "youtubeEnabled": true,
+    "mapEmbedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4441.8612421174!2d75.82256587593616!3d22.728665027231067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962fd7fc8e84fc1%3A0xea21baa542deed34!2sMP%20Kids%20School!5e1!3m2!1sen!2sin!4v1777061094468!5m2!1sen!2sin\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
+    "trustItem1Sub": "Affiliation No: 1234567",
+    "trustItem1Text": "CBSE Affiliated",
+    "trustItem2Sub": "100+ Certified Teachers",
+    "trustItem2Text": "Expert Faculty",
+    "trustItem3Sub": "Established 1995",
+    "trustItem3Text": "Academic Excellence",
+    "trustItem4Sub": "Focus on Academic & Personal",
+    "trustItem4Text": "Holistic Growth"
+  }
+]

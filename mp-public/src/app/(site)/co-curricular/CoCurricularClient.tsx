@@ -280,7 +280,7 @@ export function CoCurricularClient({ pageData }: CoCurricularClientProps) {
                     {[...dynamicAchievements, ...dynamicAchievements].map((ach: any, idx: number) => (
                         <div key={idx} className="ticker-item">
                             <Star className="w-5 h-5 text-gold fill-gold" />
-                            {ach}
+                            {ach && typeof ach === 'object' ? ach.ticker : ach}
                         </div>
                     ))}
                 </div>
