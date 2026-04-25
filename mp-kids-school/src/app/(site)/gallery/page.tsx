@@ -16,10 +16,10 @@ export default async function GalleryPage() {
     const { default: Gallery } = await import('@/models/Gallery');
     const { default: StaticPage } = await import('@/models/StaticPage');
 
-    const pageData = await StaticPage.findOne({ slug: "gallery-page", schoolIds: 'mp-kids-school' }).lean() as any;
+    const pageData = await StaticPage.findOne({ slug: "gallery", schoolIds: process.env.SCHOOL_ID }).lean() as any;
 
     // Fetch all gallery items, sorted by date (newest first)
-    const items = await Gallery.find({ schoolIds: 'mp-kids-school' }).sort({ date: -1 }).lean();
+    const items = await Gallery.find({ schoolIds: process.env.SCHOOL_ID }).sort({ date: -1 }).lean();
 
     // Serialize for Client Component
     const serializedItems = JSON.parse(JSON.stringify(items));

@@ -25,7 +25,7 @@ const iconMap: Record<string, LucideIcon> = {
 export default async function FacilitiesOverview() {
     await dbConnect();
 
-    const pageData = await StaticPage.findOne({ slug: "facilities", schoolIds: 'mp-kids-school' }).lean() as IStaticPage | null;
+    const pageData = await StaticPage.findOne({ slug: "facilities", schoolIds: process.env.SCHOOL_ID }).lean() as IStaticPage | null;
 
     const coreContent = {
         title: pageData?.title || "World-Class Facilities",

@@ -8,7 +8,7 @@ import { getSchoolFilter, getSchoolId } from '@/lib/schoolFilter';
 export async function GET(req: NextRequest) {
     try {
         await dbConnect();
-        const filter = await getSchoolFilter(req);
+        const filter = getSchoolFilter(req, 'schoolIds');
         const disclosures = await Disclosure.find(filter).sort({ section: 1, order: 1 });
         return NextResponse.json(disclosures);
     } catch (error) {

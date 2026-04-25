@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Plus, Pencil, Trash2, MoveUp, MoveDown, Save, X, Image as ImageIcon } from "lucide-react";
+import { Plus, Pencil, Trash2, MoveUp, MoveDown, Save, X, Image as ImageIcon, Link2 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import CloudinaryUpload from "@/components/CloudinaryUpload";
 
 interface HeroSlide {
     _id: string;
@@ -35,7 +36,8 @@ export default function HeroAdminPage() {
     const fetchSlides = async () => {
         setIsLoading(true);
         try {
-            const res = await fetch("/api/hero");
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            const res = await fetch(`/api/hero${schoolId ? `?schoolId=${schoolId}` : ""}`);
             if (res.ok) {
                 const data = await res.json();
                 setSlides(data);
@@ -59,9 +61,13 @@ export default function HeroAdminPage() {
 
     const handleSave = async () => {
         try {
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
             const res = await fetch(`/api/hero/${isEditing}`, {
                 method: "PUT",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(schoolId && { "x-school-id": schoolId })
+                },
                 body: JSON.stringify(editForm),
             });
 
@@ -81,8 +87,12 @@ export default function HeroAdminPage() {
         if (!confirm("Are you sure you want to delete this slide?")) return;
 
         try {
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
             const res = await fetch(`/api/hero/${id}`, {
                 method: "DELETE",
+                headers: {
+                    ...(schoolId && { "x-school-id": schoolId })
+                }
             });
 
             if (res.ok) {
@@ -112,9 +122,13 @@ export default function HeroAdminPage() {
         };
 
         try {
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
             const res = await fetch("/api/hero", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(schoolId && { "x-school-id": schoolId })
+                },
                 body: JSON.stringify(newSlide),
             });
 
@@ -189,17 +203,28 @@ export default function HeroAdminPage() {
                                                     className="w-full bg-gray-50 border-none rounded-xl px-4 py-2 focus:ring-2 focus:ring-primary transition-all"
                                                 />
                                             </div>
-                                            <div className="space-y-1">
-                                                <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Image URL</label>
-                                                <input
-                                                    type="text"
+                                            <div className="space-y-2 md:col-span-2">
+                                                <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Slide Image</label>
+                                                <CloudinaryUpload
                                                     value={editForm.imageUrl || ""}
-                                                    onChange={(e) => setEditForm({ ...editForm, imageUrl: e.target.value })}
-                                                    className="w-full bg-gray-50 border-none rounded-xl px-4 py-2 focus:ring-2 focus:ring-primary transition-all"
+                                                    onChange={(url) => setEditForm({ ...editForm, imageUrl: url })}
+                                                    onRemove={() => setEditForm({ ...editForm, imageUrl: "" })}
+                                                    folder="hero"
                                                 />
+                                                <div className="relative mt-2">
+                                                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                                        <Link2 className="w-4 h-4 text-gray-400" />
+                                                    </div>
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Or paste an image URL..."
+                                                        value={editForm.imageUrl || ""}
+                                                        onChange={(e) => setEditForm({ ...editForm, imageUrl: e.target.value })}
+                                                        className="w-full bg-gray-50 border-none rounded-xl pl-9 px-4 py-2 focus:ring-2 focus:ring-primary transition-all text-sm"
+                                                    />
+                                                </div>
                                             </div>
-                                            <div className="space-y-1">
-                                                <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Highlight</label>
+                                            <div className="space-y-1">                                                <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Highlight</label>
                                                 <input
                                                     type="text"
                                                     value={editForm.highlight || ""}

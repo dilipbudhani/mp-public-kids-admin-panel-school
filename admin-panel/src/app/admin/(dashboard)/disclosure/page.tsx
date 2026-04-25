@@ -69,7 +69,8 @@ export default function DisclosureAdminPage() {
     const fetchDisclosures = async () => {
         setIsLoading(true);
         try {
-            const res = await fetch("/api/disclosure");
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            const res = await fetch(`/api/disclosure${schoolId ? `?schoolId=${schoolId}` : ""}`);
             if (res.ok) {
                 const data = await res.json();
                 setDisclosures(data);
@@ -117,9 +118,13 @@ export default function DisclosureAdminPage() {
             const method = editingId ? "PUT" : "POST";
             const url = editingId ? `/api/disclosure/${editingId}` : "/api/disclosure";
 
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
             const res = await fetch(url, {
                 method,
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(schoolId && { "x-school-id": schoolId })
+                },
                 body: JSON.stringify(form),
             });
 
@@ -140,7 +145,13 @@ export default function DisclosureAdminPage() {
     const handleDelete = async (id: string) => {
         if (!confirm("Are you sure?")) return;
         try {
-            const res = await fetch(`/api/disclosure/${id}`, { method: "DELETE" });
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            const res = await fetch(`/api/disclosure/${id}`, {
+                method: "DELETE",
+                headers: {
+                    ...(schoolId && { "x-school-id": schoolId })
+                }
+            });
             if (res.ok) {
                 toast.success("Entry deleted");
                 fetchDisclosures();

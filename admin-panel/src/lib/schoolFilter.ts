@@ -18,10 +18,25 @@ export function getSchoolId(req: NextRequest): string | null {
  */
 export function getSchoolFilter(req: NextRequest, fieldName: 'schoolId' | 'schoolIds' = 'schoolId') {
     const schoolId = getSchoolId(req);
-    if (!schoolId) return {};
+    if (!schoolId || schoolId === "all") return {};
 
     if (fieldName === 'schoolIds') {
-        return { schoolIds: schoolId };
+        return {
+            $or: [
+                { schoolIds: schoolId },
+                { schoolIds: { $exists: false } },
+                { schoolIds: { $size: 0 } },
+                { schoolIds: null }
+            ]
+        };
     }
-    return { schoolId: schoolId };
+
+    return {
+        $or: [
+            { schoolId: schoolId },
+            { schoolId: { $exists: false } },
+            { schoolId: null },
+            { schoolId: "" }
+        ]
+    };
 }

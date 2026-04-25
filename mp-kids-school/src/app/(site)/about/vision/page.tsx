@@ -14,7 +14,7 @@ export default async function AboutVisionPage() {
     await dbConnect();
 
     // Fetch page content from MongoDB
-    const pageData = await StaticPage.findOne({ schoolIds: 'mp-kids-school', slug: "about-vision" }).lean();
+    const pageData = await StaticPage.findOne({ schoolIds: process.env.SCHOOL_ID, slug: "about-vision" }).lean();
 
     // Fallback/Default data
     const content = pageData || {

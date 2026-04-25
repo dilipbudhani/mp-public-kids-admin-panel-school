@@ -61,7 +61,7 @@ export default async function sitemap() {
     }));
 
     // Dynamic news routes
-    const newsEntries = await News.find({ isPublished: true, schoolIds: 'mp-public' })
+    const newsEntries = await News.find({ isPublished: true, schoolIds: process.env.SCHOOL_ID || 'mp-public' })
         .select('slug updatedAt')
         .lean();
 

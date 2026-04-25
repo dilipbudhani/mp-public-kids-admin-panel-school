@@ -6,7 +6,7 @@ import { getSchoolFilter, getSchoolId } from "@/lib/schoolFilter";
 export async function GET(req: NextRequest) {
     try {
         await dbConnect();
-        const filter = await getSchoolFilter(req);
+        const filter = getSchoolFilter(req, 'schoolIds');
         const events = await SchoolEvent.find(filter).sort({ date: 1 });
         return NextResponse.json(events);
     } catch (error) {

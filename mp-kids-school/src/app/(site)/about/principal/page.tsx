@@ -6,6 +6,7 @@ import * as motion from "framer-motion/client";
 import { dbConnect } from "@/lib/mongodb";
 import Faculty from "@/models/Faculty";
 import StaticPage from "@/models/StaticPage";
+import ReactMarkdown from 'react-markdown';
 
 export const metadata = {
     title: "Leadership Messages | MP Kids School",
@@ -16,31 +17,35 @@ export default async function PrincipalMessagePage() {
     await dbConnect();
 
     // Fetch Principal and Director from Faculty model
-    const principal = await Faculty.findOne({ schoolIds: 'mp-kids-school', designation: /Principal/i, isActive: true }).lean();
-    const director = await Faculty.findOne({ schoolIds: 'mp-kids-school', designation: /Director/i, isActive: true }).lean();
+    const principal = await Faculty.findOne({ schoolIds: process.env.SCHOOL_ID, designation: /Principal/i, isActive: true }).lean();
+    const director = await Faculty.findOne({ schoolIds: process.env.SCHOOL_ID, designation: /Director/i, isActive: true }).lean();
 
     // Fetch custom messages from StaticPage if they exist
-    const leadershipPage = await StaticPage.findOne({ schoolIds: 'mp-kids-school', slug: "about-leadership" }).lean();
+    const leadershipPage = await StaticPage.findOne({ schoolIds: process.env.SCHOOL_ID || 'mp-kids-school', slug: { $in: ["about-leadership", "about-principal"] } }).lean();
+
+    const sections = leadershipPage?.sections || [];
+    const principalSection = sections.find((s: any) => s.title.toLowerCase().includes("principal"));
+    const directorSection = sections.find((s: any) => s.title.toLowerCase().includes("director"));
 
     const principalContent = {
-        name: principal?.name || "Dr. Rajesh Sharma",
-        designation: principal?.designation || "Principal",
-        image: principal?.imageUrl || "/images/leadership/principal.png",
+        name: principalSection?.title || principal?.name || "Dr. Rajesh Sharma",
+        designation: principalSection?.subheading || principal?.designation || "Principal",
+        image: principalSection?.image || principal?.imageUrl || "/images/leadership/principal.png",
         qualification: principal?.qualification || "M.Ed, Ph.D in Educational Leadership",
         experience: principal?.experience || "25+ Years in Education",
-        message: leadershipPage?.sections?.find((s: any) => s.title.toLowerCase().includes("principal"))?.content || principal?.bio || `Dear Parents, Students, and Well-wishers,
+        message: principalSection?.content || principal?.bio || `Dear Parents, Students, and Well-wishers,
         Welcome to MP Kids School, where we believe that education is the most powerful weapon which you can use to change the world. Our mission is to nurture children into confident, disciplined, and responsible citizens who are prepared to face the challenges of the 21st century.`,
-        quote: "Education is not the filling of a pail, but the lighting of a fire. We strive to ignite that spark of curiosity in every heart."
+        quote: principalSection?.quote || "Education is not the filling of a pail, but the lighting of a fire. We strive to ignite that spark of curiosity in every heart."
     };
 
     const directorContent = {
-        name: director?.name || "Ms. Priya Sharma",
-        designation: director?.designation || "Director",
-        image: director?.imageUrl || "/images/leadership/director.png",
+        name: directorSection?.title || director?.name || "Ms. Priya Sharma",
+        designation: directorSection?.subheading || director?.designation || "Director",
+        image: directorSection?.image || director?.imageUrl || "/images/leadership/director.png",
         qualification: director?.qualification || "MBA in Educational Management",
         experience: director?.experience || "20+ Years Excellence Awardee",
-        message: leadershipPage?.sections?.find((s: any) => s.title.toLowerCase().includes("director"))?.content || director?.bio || `At MP Kids School, our vision is to create a global community of lifelong learners. We are committed to providing an education that balances traditional integrity with modern innovation, ensuring our students are equipped to lead with empathy and wisdom.`,
-        quote: "Our goal is to foster an environment where every student discovers their true potential and contributes meaningfully to society."
+        message: directorSection?.content || director?.bio || `At MP Kids School, our vision is to create a global community of lifelong learners. We are committed to providing an education that balances traditional integrity with modern innovation, ensuring our students are equipped to lead with empathy and wisdom.`,
+        quote: directorSection?.quote || "Our goal is to foster an environment where every student discovers their true potential and contributes meaningfully to society."
     };
 
     return (
@@ -109,7 +114,9 @@ export default async function PrincipalMessagePage() {
                             </h2>
 
                             <div className="prose prose-lg text-gray-600 space-y-6 max-w-none">
-                                <div dangerouslySetInnerHTML={{ __html: principalContent.message }} className="leading-relaxed" />
+                                <div className="leading-relaxed">
+                                    <ReactMarkdown>{principalContent.message}</ReactMarkdown>
+                                </div>
 
                                 <blockquote className="relative p-8 bg-surface rounded-3xl border-l-4 border-gold shadow-sm overflow-hidden group">
                                     <Quote className="absolute -top-2 -left-2 w-16 h-16 text-gold/10 -rotate-12 transition-transform group-hover:rotate-0" />
@@ -148,7 +155,9 @@ export default async function PrincipalMessagePage() {
                             </h2>
 
                             <div className="prose prose-lg text-gray-600 space-y-6 max-w-none text-right flex flex-col items-end">
-                                <div dangerouslySetInnerHTML={{ __html: directorContent.message }} className="leading-relaxed" />
+                                <div className="leading-relaxed text-right">
+                                    <ReactMarkdown>{directorContent.message}</ReactMarkdown>
+                                </div>
 
                                 <div className="p-8 bg-primary/5 rounded-3xl border-r-4 border-primary shadow-sm text-right w-full">
                                     <p className="text-xl font-playfair italic font-medium text-primary">

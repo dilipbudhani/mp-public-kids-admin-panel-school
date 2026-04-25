@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, ChevronLeft, Award, Users, BookOpen, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+import { SiteSettings } from "@/types/shared";
+
 interface Slide {
     _id: string;
     imageUrl: string;
@@ -22,7 +24,7 @@ interface Slide {
     statLabel?: string;
 }
 
-export function Hero({ slides }: { slides: Slide[] }) {
+export function Hero({ slides, settings }: { slides: Slide[], settings: SiteSettings | null }) {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const handleNext = useCallback(() => {
@@ -77,11 +79,13 @@ export function Hero({ slides }: { slides: Slide[] }) {
                             transition={{ duration: 0.6, ease: "easeOut" }}
                             className="space-y-6 lg:space-y-8"
                         >
-                            <span className="inline-block px-4 py-1.5 rounded-full bg-secondary/10 border border-secondary/20 text-secondary text-sm font-semibold tracking-wide uppercase">
-                                {slides[currentIndex].badge}
-                            </span>
+                            {slides[currentIndex].badge && (
+                                <span className="inline-block px-4 py-1.5 rounded-full bg-secondary/10 border border-secondary/20 text-secondary text-sm font-semibold tracking-wide uppercase">
+                                    {slides[currentIndex].badge}
+                                </span>
+                            )}
 
-                            <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight text-white font-playfair">
+                            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-white font-playfair">
                                 {slides[currentIndex].title} <br />
                                 <span className="text-secondary inline-block mt-2">
                                     {slides[currentIndex].highlight}
@@ -97,7 +101,7 @@ export function Hero({ slides }: { slides: Slide[] }) {
                                     {slides[currentIndex].cta1Text && (
                                         <Link
                                             href={slides[currentIndex].cta1Href || "#"}
-                                            className="px-8 py-4 bg-secondary hover:bg-secondary-dark text-white rounded-xl font-bold transition-all transform hover:scale-105 shadow-xl shadow-secondary/20 flex items-center justify-center gap-2 group"
+                                            className="px-8 py-4 bg-secondary hover:bg-secondary-dark text-primary rounded-xl font-bold transition-all transform hover:scale-105 shadow-xl shadow-secondary/20 flex items-center justify-center gap-2 group"
                                         >
                                             {slides[currentIndex].cta1Text}
                                             <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -154,10 +158,26 @@ export function Hero({ slides }: { slides: Slide[] }) {
             <div className="w-full mt-auto lg:absolute lg:bottom-0 lg:left-0 lg:right-0 bg-white/10 backdrop-blur-md border-t border-white/10 z-20">
                 <div className="container py-6 lg:py-8">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-                        <TrustItem icon={<Award className="text-gold w-5 h-5 lg:w-6 lg:h-6 shrink-0" />} text="CBSE Affiliated" sub="Affiliation No: 1234567" />
-                        <TrustItem icon={<Users className="text-gold w-5 h-5 lg:w-6 lg:h-6 shrink-0" />} text="Expert Faculty" sub="100+ Certified Teachers" />
-                        <TrustItem icon={<Star className="text-gold w-5 h-5 lg:w-6 lg:h-6 shrink-0" />} text="Legacy of Excellence" sub="Established 1995" />
-                        <TrustItem icon={<BookOpen className="text-gold w-5 h-5 lg:w-6 lg:h-6 shrink-0" />} text="Holistic Growth" sub="Focus on Academic & Personal" />
+                        <TrustItem
+                            icon={<Award className="text-gold w-5 h-5 lg:w-6 lg:h-6 shrink-0" />}
+                            text={settings?.trustItem1Text || "CBSE Affiliated"}
+                            sub={settings?.trustItem1Sub || `Affiliation No: ${settings?.affiliationNo || "1234567"}`}
+                        />
+                        <TrustItem
+                            icon={<Users className="text-gold w-5 h-5 lg:w-6 lg:h-6 shrink-0" />}
+                            text={settings?.trustItem2Text || "Expert Faculty"}
+                            sub={settings?.trustItem2Sub || "100+ Certified Teachers"}
+                        />
+                        <TrustItem
+                            icon={<Star className="text-gold w-5 h-5 lg:w-6 lg:h-6 shrink-0" />}
+                            text={settings?.trustItem3Text || "Legacy of Excellence"}
+                            sub={settings?.trustItem3Sub || "Established 1995"}
+                        />
+                        <TrustItem
+                            icon={<BookOpen className="text-gold w-5 h-5 lg:w-6 lg:h-6 shrink-0" />}
+                            text={settings?.trustItem4Text || "Holistic Growth"}
+                            sub={settings?.trustItem4Sub || "Focus on Academic & Personal"}
+                        />
                     </div>
                 </div>
             </div>

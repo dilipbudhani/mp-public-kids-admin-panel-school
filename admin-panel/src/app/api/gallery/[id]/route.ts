@@ -31,7 +31,7 @@ export async function PUT(
         const body = await req.json();
         const validatedData = galleryUpdateSchema.parse(body);
 
-        const filter = await getSchoolFilter(req, 'schoolIds');
+        const filter = getSchoolFilter(req, 'schoolIds');
         const galleryItem = await Gallery.findOneAndUpdate(
             { _id: id, ...filter },
             { $set: validatedData },
@@ -39,6 +39,7 @@ export async function PUT(
         );
 
         if (!galleryItem) {
+            console.warn(`[GALLERY_PUT] Item not found. ID: ${id}, Filter:`, filter);
             return NextResponse.json({ message: "Not Found" }, { status: 404 });
         }
 
@@ -64,9 +65,10 @@ export async function DELETE(
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
         }
 
-        const filter = await getSchoolFilter(req, 'schoolIds');
+        const filter = getSchoolFilter(req, 'schoolIds');
         const galleryItem = await Gallery.findOneAndDelete({ _id: id, ...filter });
         if (!galleryItem) {
+            console.warn(`[GALLERY_DELETE] Item not found. ID: ${id}, Filter:`, filter);
             return NextResponse.json({ message: "Not Found" }, { status: 404 });
         }
 

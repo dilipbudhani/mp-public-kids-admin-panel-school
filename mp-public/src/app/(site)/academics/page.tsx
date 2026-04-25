@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import CurriculumTabs from '@/components/academics/CurriculumTabs';
 import Image from 'next/image';
 import { dbConnect } from "@/lib/mongodb";
@@ -8,7 +7,12 @@ import SectionRenderer from "@/components/site/SectionRenderer";
 
 export default async function AcademicsPage() {
     await dbConnect();
-    const pageData = await StaticPage.findOne({ slug: "academics" }).lean();
+    const schoolId = process.env.SCHOOL_ID || "mp-public";
+
+    const pageData = await StaticPage.findOne({
+        slug: "academics",
+        schoolIds: schoolId
+    }).lean();
 
     const banner = {
         title: pageData?.title || "Curriculum & Learning Pedagogy",
@@ -48,7 +52,7 @@ export default async function AcademicsPage() {
                 </div>
             </section>
 
-            {/* Curriculum Tabs Section - Always present but can be supplemented by DB content */}
+            {/* Curriculum Tabs Section */}
             <section className="py-24 bg-slate-50">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-16">

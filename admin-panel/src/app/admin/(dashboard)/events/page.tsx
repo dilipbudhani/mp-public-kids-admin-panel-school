@@ -26,6 +26,7 @@ interface EventItem {
     category: string;
     description: string;
     location?: string;
+    isActive: boolean;
 }
 
 const CATEGORIES = ['Holiday', 'Exam', 'Event', 'Celebration', 'Competition', 'Meeting'];
@@ -46,7 +47,8 @@ export default function EventsAdminPage() {
         type: "Academic",
         category: "Event",
         description: "",
-        location: ""
+        location: "",
+        isActive: true
     });
 
     useEffect(() => {
@@ -56,7 +58,8 @@ export default function EventsAdminPage() {
     const fetchEvents = async () => {
         setIsLoading(true);
         try {
-            const res = await fetch("/api/events");
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            const res = await fetch(`/api/events${schoolId ? `?schoolId=${schoolId}` : ""}`);
             if (res.ok) {
                 const data = await res.json();
                 setEvents(data);
@@ -78,7 +81,8 @@ export default function EventsAdminPage() {
                 type: item.type,
                 category: item.category,
                 description: item.description,
-                location: item.location || ""
+                location: item.location || "",
+                isActive: item.isActive !== undefined ? item.isActive : true
             });
         } else {
             setEditingId(null);
@@ -89,7 +93,8 @@ export default function EventsAdminPage() {
                 type: "Academic",
                 category: "Event",
                 description: "",
-                location: ""
+                location: "",
+                isActive: true
             });
         }
         setIsModalOpen(true);
@@ -102,9 +107,13 @@ export default function EventsAdminPage() {
             const method = editingId ? "PUT" : "POST";
             const url = editingId ? `/api/events/${editingId}` : "/api/events";
 
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
             const res = await fetch(url, {
                 method,
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(schoolId && { "x-school-id": schoolId })
+                },
                 body: JSON.stringify(formData),
             });
 
@@ -125,7 +134,13 @@ export default function EventsAdminPage() {
     const handleDelete = async (id: string) => {
         if (!confirm("Are you sure?")) return;
         try {
-            const res = await fetch(`/api/events/${id}`, { method: "DELETE" });
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            const res = await fetch(`/api/events/${id}`, {
+                method: "DELETE",
+                headers: {
+                    ...(schoolId && { "x-school-id": schoolId })
+                }
+            });
             if (res.ok) {
                 toast.success("Event deleted");
                 fetchEvents();
@@ -200,6 +215,7 @@ export default function EventsAdminPage() {
                                 <th className="px-8 py-6 font-black uppercase tracking-widest text-slate-400 text-[10px]">Title</th>
                                 <th className="px-8 py-6 font-black uppercase tracking-widest text-slate-400 text-[10px]">Category</th>
                                 <th className="px-8 py-6 font-black uppercase tracking-widest text-slate-400 text-[10px]">Location</th>
+                                <th className="px-8 py-6 font-black uppercase tracking-widest text-slate-400 text-[10px]">Status</th>
                                 <th className="px-8 py-6 font-black uppercase tracking-widest text-slate-400 text-[10px] text-right">Actions</th>
                             </tr>
                         </thead>
@@ -229,6 +245,14 @@ export default function EventsAdminPage() {
                                         </span>
                                     </td>
                                     <td className="px-8 py-6 text-slate-500 font-medium"> {item.location || "N/A"} </td>
+                                    <td className="px-8 py-6">
+                                        <span className={cn(
+                                            "px-3 py-1 text-[10px] font-black uppercase tracking-widest rounded-lg",
+                                            item.isActive ? "bg-green-100 text-green-600" : "bg-slate-100 text-slate-400"
+                                        )}>
+                                            {item.isActive ? "Active" : "Inactive"}
+                                        </span>
+                                    </td>
                                     <td className="px-8 py-6 text-right">
                                         <div className="flex justify-end gap-2">
                                             <button onClick={() => handleOpenModal(item)} className="p-2.5 bg-slate-100 text-slate-600 rounded-xl hover:bg-primary hover:text-white transition-all"><Pencil className="w-4 h-4" /></button>
@@ -249,7 +273,15 @@ export default function EventsAdminPage() {
                                     <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{new Date(item.date).toLocaleDateString()}</span>
                                     <h3 className="text-xl font-bold text-slate-900 group-hover:text-primary transition-colors">{item.title}</h3>
                                 </div>
-                                <span className="px-3 py-1 bg-primary/5 text-primary text-[10px] font-black uppercase tracking-widest rounded-lg">{item.category}</span>
+                                <div className="flex flex-col items-end gap-2">
+                                    <span className="px-3 py-1 bg-primary/5 text-primary text-[10px] font-black uppercase tracking-widest rounded-lg">{item.category}</span>
+                                    <span className={cn(
+                                        "px-2 py-0.5 text-[8px] font-black uppercase tracking-widest rounded-md",
+                                        item.isActive ? "bg-green-100 text-green-600" : "bg-slate-100 text-slate-400"
+                                    )}>
+                                        {item.isActive ? "Active" : "Inactive"}
+                                    </span>
+                                </div>
                             </div>
                             <p className="text-slate-500 text-sm mb-8 line-clamp-2 leading-relaxed">{item.description}</p>
                             <div className="flex items-center justify-between mt-auto">
@@ -351,6 +383,19 @@ export default function EventsAdminPage() {
                                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                                 className="w-full bg-slate-50 border-slate-100 rounded-2xl px-6 py-4 focus:ring-4 focus:ring-primary/10 transition-all font-medium text-sm"
                             />
+                        </div>
+
+                        <div className="flex items-center gap-3 p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                            <input
+                                type="checkbox"
+                                id="isActive"
+                                checked={formData.isActive}
+                                onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
+                                className="w-5 h-5 rounded-lg border-slate-300 text-primary focus:ring-primary transition-all"
+                            />
+                            <label htmlFor="isActive" className="text-sm font-bold text-slate-700 cursor-pointer">
+                                Active (Show on Website)
+                            </label>
                         </div>
                     </div>
 

@@ -122,7 +122,7 @@ const fallbackData = {
 async function getFees() {
     try {
         await dbConnect();
-        const data = await FeeStructure.findOne({ schoolIds: 'mp-kids-school' }).sort({ createdAt: -1 }).lean();
+        const data = await FeeStructure.findOne({ schoolIds: process.env.SCHOOL_ID }).sort({ createdAt: -1 }).lean();
         if (!data) return fallbackData;
 
         // Ensure IDs are present for categories (Fallback for older data if any)
@@ -150,7 +150,7 @@ export default async function FeeStructurePage() {
     const feeData = await getFees();
 
     await dbConnect();
-    const pageData = await StaticPage.findOne({ schoolIds: 'mp-kids-school', slug: 'fee-structure' }).lean();
+    const pageData = await StaticPage.findOne({ schoolIds: process.env.SCHOOL_ID, slug: 'fee-structure' }).lean();
     const heroTitle = (pageData as any)?.title || 'Fee Structure';
     const heroDescription = (pageData as any)?.description || 'We believe in maintaining complete transparency regarding school costs. Our fee structure is designed to reflect the quality of education and facilities provided.';
 

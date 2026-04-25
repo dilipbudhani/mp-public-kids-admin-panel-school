@@ -15,11 +15,16 @@ import {
 } from 'lucide-react';
 import { AdmissionsTable } from '@/components/admissions/AdmissionsTable';
 
+import { cookies } from 'next/headers';
+
 export const dynamic = 'force-dynamic';
 
 export default async function AdmissionsPage() {
     await dbConnect();
-    const admissions = await Admission.find().sort({ createdAt: -1 }).lean();
+    const cookieStore = cookies();
+    const schoolId = (await cookieStore).get('selectedSchool')?.value || 'mp-kids-school';
+
+    const admissions = await Admission.find({ schoolId }).sort({ createdAt: -1 }).lean();
 
     const stats = {
         total: admissions.length,

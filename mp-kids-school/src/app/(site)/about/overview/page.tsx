@@ -12,7 +12,7 @@ export const metadata = {
 
 export default async function AboutOverviewPage() {
     await dbConnect();
-    const pageData = await StaticPage.findOne({ schoolIds: 'mp-kids-school', slug: "about-overview" }).lean();
+    const pageData = await StaticPage.findOne({ schoolIds: process.env.SCHOOL_ID, slug: "about-overview" }).lean();
 
     const banner = {
         title: pageData?.title || "Overview of Excellence",

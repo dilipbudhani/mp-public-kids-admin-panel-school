@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import { getIcon } from "@/lib/icons";
 
 interface Facility {
@@ -9,7 +10,10 @@ interface Facility {
     description: string;
     icon: string;
     image: string;
+    href?: string;
 }
+
+const slugify = (text: string) => text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
 
 interface FacilitiesGridProps {
     facilities: Facility[];
@@ -67,10 +71,13 @@ export default function FacilitiesGrid({ facilities }: FacilitiesGridProps) {
                                 <p className="text-white/80 line-clamp-2 mb-4 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300">
                                     {item.description}
                                 </p>
-                                <button className="text-secondary font-bold inline-flex items-center gap-2 group/btn">
+                                <Link
+                                    href={item.href || `/facilities/${slugify(item.title)}`}
+                                    className="text-secondary font-bold inline-flex items-center gap-2 group/btn"
+                                >
                                     Learn More
                                     <span className="w-6 h-[2px] bg-secondary group-hover/btn:w-10 transition-all" />
-                                </button>
+                                </Link>
                             </div>
                         </motion.div>
                     ))}

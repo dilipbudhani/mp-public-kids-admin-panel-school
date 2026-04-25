@@ -8,7 +8,7 @@ import SectionRenderer from "@/components/site/SectionRenderer";
 
 export default async function AcademicsPage() {
     await dbConnect();
-    const pageData = await StaticPage.findOne({ slug: "academics", schoolIds: 'mp-kids-school' }).lean();
+    const pageData = await StaticPage.findOne({ slug: "academics", schoolIds: process.env.SCHOOL_ID }).lean();
 
     const banner = {
         title: pageData?.title || "Curriculum & Learning Pedagogy",

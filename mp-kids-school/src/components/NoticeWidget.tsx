@@ -39,7 +39,7 @@ export default function NoticeWidget({ notices }: NoticeWidgetProps) {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {notices.map((notice, index) => (
-                        <NoticeCard key={notice.id} notice={notice} index={index} />
+                        <NoticeCard key={(notice as any)._id || notice.id || index} notice={notice} index={index} />
                     ))}
                 </div>
             </div>

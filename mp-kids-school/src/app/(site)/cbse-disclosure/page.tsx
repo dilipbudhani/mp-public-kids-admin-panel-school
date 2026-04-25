@@ -16,7 +16,7 @@ export default async function CBSEDisclosurePage() {
     await dbConnect();
     const [allDisclosures, pageData] = await Promise.all([
         Disclosure.find({}).sort({ order: 1 }).lean(),
-        StaticPage.findOne({ slug: "cbse-disclosure" }).lean()
+        StaticPage.findOne({ slug: "cbse-disclosure", schoolIds: process.env.SCHOOL_ID }).lean()
     ]);
 
     // Helper to filter and map sections

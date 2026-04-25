@@ -21,6 +21,9 @@ interface AlumniData {
 
 interface AlumniClientProps {
     initialAlumni?: AlumniData[];
+    stats?: any[];
+    testimonials?: any[];
+    events?: any[];
     pageData?: any;
 }
 
@@ -123,13 +126,14 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
 
 /* ───────────────────────── TESTIMONIALS CAROUSEL ───────────────────────── */
 
-function TestimonialsCarousel() {
+function TestimonialsCarousel({ testimonials = [] }: { testimonials?: any[] }) {
     const [active, setActive] = useState(0);
     const [paused, setPaused] = useState(false);
-    const total = TESTIMONIALS.length;
+    const displayTestimonials = testimonials.length > 0 ? testimonials : TESTIMONIALS;
+    const total = displayTestimonials.length;
 
     useEffect(() => {
-        if (paused) return;
+        if (paused || total === 0) return;
         const t = setInterval(() => setActive(prev => (prev + 1) % total), 5000);
         return () => clearInterval(t);
     }, [paused, total]);
@@ -146,7 +150,7 @@ function TestimonialsCarousel() {
                     className="flex transition-transform duration-700 ease-in-out"
                     style={{ transform: `translateX(-${active * 100}%)` }}
                 >
-                    {TESTIMONIALS.map((t, i) => (
+                    {displayTestimonials.map((t, i) => (
                         <div key={i} className="w-full shrink-0 bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 md:p-12">
                             <Quote className="w-10 h-10 text-gold mb-6 opacity-80" />
                             <p className="text-white/90 text-lg md:text-xl leading-relaxed font-light italic mb-8">
@@ -154,7 +158,7 @@ function TestimonialsCarousel() {
                             </p>
                             <div className="flex items-center gap-4">
                                 <div className="w-12 h-12 rounded-full bg-gold/20 border border-gold/40 flex items-center justify-center">
-                                    <span className="font-bold text-gold text-sm">{t.name.split(' ').map(n => n[0]).join('')}</span>
+                                    <span className="font-bold text-gold text-sm">{t.name.split(' ').map((n: any) => n[0]).join('')}</span>
                                 </div>
                                 <div>
                                     <p className="font-bold text-white">{t.name}</p>
@@ -175,7 +179,7 @@ function TestimonialsCarousel() {
                 >
                     <ChevronLeft className="w-5 h-5" />
                 </button>
-                {TESTIMONIALS.map((_, i) => (
+                {displayTestimonials.map((_, i) => (
                     <button
                         key={i}
                         onClick={() => setActive(i)}
@@ -315,8 +319,17 @@ function AlumniForm() {
 
 /* ───────────────────────── MAIN PAGE ───────────────────────── */
 
-export default function AlumniClient({ initialAlumni = [], pageData }: AlumniClientProps) {
+export default function AlumniClient({
+    initialAlumni = [],
+    stats = [],
+    testimonials = [],
+    events = [],
+    pageData
+}: AlumniClientProps) {
     const alumniList = initialAlumni.length > 0 ? initialAlumni : DEFAULT_ALUMNI;
+    const displayStats = stats.length > 0 ? stats : STATS;
+    const displayTestimonials = testimonials.length > 0 ? testimonials : TESTIMONIALS;
+    const displayEvents = events.length > 0 ? events : EVENTS;
 
     const banner = {
         title: pageData?.title || "Our Pride, Our Alumni",
@@ -475,7 +488,7 @@ export default function AlumniClient({ initialAlumni = [], pageData }: AlumniCli
             <section className="py-20 bg-primary">
                 <div className="container px-6 max-w-6xl mx-auto">
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-                        {STATS.map((s, i) => (
+                        {displayStats.map((s, i) => (
                             <motion.div
                                 key={i}
                                 initial={{ opacity: 0, y: 20 }}
@@ -485,7 +498,7 @@ export default function AlumniClient({ initialAlumni = [], pageData }: AlumniCli
                                 className="flex flex-col items-center text-center gap-3"
                             >
                                 <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center text-gold">
-                                    {s.icon}
+                                    {s.icon || <Award className="w-7 h-7" />}
                                 </div>
                                 <div className="text-4xl font-playfair font-bold text-white">
                                     <AnimatedCounter value={s.value} suffix={s.suffix} />
@@ -507,7 +520,7 @@ export default function AlumniClient({ initialAlumni = [], pageData }: AlumniCli
                         <span className="text-sm font-bold uppercase tracking-[0.25em] text-gold">In Their Own Words</span>
                         <h2 className="text-4xl md:text-5xl font-playfair font-bold text-white mt-3">Alumni Testimonials</h2>
                     </div>
-                    <TestimonialsCarousel />
+                    <TestimonialsCarousel testimonials={testimonials} />
                 </div>
             </section>
 
@@ -535,7 +548,7 @@ export default function AlumniClient({ initialAlumni = [], pageData }: AlumniCli
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {EVENTS.map((ev, i) => (
+                        {displayEvents.map((ev: any, i: number) => (
                             <motion.div
                                 key={i}
                                 initial={{ opacity: 0, y: 30 }}

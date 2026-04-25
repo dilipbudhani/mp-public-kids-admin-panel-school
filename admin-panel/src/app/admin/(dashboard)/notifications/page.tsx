@@ -35,7 +35,8 @@ export default function NotificationsPage() {
 
     const fetchLogs = async () => {
         try {
-            const res = await fetch("/api/notifications/history");
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            const res = await fetch(`/api/notifications/history${schoolId ? `?schoolId=${schoolId}` : ""}`);
 
             if (!res.ok) {
                 const errorData = await res.json().catch(() => ({}));

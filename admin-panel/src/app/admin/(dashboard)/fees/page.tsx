@@ -64,7 +64,8 @@ export default function FeesAdminPage() {
     const fetchData = async () => {
         setIsLoading(true);
         try {
-            const res = await fetch("/api/fees");
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            const res = await fetch(`/api/fees${schoolId ? `?schoolId=${schoolId}` : ""}`);
             if (res.ok) {
                 const data = await res.json();
                 if (data && data.categories) {
@@ -85,9 +86,13 @@ export default function FeesAdminPage() {
     const handleSave = async () => {
         setIsSaving(true);
         try {
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
             const res = await fetch("/api/fees", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(schoolId && { "x-school-id": schoolId })
+                },
                 body: JSON.stringify({
                     categories,
                     transportZones,

@@ -29,7 +29,7 @@ export default function CloudinaryUpload({
                 </div>
                 <div>
                     <p className="text-sm font-bold text-amber-800">Cloudinary Not Configured</p>
-                    <p className="text-xs text-amber-600 mt-1">Please set <code>NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME</code> in <code>.env.local</code></p>
+                    <p className="text-xs text-amber-600 mt-1">Please set <code>NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME</code> in <code>.env</code></p>
                 </div>
             </div>
         );
@@ -59,7 +59,8 @@ export default function CloudinaryUpload({
                 ) : (
                     <CldUploadWidget
                         onSuccess={onUpload}
-                        uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "mp_school_preset"}
+                        signatureEndpoint="/api/cloudinary/sign"
+                        uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
                         options={{
                             maxFiles: 1,
                             folder: folder,

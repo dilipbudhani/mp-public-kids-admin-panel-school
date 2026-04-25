@@ -28,18 +28,11 @@ interface SuccessStoryData {
 
 interface SuccessStoriesClientProps {
     initialStories: SuccessStoryData[];
+    stats?: any[];
     pageData?: any;
 }
 
 const CATEGORIES = ["All", "IIT/NIT", "Medical", "Civil Services", "Sports", "Arts", "Entrepreneurship", "Defence"];
-
-const STATS = [
-    { label: "IIT/NIT Selections", value: 50, suffix: "+" },
-    { label: "Medical Seats", value: 30, suffix: "+" },
-    { label: "IAS/IPS Officers", value: 8, suffix: "" },
-    { label: "National Athletes", value: 15, suffix: "" },
-    { label: "Entrepreneurs", value: 200, suffix: "+" }
-];
 
 function StoryCard({ story }: { story: SuccessStoryData }) {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -114,7 +107,7 @@ function StoryCard({ story }: { story: SuccessStoryData }) {
     );
 }
 
-export default function SuccessStoriesClient({ initialStories, pageData }: SuccessStoriesClientProps) {
+export default function SuccessStoriesClient({ initialStories, stats, pageData }: SuccessStoriesClientProps) {
     const [activeTab, setActiveTab] = useState("All");
 
     const filteredStories = initialStories.filter(s => activeTab === "All" || s.category === activeTab);
@@ -215,7 +208,7 @@ export default function SuccessStoriesClient({ initialStories, pageData }: Succe
             <section className="py-20 bg-primary text-white overflow-hidden relative">
                 <div className="container relative z-10">
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-12 text-center">
-                        {STATS.map((stat, i) => (
+                        {(stats && stats.length > 0 ? stats : []).map((stat: any, i: number) => (
                             <motion.div
                                 key={stat.label}
                                 initial={{ opacity: 0, y: 20 }}

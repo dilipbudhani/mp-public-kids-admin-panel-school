@@ -9,7 +9,7 @@ import { Calendar, Tag, ArrowLeft, Share2, Facebook, Twitter, Linkedin } from 'l
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     await dbConnect();
-    const news = await News.findOne({ slug, schoolIds: 'mp-kids-school' }).lean();
+    const news = await News.findOne({ slug, schoolIds: process.env.SCHOOL_ID }).lean();
     if (!news) return { title: 'News Not Found' };
 
     return {
@@ -23,8 +23,8 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
     await dbConnect();
 
     const [news, recentNews] = await Promise.all([
-        News.findOne({ slug, schoolIds: 'mp-kids-school' }).lean(),
-        News.find({ slug: { $ne: slug }, isPublished: true, schoolIds: 'mp-kids-school' })
+        News.findOne({ slug, schoolIds: process.env.SCHOOL_ID }).lean(),
+        News.find({ slug: { $ne: slug }, isPublished: true, schoolIds: process.env.SCHOOL_ID })
             .sort({ date: -1 })
             .limit(3)
             .lean()

@@ -17,13 +17,13 @@ export default async function AboutLeadershipPage() {
     // Fetch leadership team from Faculty model
     // We assume leadership roles include Principal, Director, Chairman, etc.
     const leadershipTeam = await Faculty.find({
-        schoolIds: 'mp-kids-school',
+        schoolIds: process.env.SCHOOL_ID,
         designation: { $in: [/Principal/i, /Director/i, /Chairman/i, /Founder/i, /Administrator/i] },
         isActive: true
     }).sort({ order: 1 }).lean();
 
     // Fetch page details from StaticPage if customized
-    const pageData = await StaticPage.findOne({ schoolIds: 'mp-kids-school', slug: "about-leadership" }).lean();
+    const pageData = await StaticPage.findOne({ schoolIds: process.env.SCHOOL_ID, slug: "about-leadership" }).lean();
 
     const content = {
         title: pageData?.title || "School Leadership",
@@ -32,12 +32,22 @@ export default async function AboutLeadershipPage() {
         image: pageData?.bannerImage
     };
 
-    const mappedLeaders = leadershipTeam.length > 0 ? leadershipTeam.map((leader: any) => ({
-        name: leader.name,
-        role: leader.designation,
-        bio: leader.bio,
-        image: leader.imageUrl
-    })) : undefined;
+    // Map sections to leaders format if they exist
+    const sectionsLeaders = pageData?.sections?.map((s: any) => ({
+        name: s.title,
+        role: s.subheading,
+        bio: s.content,
+        image: s.image
+    }));
+
+    const mappedLeaders = (sectionsLeaders && sectionsLeaders.length > 0)
+        ? sectionsLeaders
+        : (leadershipTeam.length > 0 ? leadershipTeam.map((leader: any) => ({
+            name: leader.name,
+            role: leader.designation,
+            bio: leader.bio,
+            image: leader.imageUrl
+        })) : undefined);
 
     return (
         <AboutPageLayout

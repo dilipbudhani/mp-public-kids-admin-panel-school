@@ -30,7 +30,8 @@ export default function FacultyAdminPage() {
     const fetchFaculty = async () => {
         setIsLoading(true);
         try {
-            const res = await fetch("/api/faculty");
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            const res = await fetch(`/api/faculty${schoolId ? `?schoolId=${schoolId}` : ""}`);
             if (res.ok) {
                 const data = await res.json();
                 setFaculty(data);
@@ -57,9 +58,13 @@ export default function FacultyAdminPage() {
             const method = isEditing === "new" ? "POST" : "PUT";
             const url = isEditing === "new" ? "/api/faculty" : `/api/faculty/${isEditing}`;
 
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
             const res = await fetch(url, {
                 method,
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(schoolId && { "x-school-id": schoolId })
+                },
                 body: JSON.stringify(editForm),
             });
 
@@ -79,8 +84,12 @@ export default function FacultyAdminPage() {
         if (!confirm("Are you sure you want to delete this faculty record?")) return;
 
         try {
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
             const res = await fetch(`/api/faculty/${id}`, {
                 method: "DELETE",
+                headers: {
+                    ...(schoolId && { "x-school-id": schoolId })
+                }
             });
 
             if (res.ok) {

@@ -79,9 +79,11 @@ export default function ResultsAdminPage() {
     const fetchData = async () => {
         setIsLoading(true);
         try {
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            const query = schoolId ? `?schoolId=${schoolId}` : "";
             const [achRes, statRes] = await Promise.all([
-                fetch("/api/achievements"),
-                fetch("/api/stats")
+                fetch(`/api/achievements${query}`),
+                fetch(`/api/stats${query}`)
             ]);
 
             if (achRes.ok) setAchievements(await achRes.json());
@@ -159,9 +161,13 @@ export default function ResultsAdminPage() {
             const url = editingId ? `/api/${endpoint}/${editingId}` : `/api/${endpoint}`;
             const body = activeTab === 'achievements' ? achievementForm : statForm;
 
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
             const res = await fetch(url, {
                 method,
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(schoolId && { "x-school-id": schoolId })
+                },
                 body: JSON.stringify(body),
             });
 
@@ -182,8 +188,14 @@ export default function ResultsAdminPage() {
     const handleDelete = async (id: string) => {
         if (!confirm("Are you sure?")) return;
         try {
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
             const endpoint = activeTab === 'achievements' ? 'achievements' : 'stats';
-            const res = await fetch(`/api/${endpoint}/${id}`, { method: "DELETE" });
+            const res = await fetch(`/api/${endpoint}/${id}`, {
+                method: "DELETE",
+                headers: {
+                    ...(schoolId && { "x-school-id": schoolId })
+                }
+            });
             if (res.ok) {
                 toast.success("Deleted successfully");
                 fetchData();

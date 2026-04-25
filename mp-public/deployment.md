@@ -63,9 +63,12 @@ On **Vercel**, the deployment should happen automatically after you push your ch
 
 ## Accessing the Admin Panel
 
-Once deployed, the admin panel will be available at:
-`https://your-site.com/admin`
+The Admin Panel is a separate project located in the `admin-panel` directory. It manages multiple school websites from a central interface.
 
-Initial admin credentials (created during seed):
-- **Email**: `admin@mppublicschool.org`
+Once deployed (or running locally), the admin panel is available at:
+`http://localhost:3000/admin` (Local)
+`https://admin.your-domain.com/admin` (Production)
+
+Current admin credentials (based on `reset-admin.js`):
+- **Email**: `admin@example.com`
 - **Password**: `admin123`

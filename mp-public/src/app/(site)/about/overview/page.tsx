@@ -1,6 +1,6 @@
 import React from "react";
 import { AboutPageLayout } from "@/components/about/AboutPageLayout";
-import { Info, Award, Shield, Zap } from "lucide-react";
+import { Award, Shield, Zap } from "lucide-react";
 import { dbConnect } from "@/lib/mongodb";
 import StaticPage from "@/models/StaticPage";
 import SectionRenderer from "@/components/site/SectionRenderer";
@@ -12,7 +12,10 @@ export const metadata = {
 
 export default async function AboutOverviewPage() {
     await dbConnect();
-    const pageData = await StaticPage.findOne({ slug: "about-overview", schoolIds: process.env.SCHOOL_ID }).lean();
+    const pageData = await StaticPage.findOne({
+        slug: "about-overview",
+        schoolIds: process.env.SCHOOL_ID || "mp-public"
+    }).lean();
 
     const banner = {
         title: pageData?.title || "Overview of Excellence",
@@ -25,14 +28,14 @@ export default async function AboutOverviewPage() {
     return (
         <AboutPageLayout
             title={banner.title}
-            subtitle="Who We Are"
+            subtitle={pageData?.subtitle || "Who We Are"}
             description={banner.description}
             icon="info"
             image={banner.image}
         >
             <div className="space-y-12">
                 {hasDynamicSections ? (
-                    <div className="bg-white">
+                    <div className="divide-y divide-slate-100">
                         {pageData.sections.map((section: any, index: number) => (
                             <SectionRenderer key={index} section={section} index={index} />
                         ))}

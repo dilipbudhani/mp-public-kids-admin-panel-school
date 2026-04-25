@@ -14,7 +14,7 @@ import SectionRenderer from "@/components/site/SectionRenderer";
 
 export default async function AdmissionsPage() {
     await dbConnect();
-    const pageData = await StaticPage.findOne({ slug: "admissions" }).lean();
+    const pageData = await StaticPage.findOne({ slug: "admissions", schoolIds: process.env.SCHOOL_ID }).lean();
 
     const banner = {
         title: pageData?.title || "Join the Excellence Family",

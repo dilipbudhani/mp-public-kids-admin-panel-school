@@ -58,7 +58,8 @@ export default function TestimonialsAdminPage() {
     const fetchTestimonials = async () => {
         setIsLoading(true);
         try {
-            const res = await fetch("/api/testimonials");
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            const res = await fetch(`/api/testimonials${schoolId ? `?schoolId=${schoolId}` : ""}`);
             if (res.ok) {
                 const data = await res.json();
                 setItems(data);
@@ -104,9 +105,13 @@ export default function TestimonialsAdminPage() {
             const method = editingId ? "PUT" : "POST";
             const url = editingId ? `/api/testimonials/${editingId}` : "/api/testimonials";
 
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
             const res = await fetch(url, {
                 method,
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(schoolId && { "x-school-id": schoolId })
+                },
                 body: JSON.stringify(formData),
             });
 
@@ -128,8 +133,12 @@ export default function TestimonialsAdminPage() {
         if (!confirm("Are you sure you want to delete this testimonial?")) return;
 
         try {
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
             const res = await fetch(`/api/testimonials/${id}`, {
                 method: "DELETE",
+                headers: {
+                    ...(schoolId && { "x-school-id": schoolId })
+                }
             });
 
             if (res.ok) {
@@ -145,9 +154,13 @@ export default function TestimonialsAdminPage() {
 
     const toggleStatus = async (item: Testimonial) => {
         try {
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
             const res = await fetch(`/api/testimonials/${item._id}`, {
                 method: "PUT",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(schoolId && { "x-school-id": schoolId })
+                },
                 body: JSON.stringify({ ...item, isActive: !item.isActive }),
             });
 

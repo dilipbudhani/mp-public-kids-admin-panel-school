@@ -13,10 +13,10 @@ export const metadata: Metadata = {
 
 export default async function AcademicCalendarPage() {
     await dbConnect();
-    const pageData = await StaticPage.findOne({ slug: "academic-calendar", schoolIds: 'mp-kids-school' }).lean();
+    const pageData = await StaticPage.findOne({ slug: "academic-calendar", schoolIds: process.env.SCHOOL_ID }).lean();
 
     // Fetch events and sort by date
-    const events = await SchoolEvent.find({ schoolIds: 'mp-kids-school' }).sort({ date: 1 }).lean();
+    const events = await SchoolEvent.find({ schoolIds: process.env.SCHOOL_ID }).sort({ date: 1 }).lean();
 
     // Serialize MongoDB objects for Client Component
     const serializedEvents = JSON.parse(JSON.stringify(events));
@@ -31,6 +31,7 @@ export default async function AcademicCalendarPage() {
                     { label: "Academics", href: "/academics" },
                     { label: "Academic Calendar", href: "/academic-calendar", active: true }
                 ]}
+                dark={true}
             />
 
             <CalendarView initialEvents={serializedEvents} />

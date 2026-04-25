@@ -14,11 +14,11 @@ export const metadata: Metadata = {
 export default async function NoticesPage() {
     await dbConnect();
 
-    const pageData = await StaticPage.findOne({ slug: "notices-page", schoolIds: 'mp-kids-school' }).lean() as IStaticPage | null;
+    const pageData = await StaticPage.findOne({ slug: "notices", schoolIds: process.env.SCHOOL_ID }).lean() as IStaticPage | null;
     const title = pageData?.title || "School Notice Board";
     const description = pageData?.description || "Access all official announcements, circulars, and events. Keep track of academic schedules and school happenings in real-time.";
 
-    const noticesData = await Circular.find({ isActive: true, schoolIds: 'mp-kids-school' })
+    const noticesData = await Circular.find({ isActive: true, schoolIds: process.env.SCHOOL_ID })
         .sort({ date: -1 })
         .lean();
 

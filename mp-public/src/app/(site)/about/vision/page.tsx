@@ -1,7 +1,6 @@
 import React from "react";
 import { AboutPageLayout } from "@/components/about/AboutPageLayout";
 import VisionMission from "@/components/about/VisionMission";
-import { Target } from "lucide-react";
 import { dbConnect } from "@/lib/mongodb";
 import StaticPage from "@/models/StaticPage";
 
@@ -14,7 +13,10 @@ export default async function AboutVisionPage() {
     await dbConnect();
 
     // Fetch page content from MongoDB
-    const pageData = await StaticPage.findOne({ slug: "about-vision" }).lean();
+    const pageData = await StaticPage.findOne({
+        slug: "about-vision",
+        schoolIds: process.env.SCHOOL_ID || "mp-public"
+    }).lean();
 
     // Fallback/Default data
     const content = pageData || {

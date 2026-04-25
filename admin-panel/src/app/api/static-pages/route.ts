@@ -6,7 +6,7 @@ import { getSchoolFilter, getSchoolId } from "@/lib/schoolFilter";
 export async function GET(req: NextRequest) {
     try {
         await dbConnect();
-        const filter = await getSchoolFilter(req);
+        const filter = getSchoolFilter(req, 'schoolIds');
         const pages = await StaticPage.find(filter).sort({ title: 1 });
         return NextResponse.json(pages);
     } catch (error) {

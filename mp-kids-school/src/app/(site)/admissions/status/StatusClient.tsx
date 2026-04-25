@@ -67,7 +67,7 @@ export default function StatusClient({ pageData }: StatusClientProps) {
 
                     <div className="mt-16 text-center text-slate-400 text-sm max-w-lg mx-auto px-4">
                         <p className="mb-2 italic">Didn't find what you were looking for?</p>
-                        <p className="text-slate-500">For further assistance, feel free to contact our support team at <span className="text-primary font-medium">+91 98765 43210</span></p>
+                        <p className="text-slate-500">For further assistance, feel free to contact our support team at <span className="text-primary font-medium">+91 90919 29384</span></p>
                     </div>
                 </div>
             </section>

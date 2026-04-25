@@ -138,7 +138,7 @@ export function Navbar({ settings }: { settings?: any }) {
                     <div className="container flex justify-between items-center text-xs text-white/80 tracking-wider font-medium">
                         <div className="flex items-center gap-6">
                             <span className="flex items-center gap-2">
-                                <Phone className="w-3.5 h-3.5 text-gold" /> {settings?.contactPhone || "+91 98765 43210"}
+                                <Phone className="w-3.5 h-3.5 text-gold" /> {settings?.contactPhone || "+91 90919 29384"}
                             </span>
                             <span className="flex items-center gap-2">
                                 <Mail className="w-3.5 h-3.5 text-gold" /> {settings?.contactEmail || "info@mpkidsschool.edu.in"}

@@ -1,7 +1,6 @@
 import React from "react";
 import { AboutPageLayout } from "@/components/about/AboutPageLayout";
 import Leadership from "@/components/about/Leadership";
-import { Users } from "lucide-react";
 import { dbConnect } from "@/lib/mongodb";
 import Faculty from "@/models/Faculty";
 import StaticPage from "@/models/StaticPage";
@@ -14,14 +13,15 @@ export const metadata = {
 export default async function AboutLeadershipPage() {
     await dbConnect();
 
+    const schoolId = process.env.SCHOOL_ID || "mp-public";
+
     // Fetch leadership team from Faculty model
-    // We assume leadership roles include Principal, Director, Chairman, etc.
     const [leadershipTeam, pageData] = await Promise.all([
         Faculty.find({
-            schoolIds: process.env.SCHOOL_ID,
+            schoolIds: schoolId,
             designation: { $in: [/Director/i, /Chairman/i, /Secretary/i, /Principal/i] }
         }).sort({ order: 1 }).lean(),
-        StaticPage.findOne({ slug: "leadership-team", schoolIds: process.env.SCHOOL_ID }).lean()
+        StaticPage.findOne({ slug: "about-leadership", schoolIds: schoolId }).lean()
     ]);
 
     const content = {
@@ -31,12 +31,22 @@ export default async function AboutLeadershipPage() {
         image: pageData?.bannerImage
     };
 
-    const mappedLeaders = leadershipTeam.length > 0 ? leadershipTeam.map((leader: any) => ({
-        name: leader.name,
-        role: leader.designation,
-        bio: leader.bio,
-        image: leader.imageUrl
-    })) : undefined;
+    // Map sections to leaders format if they exist
+    const sectionsLeaders = pageData?.sections?.map((s: any) => ({
+        name: s.title,
+        role: s.subheading,
+        bio: s.content,
+        image: s.image
+    }));
+
+    const mappedLeaders = (sectionsLeaders && sectionsLeaders.length > 0)
+        ? sectionsLeaders
+        : (leadershipTeam.length > 0 ? leadershipTeam.map((leader: any) => ({
+            name: leader.name,
+            role: leader.designation,
+            bio: leader.bio,
+            image: leader.imageUrl
+        })) : undefined);
 
     return (
         <AboutPageLayout

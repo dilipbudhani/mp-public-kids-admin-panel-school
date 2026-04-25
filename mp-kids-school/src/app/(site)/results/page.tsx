@@ -10,7 +10,7 @@ export const metadata = {
 
 export default async function ResultsPage() {
     await dbConnect();
-    const pageData = await StaticPage.findOne({ schoolIds: 'mp-kids-school', slug: "results" }).lean();
+    const pageData = await StaticPage.findOne({ schoolIds: process.env.SCHOOL_ID, slug: "results" }).lean();
 
     // Serialize MongoDB objects for Client Component
     const serializedPageData = pageData ? JSON.parse(JSON.stringify(pageData)) : null;

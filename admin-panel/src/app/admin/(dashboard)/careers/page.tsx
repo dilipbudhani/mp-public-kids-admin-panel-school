@@ -72,7 +72,8 @@ export default function CareersAdminPage() {
     const fetchJobs = async () => {
         setIsLoading(true);
         try {
-            const res = await fetch("/api/jobs");
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            const res = await fetch(`/api/jobs${schoolId ? `?schoolId=${schoolId}` : ""}`);
             if (res.ok) {
                 const data = await res.json();
                 setItems(data);
@@ -124,9 +125,13 @@ export default function CareersAdminPage() {
             const method = editingId ? "PUT" : "POST";
             const url = editingId ? `/api/jobs/${editingId}` : "/api/jobs";
 
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
             const res = await fetch(url, {
                 method,
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(schoolId && { "x-school-id": schoolId })
+                },
                 body: JSON.stringify(formData),
             });
 
@@ -148,8 +153,12 @@ export default function CareersAdminPage() {
         if (!confirm("Are you sure you want to delete this job opening?")) return;
 
         try {
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
             const res = await fetch(`/api/jobs/${id}`, {
                 method: "DELETE",
+                headers: {
+                    ...(schoolId && { "x-school-id": schoolId })
+                }
             });
 
             if (res.ok) {
@@ -165,9 +174,13 @@ export default function CareersAdminPage() {
 
     const toggleStatus = async (item: Job) => {
         try {
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
             const res = await fetch(`/api/jobs/${item._id}`, {
                 method: "PUT",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(schoolId && { "x-school-id": schoolId })
+                },
                 body: JSON.stringify({ ...item, isActive: !item.isActive }),
             });
 
@@ -506,7 +519,8 @@ function ApplicationsList() {
     const fetchApplications = async () => {
         setIsLoading(true);
         try {
-            const res = await fetch("/api/leads?enquiryType=Career");
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            const res = await fetch(`/api/leads?enquiryType=Career${schoolId ? `&schoolId=${schoolId}` : ""}`);
             if (res.ok) {
                 const data = await res.json();
                 setApps(data);
@@ -521,7 +535,13 @@ function ApplicationsList() {
     const handleDelete = async (id: string) => {
         if (!confirm("Remove this application?")) return;
         try {
-            await fetch(`/api/leads/${id}`, { method: "DELETE" });
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            await fetch(`/api/leads/${id}`, {
+                method: "DELETE",
+                headers: {
+                    ...(schoolId && { "x-school-id": schoolId })
+                }
+            });
             fetchApplications();
         } catch (error) {
             toast.error("Cleanup failed");

@@ -3,7 +3,10 @@ import { Metadata } from 'next';
 import AlumniClient from './AlumniClient';
 import { dbConnect } from '@/lib/mongodb';
 import Alumni from '@/models/Alumni';
+import AlumniEvent from '@/models/AlumniEvent';
+import AlumniTestimonial from '@/models/AlumniTestimonial';
 import StaticPage from '@/models/StaticPage';
+import Stat from '@/models/Stat';
 import News from '@/models/News';
 
 export const metadata: Metadata = {
@@ -19,7 +22,28 @@ export const metadata: Metadata = {
 async function getAlumni() {
     await dbConnect();
     const alumni = await Alumni.find({ isActive: true, schoolIds: process.env.SCHOOL_ID }).sort({ batch: -1, name: 1 }).lean();
-    return JSON.parse(JSON.stringify(alumni));
+    return JSON.parse(JSON.stringify(alumni)).map((a: any) => ({
+        ...a,
+        org: a.organization
+    }));
+}
+
+async function getStats() {
+    await dbConnect();
+    const stats = await Stat.find({ isActive: true, schoolIds: process.env.SCHOOL_ID }).sort({ displayOrder: 1 }).limit(5).lean();
+    return JSON.parse(JSON.stringify(stats));
+}
+
+async function getTestimonials() {
+    await dbConnect();
+    const testimonials = await AlumniTestimonial.find({ isActive: true, schoolIds: process.env.SCHOOL_ID }).sort({ displayOrder: 1 }).lean();
+    return JSON.parse(JSON.stringify(testimonials));
+}
+
+async function getEvents() {
+    await dbConnect();
+    const events = await AlumniEvent.find({ isActive: true, schoolIds: process.env.SCHOOL_ID }).sort({ date: 1 }).lean();
+    return JSON.parse(JSON.stringify(events));
 }
 
 async function getPageData() {
@@ -34,7 +58,21 @@ async function getPageData() {
 }
 
 export default async function AlumniPage() {
-    const alumniData = await getAlumni();
-    const pageData = await getPageData();
-    return <AlumniClient initialAlumni={alumniData} pageData={pageData} />;
+    const [alumniData, stats, testimonials, events, pageData] = await Promise.all([
+        getAlumni(),
+        getStats(),
+        getTestimonials(),
+        getEvents(),
+        getPageData()
+    ]);
+
+    return (
+        <AlumniClient
+            initialAlumni={alumniData}
+            stats={stats}
+            testimonials={testimonials}
+            events={events}
+            pageData={pageData}
+        />
+    );
 }

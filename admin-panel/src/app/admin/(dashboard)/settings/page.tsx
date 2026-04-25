@@ -13,6 +13,15 @@ interface SiteSettings {
     address: string;
     facebookUrl: string | null;
     instagramUrl: string | null;
+    instagramAccessToken?: string;
+    instagramUserId?: string;
+    instagramEnabled?: boolean;
+    facebookAccessToken?: string;
+    facebookPageId?: string;
+    facebookEnabled?: boolean;
+    youtubeApiKey?: string;
+    youtubeChannelId?: string;
+    youtubeEnabled?: boolean;
     twitterUrl: string | null;
     youtubeUrl: string | null;
     admissionOpen: boolean;
@@ -22,12 +31,24 @@ interface SiteSettings {
     ogImage?: string;
     whatsappNumber?: string;
     mapEmbedUrl?: string;
+    affiliationNo?: string;
+    trustItem1Text?: string;
+    trustItem1Sub?: string;
+    trustItem2Text?: string;
+    trustItem2Sub?: string;
+    trustItem3Text?: string;
+    trustItem3Sub?: string;
+    trustItem4Text?: string;
+    trustItem4Sub?: string;
 }
 
 export default function SettingsAdminPage() {
     const [settings, setSettings] = useState<SiteSettings | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
+    const [isSyncingInstagram, setIsSyncingInstagram] = useState(false);
+    const [isSyncingYoutube, setIsSyncingYoutube] = useState(false);
+    const [isSyncingFacebook, setIsSyncingFacebook] = useState(false);
     const [isImporting, setIsImporting] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -38,15 +59,58 @@ export default function SettingsAdminPage() {
     const fetchSettings = async () => {
         setIsLoading(true);
         try {
-            const res = await fetch("/api/settings");
-            if (res.ok) {
-                const data = await res.json();
-                setSettings(data);
+            let schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+
+            // Default to mp-kids-school if not set
+            if (!schoolId) {
+                schoolId = "mp-kids-school";
+                localStorage.setItem("selectedSchool", schoolId);
             }
-        } catch {
-            toast.error("Failed to fetch settings");
+
+            const res = await fetch(`/api/settings${schoolId ? `?schoolId=${schoolId}` : ""}`);
+            const data = await res.json();
+
+            if (res.ok) {
+                setSettings(data);
+            } else {
+                toast.error(data.message || "Failed to fetch settings");
+                console.error("Settings error:", data);
+            }
+        } catch (err: any) {
+            toast.error("An unexpected error occurred");
+            console.error("Fetch settings fatal error:", err);
         } finally {
             setIsLoading(false);
+        }
+    };
+
+    const handleSync = async (platform: 'INSTAGRAM' | 'YOUTUBE' | 'FACEBOOK') => {
+        if (platform === 'INSTAGRAM') setIsSyncingInstagram(true);
+        if (platform === 'YOUTUBE') setIsSyncingYoutube(true);
+        if (platform === 'FACEBOOK') setIsSyncingFacebook(true);
+
+        try {
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            const res = await fetch(`/api/social/sync?platform=${platform}`, {
+                method: "POST",
+                headers: {
+                    ...(schoolId && { "x-school-id": schoolId })
+                }
+            });
+
+            if (res.ok) {
+                toast.success(`${platform} feed synced successfully`);
+                fetchSettings(); // Refresh to show possible updated state
+            } else {
+                const err = await res.json();
+                toast.error(err.message || `Failed to sync ${platform}`);
+            }
+        } catch {
+            toast.error(`An error occurred during ${platform} sync`);
+        } finally {
+            if (platform === 'INSTAGRAM') setIsSyncingInstagram(false);
+            if (platform === 'YOUTUBE') setIsSyncingYoutube(false);
+            if (platform === 'FACEBOOK') setIsSyncingFacebook(false);
         }
     };
 
@@ -56,9 +120,13 @@ export default function SettingsAdminPage() {
 
         setIsSaving(true);
         try {
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
             const res = await fetch("/api/settings", {
                 method: "PUT",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(schoolId && { "x-school-id": schoolId })
+                },
                 body: JSON.stringify(settings),
             });
 
@@ -253,7 +321,7 @@ export default function SettingsAdminPage() {
                             </div>
                         </div>
                         <div className="space-y-1">
-                            <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Instagram</label>
+                            <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Instagram Page URL</label>
                             <div className="relative">
                                 <Instagram className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                                 <input
@@ -261,7 +329,164 @@ export default function SettingsAdminPage() {
                                     value={settings.instagramUrl || ""}
                                     onChange={(e) => setSettings({ ...settings, instagramUrl: e.target.value })}
                                     className="w-full bg-gray-50 border-none rounded-xl pl-11 pr-4 py-3 focus:ring-2 focus:ring-primary transition-all text-sm"
+                                    placeholder="https://www.instagram.com/yourpage"
                                 />
+                            </div>
+                        </div>
+
+                        {/* Instagram Feed Integration */}
+                        <div className="md:col-span-2 mt-4 p-6 bg-pink-50 rounded-2xl border border-pink-100">
+                            <h3 className="text-sm font-bold text-pink-600 uppercase tracking-wider mb-4 flex items-center gap-2">
+                                <Instagram className="w-4 h-4" />
+                                Instagram Feed Integration
+                            </h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                <div className="space-y-1">
+                                    <label className="text-xs font-bold text-gray-500">Instagram Access Token</label>
+                                    <input
+                                        type="password"
+                                        value={settings.instagramAccessToken || ""}
+                                        onChange={(e) => setSettings({ ...settings, instagramAccessToken: e.target.value })}
+                                        className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-pink-500 transition-all text-sm"
+                                        placeholder="Enter Long-Lived Access Token"
+                                    />
+                                </div>
+                                <div className="space-y-1">
+                                    <label className="text-xs font-bold text-gray-500">Instagram User ID</label>
+                                    <input
+                                        type="text"
+                                        value={settings.instagramUserId || ""}
+                                        onChange={(e) => setSettings({ ...settings, instagramUserId: e.target.value })}
+                                        className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-pink-500 transition-all text-sm"
+                                        placeholder="Enter Instagram User ID"
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex items-center justify-between gap-4">
+                                <div className="flex items-center gap-3">
+                                    <label className="relative inline-flex items-center cursor-pointer">
+                                        <input
+                                            type="checkbox"
+                                            checked={settings.instagramEnabled || false}
+                                            onChange={(e) => setSettings({ ...settings, instagramEnabled: e.target.checked })}
+                                            className="sr-only peer"
+                                        />
+                                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pink-500/20 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:inset-s-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pink-500"></div>
+                                        <span className="ms-3 text-sm font-medium text-gray-700">Enable Instagram Feed</span>
+                                    </label>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => handleSync('INSTAGRAM')}
+                                    disabled={isSyncingInstagram || !settings.instagramAccessToken}
+                                    className="flex items-center gap-2 bg-white text-pink-600 border border-pink-200 px-6 py-2 rounded-xl hover:bg-pink-600 hover:text-white transition-all text-sm font-bold shadow-sm disabled:opacity-50"
+                                >
+                                    {isSyncingInstagram ? "Syncing..." : "Sync Instagram Now"}
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Facebook Feed Integration */}
+                        <div className="md:col-span-2 mt-4 p-6 bg-blue-50 rounded-2xl border border-blue-100">
+                            <h3 className="text-sm font-bold text-blue-600 uppercase tracking-wider mb-4 flex items-center gap-2">
+                                <Facebook className="w-4 h-4" />
+                                Facebook Feed Integration
+                            </h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                <div className="space-y-1">
+                                    <label className="text-xs font-bold text-gray-500">Page Access Token</label>
+                                    <input
+                                        type="password"
+                                        value={settings.facebookAccessToken || ""}
+                                        onChange={(e) => setSettings({ ...settings, facebookAccessToken: e.target.value })}
+                                        className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                                        placeholder="Enter Page Access Token"
+                                    />
+                                </div>
+                                <div className="space-y-1">
+                                    <label className="text-xs font-bold text-gray-500">Page ID</label>
+                                    <input
+                                        type="text"
+                                        value={settings.facebookPageId || ""}
+                                        onChange={(e) => setSettings({ ...settings, facebookPageId: e.target.value })}
+                                        className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                                        placeholder="Enter Facebook Page ID"
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex items-center justify-between gap-4">
+                                <div className="flex items-center gap-3">
+                                    <label className="relative inline-flex items-center cursor-pointer">
+                                        <input
+                                            type="checkbox"
+                                            checked={settings.facebookEnabled || false}
+                                            onChange={(e) => setSettings({ ...settings, facebookEnabled: e.target.checked })}
+                                            className="sr-only peer"
+                                        />
+                                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-500/20 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:inset-s-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                        <span className="ms-3 text-sm font-medium text-gray-700">Enable Facebook Feed</span>
+                                    </label>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => handleSync('FACEBOOK')}
+                                    disabled={isSyncingFacebook || !settings.facebookAccessToken}
+                                    className="flex items-center gap-2 bg-white text-blue-600 border border-blue-200 px-6 py-2 rounded-xl hover:bg-blue-600 hover:text-white transition-all text-sm font-bold shadow-sm disabled:opacity-50"
+                                >
+                                    {isSyncingFacebook ? "Syncing..." : "Sync Facebook Now"}
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* YouTube Feed Integration */}
+                        <div className="md:col-span-2 mt-4 p-6 bg-red-50 rounded-2xl border border-red-100">
+                            <h3 className="text-sm font-bold text-red-600 uppercase tracking-wider mb-4 flex items-center gap-2">
+                                <YoutubeIcon className="w-4 h-4" />
+                                YouTube Feed Integration
+                            </h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                <div className="space-y-1">
+                                    <label className="text-xs font-bold text-gray-500">YouTube API Key</label>
+                                    <input
+                                        type="password"
+                                        value={settings.youtubeApiKey || ""}
+                                        onChange={(e) => setSettings({ ...settings, youtubeApiKey: e.target.value })}
+                                        className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-red-500 transition-all text-sm"
+                                        placeholder="Enter Google API Key"
+                                    />
+                                </div>
+                                <div className="space-y-1">
+                                    <label className="text-xs font-bold text-gray-500">Channel ID</label>
+                                    <input
+                                        type="text"
+                                        value={settings.youtubeChannelId || ""}
+                                        onChange={(e) => setSettings({ ...settings, youtubeChannelId: e.target.value })}
+                                        className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-red-500 transition-all text-sm"
+                                        placeholder="Enter YouTube Channel ID"
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex items-center justify-between gap-4">
+                                <div className="flex items-center gap-3">
+                                    <label className="relative inline-flex items-center cursor-pointer">
+                                        <input
+                                            type="checkbox"
+                                            checked={settings.youtubeEnabled || false}
+                                            onChange={(e) => setSettings({ ...settings, youtubeEnabled: e.target.checked })}
+                                            className="sr-only peer"
+                                        />
+                                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-500/20 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:inset-s-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
+                                        <span className="ms-3 text-sm font-medium text-gray-700">Enable YouTube Feed</span>
+                                    </label>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => handleSync('YOUTUBE')}
+                                    disabled={isSyncingYoutube || !settings.youtubeApiKey}
+                                    className="flex items-center gap-2 bg-white text-red-600 border border-red-200 px-6 py-2 rounded-xl hover:bg-red-600 hover:text-white transition-all text-sm font-bold shadow-sm disabled:opacity-50"
+                                >
+                                    {isSyncingYoutube ? "Syncing..." : "Sync YouTube Now"}
+                                </button>
                             </div>
                         </div>
                         <div className="space-y-1">
@@ -350,6 +575,110 @@ export default function SettingsAdminPage() {
                                 className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary transition-all text-sm"
                                 placeholder="Paste the iframe src URL from Google Maps"
                             />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Hero & Trust Indicators */}
+                <div className="bg-white rounded-3xl border border-gray-100 p-8 shadow-sm">
+                    <h2 className="text-lg font-bold mb-6 flex items-center gap-2">
+                        <Globe className="w-5 h-5 text-primary" />
+                        Hero & Trust Indicators
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="space-y-1 md:col-span-2">
+                            <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">CBSE Affiliation Number</label>
+                            <input
+                                type="text"
+                                value={settings.affiliationNo || ""}
+                                onChange={(e) => setSettings({ ...settings, affiliationNo: e.target.value })}
+                                className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary transition-all text-sm"
+                                placeholder="e.g. 1234567"
+                            />
+                        </div>
+
+                        {/* Trust Item 1 */}
+                        <div className="space-y-4 p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                            <label className="text-xs font-black text-primary uppercase tracking-widest">Indicator 1 (e.g. CBSE)</label>
+                            <div className="space-y-3">
+                                <input
+                                    type="text"
+                                    value={settings.trustItem1Text || ""}
+                                    onChange={(e) => setSettings({ ...settings, trustItem1Text: e.target.value })}
+                                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-primary transition-all"
+                                    placeholder="Label"
+                                />
+                                <input
+                                    type="text"
+                                    value={settings.trustItem1Sub || ""}
+                                    onChange={(e) => setSettings({ ...settings, trustItem1Sub: e.target.value })}
+                                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-primary transition-all"
+                                    placeholder="Subtext"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Trust Item 2 */}
+                        <div className="space-y-4 p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                            <label className="text-xs font-black text-primary uppercase tracking-widest">Indicator 2 (e.g. Faculty)</label>
+                            <div className="space-y-3">
+                                <input
+                                    type="text"
+                                    value={settings.trustItem2Text || ""}
+                                    onChange={(e) => setSettings({ ...settings, trustItem2Text: e.target.value })}
+                                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-primary transition-all"
+                                    placeholder="Label"
+                                />
+                                <input
+                                    type="text"
+                                    value={settings.trustItem2Sub || ""}
+                                    onChange={(e) => setSettings({ ...settings, trustItem2Sub: e.target.value })}
+                                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-primary transition-all"
+                                    placeholder="Subtext"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Trust Item 3 */}
+                        <div className="space-y-4 p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                            <label className="text-xs font-black text-primary uppercase tracking-widest">Indicator 3 (e.g. Excellence)</label>
+                            <div className="space-y-3">
+                                <input
+                                    type="text"
+                                    value={settings.trustItem3Text || ""}
+                                    onChange={(e) => setSettings({ ...settings, trustItem3Text: e.target.value })}
+                                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-primary transition-all"
+                                    placeholder="Label"
+                                />
+                                <input
+                                    type="text"
+                                    value={settings.trustItem3Sub || ""}
+                                    onChange={(e) => setSettings({ ...settings, trustItem3Sub: e.target.value })}
+                                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-primary transition-all"
+                                    placeholder="Subtext"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Trust Item 4 */}
+                        <div className="space-y-4 p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                            <label className="text-xs font-black text-primary uppercase tracking-widest">Indicator 4 (e.g. Growth)</label>
+                            <div className="space-y-3">
+                                <input
+                                    type="text"
+                                    value={settings.trustItem4Text || ""}
+                                    onChange={(e) => setSettings({ ...settings, trustItem4Text: e.target.value })}
+                                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary transition-all"
+                                    placeholder="Label"
+                                />
+                                <input
+                                    type="text"
+                                    value={settings.trustItem4Sub || ""}
+                                    onChange={(e) => setSettings({ ...settings, trustItem4Sub: e.target.value })}
+                                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary transition-all"
+                                    placeholder="Subtext"
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

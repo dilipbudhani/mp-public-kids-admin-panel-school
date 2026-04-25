@@ -11,14 +11,35 @@ interface ApplyClientProps {
         content?: string;
         sections: any[];
     } | null;
+    settingsData: {
+        schoolName: string;
+        contactEmail?: string;
+        contactPhone?: string;
+    } | null;
 }
 
-export default function ApplyClient({ pageData }: ApplyClientProps) {
+export default function ApplyClient({ pageData, settingsData }: ApplyClientProps) {
     const hero = {
         title: pageData?.title || "Student Registration",
         description: pageData?.description || "Complete the form below to initiate the admission process for the academic session 2026-27.",
         subtitle: pageData?.subtitle || "Apply Online"
     };
+
+    const classesSection = pageData?.sections?.find(s => s.type === 'classes' || s.id === 'available_classes');
+
+    let availableClasses = ['Nursery', 'KG', '1', '2', '3', '4', '5', '6', '7', '8', '9', '11'];
+    if (classesSection?.content) {
+        if (typeof classesSection.content === 'string') {
+            availableClasses = classesSection.content.split(',').map((c: string) => c.trim()).filter(Boolean);
+        } else if (classesSection.content.classes) {
+            // Fallback for old seed data
+            availableClasses = classesSection.content.classes;
+        }
+    }
+
+    const contactPhone = settingsData?.contactPhone || '+91 90919 29384';
+    const contactEmail = settingsData?.contactEmail || 'admissions@mpkidsschool.edu';
+    const schoolName = settingsData?.schoolName || 'MP Kids School';
 
     return (
         <main className="min-h-screen bg-slate-50 pb-24">
@@ -43,11 +64,11 @@ export default function ApplyClient({ pageData }: ApplyClientProps) {
             {/* Forms Section */}
             <section className="-mt-12 relative z-10 px-4">
                 <div className="container mx-auto">
-                    <AdmissionForm />
+                    <AdmissionForm availableClasses={availableClasses} schoolName={schoolName} />
 
                     <div className="mt-16 text-center text-slate-400 text-sm">
-                        <p>© 2026 MP Kids School. All data is securely encrypted.</p>
-                        <p className="mt-2 text-slate-500">Need help? Call us at +91 98765 43210 or email admissions@excellenceacademy.edu</p>
+                        <p>© 2026 {schoolName}. All data is securely encrypted.</p>
+                        <p className="mt-2 text-slate-500">Need help? Call us at {contactPhone} or email {contactEmail}</p>
                     </div>
                 </div>
             </section>

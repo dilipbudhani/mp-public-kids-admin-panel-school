@@ -60,7 +60,7 @@ export default async function sitemap() {
     }));
 
     // Dynamic news routes
-    const newsEntries = await News.find({ isPublished: true, schoolIds: 'mp-kids-school' })
+    const newsEntries = await News.find({ isPublished: true, schoolIds: process.env.SCHOOL_ID || 'mp-kids-school' })
         .select('slug updatedAt')
         .lean();
 

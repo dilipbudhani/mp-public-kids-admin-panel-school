@@ -4,6 +4,7 @@ import StaticPage from "@/models/StaticPage";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import mongoose from "mongoose";
+import { getSchoolFilter } from "@/lib/schoolFilter";
 
 export async function GET(
     req: NextRequest,
@@ -13,9 +14,15 @@ export async function GET(
     try {
         await dbConnect();
 
-        const query = mongoose.Types.ObjectId.isValid(identifier)
+        const query: any = mongoose.Types.ObjectId.isValid(identifier)
             ? { _id: identifier }
             : { slug: identifier };
+
+        // Apply school filter if fetching by slug
+        if (!mongoose.Types.ObjectId.isValid(identifier)) {
+            const filter = getSchoolFilter(req, 'schoolIds');
+            Object.assign(query, filter);
+        }
 
         const page = await StaticPage.findOne(query);
 
@@ -44,9 +51,15 @@ export async function PUT(
 
         const body = await req.json();
 
-        const query = mongoose.Types.ObjectId.isValid(identifier)
+        const query: any = mongoose.Types.ObjectId.isValid(identifier)
             ? { _id: identifier }
             : { slug: identifier };
+
+        // Apply school filter if fetching by slug
+        if (!mongoose.Types.ObjectId.isValid(identifier)) {
+            const filter = getSchoolFilter(req, 'schoolIds');
+            Object.assign(query, filter);
+        }
 
         const page = await StaticPage.findOneAndUpdate(
             query,
@@ -77,9 +90,15 @@ export async function DELETE(
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
         }
 
-        const query = mongoose.Types.ObjectId.isValid(identifier)
+        const query: any = mongoose.Types.ObjectId.isValid(identifier)
             ? { _id: identifier }
             : { slug: identifier };
+
+        // Apply school filter if deleting by slug
+        if (!mongoose.Types.ObjectId.isValid(identifier)) {
+            const filter = getSchoolFilter(req, 'schoolIds');
+            Object.assign(query, filter);
+        }
 
         const page = await StaticPage.findOneAndDelete(query);
 

@@ -17,12 +17,15 @@ export function SchoolSwitcher() {
         const savedSchool = localStorage.getItem("selectedSchool");
         if (savedSchool) {
             setSelectedSchool(savedSchool);
+            // Sync cookie if not already set or different
+            document.cookie = `selectedSchool=${savedSchool}; path=/; max-age=31536000; SameSite=Lax`;
         }
     }, []);
 
     const handleSwitch = (id: string) => {
         setSelectedSchool(id);
         localStorage.setItem("selectedSchool", id);
+        document.cookie = `selectedSchool=${id}; path=/; max-age=31536000; SameSite=Lax`;
         setIsOpen(false);
         // Refresh the page to reload data with new schoolId
         window.location.reload();

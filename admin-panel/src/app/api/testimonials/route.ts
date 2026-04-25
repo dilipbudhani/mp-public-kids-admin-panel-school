@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
         }
 
-        const filter = await getSchoolFilter(req);
+        const filter = getSchoolFilter(req, 'schoolIds');
         const testimonials = await Testimonial.find(filter).sort({ displayOrder: 1 });
 
         return NextResponse.json(testimonials);

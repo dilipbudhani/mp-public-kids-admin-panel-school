@@ -30,7 +30,15 @@ const steps = [
     { id: 'review', title: 'Review & Submit', icon: CheckCircle2 },
 ];
 
-export default function AdmissionForm() {
+interface AdmissionFormProps {
+    availableClasses?: string[];
+    schoolName?: string;
+}
+
+export default function AdmissionForm({
+    availableClasses = ['Nursery', 'KG', '1', '2', '3', '4', '5', '6', '7', '8', '9', '11'],
+    schoolName = 'MP Kids School'
+}: AdmissionFormProps) {
     const [currentStep, setCurrentStep] = useState(0);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -133,7 +141,7 @@ export default function AdmissionForm() {
                 </div>
                 <h2 className="text-4xl font-serif text-accent font-bold mb-4">Application Received!</h2>
                 <p className="text-slate-600 text-lg mb-8">
-                    Thank you for choosing MP Kids School. Our admissions team will review your application and contact you within 48 working hours.
+                    Thank you for choosing {schoolName}. Our admissions team will review your application and contact you within 48 working hours.
                 </p>
                 <div className="p-6 bg-slate-50 rounded-2xl mb-8 border border-slate-100">
                     <p className="text-sm text-slate-500 mb-1 uppercase tracking-wider font-bold">Your Application ID</p>
@@ -213,7 +221,7 @@ export default function AdmissionForm() {
                                     <label className="block text-sm font-bold text-slate-500 uppercase tracking-wide mb-1">Applying For Class</label>
                                     <select {...register('applyingForClass')} className={`input-field ${errors.applyingForClass ? 'border-red-500' : ''}`}>
                                         <option value="">Select Class</option>
-                                        {['Nursery', 'KG', '1', '2', '3', '4', '5', '6', '7', '8', '9', '11'].map(c => (
+                                        {availableClasses.map(c => (
                                             <option key={c} value={c}>Class {c}</option>
                                         ))}
                                     </select>

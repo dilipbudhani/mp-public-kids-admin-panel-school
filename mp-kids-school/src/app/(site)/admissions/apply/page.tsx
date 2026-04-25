@@ -1,5 +1,6 @@
 import { dbConnect } from "@/lib/mongodb";
 import StaticPage from "@/models/StaticPage";
+import SiteSettings from "@/models/SiteSettings";
 import ApplyClient from "./ApplyClient";
 
 export const metadata = {
@@ -12,6 +13,7 @@ export default async function ApplyPage() {
 
     // Fetch page data from CMS
     const pageData = await StaticPage.findOne({ slug: 'admissions-apply' }).lean();
+    const settingsData = await SiteSettings.findOne({ schoolIds: 'mp-kids-school' }).lean();
 
     // Serialize the data for client component
     const serializedData = pageData ? {
@@ -21,5 +23,11 @@ export default async function ApplyPage() {
         updatedAt: pageData.updatedAt?.toISOString(),
     } : null;
 
-    return <ApplyClient pageData={serializedData as any} />;
+    const serializedSettings = settingsData ? {
+        schoolName: settingsData.schoolName,
+        contactEmail: settingsData.contactEmail,
+        contactPhone: settingsData.contactPhone,
+    } : null;
+
+    return <ApplyClient pageData={serializedData as any} settingsData={serializedSettings} />;
 }

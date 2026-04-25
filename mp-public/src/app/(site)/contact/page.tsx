@@ -99,8 +99,8 @@ export default function ContactPage() {
                                     </div>
                                     <div>
                                         <h5 className="font-bold text-[#002147] mb-1 font-inter">Email Addresses</h5>
-                                        <p className="text-sm text-slate-500 font-inter">info@mpkidsschool.edu.in</p>
-                                        <p className="text-sm text-slate-500 font-inter">admissions@mpkidsschool.edu.in</p>
+                                        <p className="text-sm text-slate-500 font-inter">info@mppublicschool.edu.in</p>
+                                        <p className="text-sm text-slate-500 font-inter">admissions@mppublicschool.edu.in</p>
                                     </div>
                                 </div>
 
@@ -164,7 +164,7 @@ export default function ContactPage() {
                 <div className="bg-white rounded-4xl p-4 shadow-xl mb-12 border border-slate-100">
                     <div className="rounded-3xl overflow-hidden border border-slate-200 shadow-inner group relative">
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d407.8712862162951!2d75.8208528!3d22.7347255!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962fd6d5c629411%3A0x445d486d9601c0cc!2sMP%20Kids%20School!5e1!3m2!1sen!2sin!4v1776000537132!5m2!1sen!2sin"
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d407.8712862162951!2d75.8208528!3d22.7347255!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962fd6d5c629411%3A0x445d486d9601c0cc!2sMP%20Public%20School!5e1!3m2!1sen!2sin!4v1776000537132!5m2!1sen!2sin"
                             width="100%"
                             height="450"
                             style={{ border: 0 }}
@@ -177,7 +177,7 @@ export default function ContactPage() {
                     </div>
                     <div className="mt-6 flex justify-center">
                         <a
-                            href="https://www.google.com/maps/place/MP+Kids+School/@22.7347255,75.8208528,87m/data=!3m1!1e3!4m6!3m5!1s0x3962fd6d5c629411:0x445d486d9601c0cc!8m2!3d22.734766!4d75.8209383!16s%2Fg%2F1thtbjns"
+                            href="https://www.google.com/maps/place/MP+Public+School/@22.7347255,75.8208528,87m/data=!3m1!1e3!4m6!3m5!1s0x3962fd6d5c629411:0x445d486d9601c0cc!8m2!3d22.734766!4d75.8209383!16s%2Fg%2F1thtbjns"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-2 text-[#002147] font-bold uppercase tracking-widest text-sm hover:text-[#D4AF37] transition-colors"

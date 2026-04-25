@@ -16,9 +16,12 @@ export async function GET(req: NextRequest) {
         }
 
         const schoolId = getSchoolId(req) || "global-settings";
+        console.log("[SETTINGS_GET] Fetching for schoolId:", schoolId);
+
         let settings = await SiteSettings.findById(schoolId);
 
-        if (!settings && schoolId !== "global-settings") {
+        if (!settings) {
+            console.log("[SETTINGS_GET] Document not found for:", schoolId, ". Trying fallback/create.");
             // Try to find global settings as a fallback or create new
             settings = await SiteSettings.findById("global-settings");
             if (!settings) {
@@ -28,13 +31,18 @@ export async function GET(req: NextRequest) {
                     schoolName: "School Website",
                     admissionOpen: true,
                 });
+                console.log("[SETTINGS_GET] Created default global-settings");
             }
         }
 
+        if (!settings) {
+            return NextResponse.json({ message: "Settings could not be initialized" }, { status: 500 });
+        }
+
         return NextResponse.json(settings);
-    } catch (error) {
-        console.error("[SETTINGS_GET]", error);
-        return NextResponse.json({ message: "Internal Error" }, { status: 500 });
+    } catch (error: any) {
+        console.error("[SETTINGS_GET] Fatal Error:", error.message);
+        return NextResponse.json({ message: error.message || "Internal Error" }, { status: 500 });
     }
 }
 
@@ -49,7 +57,18 @@ export async function PUT(req: NextRequest) {
         const body = await req.json();
         const schoolId = getSchoolId(req) || body.id || "global-settings";
 
-        const { schoolName, contactEmail, contactPhone, address, facebookUrl, instagramUrl, twitterUrl, youtubeUrl, admissionOpen, announcement, metaTitle, metaDescription, ogImage, whatsappNumber, mapEmbedUrl } = body;
+        const {
+            schoolName, contactEmail, contactPhone, address,
+            facebookUrl, facebookAccessToken, facebookPageId, facebookEnabled,
+            instagramUrl, instagramAccessToken, instagramUserId, instagramEnabled,
+            twitterUrl, youtubeUrl, youtubeApiKey, youtubeChannelId, youtubeEnabled,
+            admissionOpen, announcement, metaTitle, metaDescription, ogImage, whatsappNumber, mapEmbedUrl,
+            affiliationNo,
+            trustItem1Text, trustItem1Sub,
+            trustItem2Text, trustItem2Sub,
+            trustItem3Text, trustItem3Sub,
+            trustItem4Text, trustItem4Sub
+        } = body;
 
         const updateData = {
             schoolName,
@@ -57,9 +76,18 @@ export async function PUT(req: NextRequest) {
             contactPhone,
             address,
             facebookUrl,
+            facebookAccessToken,
+            facebookPageId,
+            facebookEnabled,
             instagramUrl,
+            instagramAccessToken,
+            instagramUserId,
+            instagramEnabled,
             twitterUrl,
             youtubeUrl,
+            youtubeApiKey,
+            youtubeChannelId,
+            youtubeEnabled,
             admissionOpen,
             announcement,
             metaTitle,
@@ -67,6 +95,15 @@ export async function PUT(req: NextRequest) {
             ogImage,
             whatsappNumber,
             mapEmbedUrl,
+            affiliationNo,
+            trustItem1Text,
+            trustItem1Sub,
+            trustItem2Text,
+            trustItem2Sub,
+            trustItem3Text,
+            trustItem3Sub,
+            trustItem4Text,
+            trustItem4Sub,
             schoolIds: schoolId === "global-settings" ? ["mp-kids-school", "mp-public"] : [schoolId]
         };
 

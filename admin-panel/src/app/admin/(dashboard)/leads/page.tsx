@@ -54,7 +54,8 @@ export default function LeadsAdminPage() {
     const fetchLeads = async () => {
         setIsLoading(true);
         try {
-            const res = await fetch("/api/leads?excludeType=Career");
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            const res = await fetch(`/api/leads?excludeType=Career${schoolId ? `&schoolId=${schoolId}` : ""}`);
             if (res.ok) {
                 const data = await res.json();
                 setLeads(data);
@@ -68,9 +69,13 @@ export default function LeadsAdminPage() {
 
     const handleUpdateStatus = async (id: string, status: string) => {
         try {
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
             const res = await fetch(`/api/leads/${id}`, {
                 method: "PUT",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(schoolId && { "x-school-id": schoolId })
+                },
                 body: JSON.stringify({ status }),
             });
 
@@ -86,7 +91,13 @@ export default function LeadsAdminPage() {
     const handleDelete = async (id: string) => {
         if (!confirm("Are you sure?")) return;
         try {
-            const res = await fetch(`/api/leads/${id}`, { method: "DELETE" });
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            const res = await fetch(`/api/leads/${id}`, {
+                method: "DELETE",
+                headers: {
+                    ...(schoolId && { "x-school-id": schoolId })
+                }
+            });
             if (res.ok) {
                 toast.success("Lead record removed");
                 fetchLeads();

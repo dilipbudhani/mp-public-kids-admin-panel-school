@@ -14,7 +14,7 @@ export default async function AboutHistoryPage() {
     await dbConnect();
 
     // Fetch page content from MongoDB
-    const pageData = await StaticPage.findOne({ schoolIds: 'mp-kids-school', slug: "about-history" }).lean();
+    const pageData = await StaticPage.findOne({ schoolIds: process.env.SCHOOL_ID, slug: "about-history" }).lean();
 
     // Default legacy image if not provided in DB
     const defaultLegacyImage = "https://images.unsplash.com/photo-1523050853063-91503ff44c06?q=80&w=2000";

@@ -58,7 +58,8 @@ export default function NewsAdminPage() {
     const fetchNews = async () => {
         setIsLoading(true);
         try {
-            const res = await fetch("/api/news");
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            const res = await fetch(`/api/news${schoolId ? `?schoolId=${schoolId}` : ""}`);
             if (res.ok) {
                 const data = await res.json();
                 setNews(data);
@@ -106,9 +107,13 @@ export default function NewsAdminPage() {
             const method = editingId ? "PUT" : "POST";
             const url = editingId ? `/api/news/${editingId}` : "/api/news";
 
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
             const res = await fetch(url, {
                 method,
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(schoolId && { "x-school-id": schoolId })
+                },
                 body: JSON.stringify(formData),
             });
 
@@ -130,7 +135,13 @@ export default function NewsAdminPage() {
     const handleDelete = async (id: string) => {
         if (!confirm("Are you sure?")) return;
         try {
-            const res = await fetch(`/api/news/${id}`, { method: "DELETE" });
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            const res = await fetch(`/api/news/${id}`, {
+                method: "DELETE",
+                headers: {
+                    ...(schoolId && { "x-school-id": schoolId })
+                }
+            });
             if (res.ok) {
                 toast.success("News deleted");
                 fetchNews();

@@ -17,13 +17,13 @@ export const metadata: Metadata = {
 
 async function getJobs() {
     await dbConnect();
-    const jobs = await Job.find({ isActive: true, schoolIds: 'mp-kids-school' }).sort({ createdAt: -1 }).lean();
+    const jobs = await Job.find({ isActive: true, schoolIds: process.env.SCHOOL_ID }).sort({ createdAt: -1 }).lean();
     return JSON.parse(JSON.stringify(jobs));
 }
 
 async function getPageData() {
     await dbConnect();
-    const pageData = await StaticPage.findOne({ slug: "careers", schoolIds: 'mp-kids-school' }).lean();
+    const pageData = await StaticPage.findOne({ slug: "careers", schoolIds: process.env.SCHOOL_ID }).lean();
     return pageData ? JSON.parse(JSON.stringify(pageData)) : null;
 }
 

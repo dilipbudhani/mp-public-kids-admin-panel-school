@@ -26,17 +26,17 @@ export default async function FacultyPage() {
     await dbConnect();
 
     // Fetch all faculty members
-    const facultyMembers = await Faculty.find({ isActive: true, schoolIds: 'mp-kids-school' }).sort({ order: 1 }).lean();
+    const facultyMembers = await Faculty.find({ isActive: true, schoolIds: process.env.SCHOOL_ID }).sort({ order: 1 }).lean();
 
     // Fetch leadership (Principal, Vice Principal, Directors)
     const leadership = await Faculty.find({
         isActive: true,
-        schoolIds: 'mp-kids-school',
+        schoolIds: process.env.SCHOOL_ID,
         designation: { $in: [/Principal/i, /Director/i, /Chairman/i] }
     }).sort({ order: 1 }).lean();
 
     // Fetch page content
-    const pageData = await StaticPage.findOne({ slug: 'faculty', schoolIds: 'mp-kids-school' }).lean();
+    const pageData = await StaticPage.findOne({ slug: 'faculty', schoolIds: process.env.SCHOOL_ID }).lean();
 
     const heroContent = {
         title: pageData?.title || "Our Intellectual Backbone",

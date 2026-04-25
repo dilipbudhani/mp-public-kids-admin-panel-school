@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default async function NoticesPage() {
     await dbConnect();
 
-    const pageData = await StaticPage.findOne({ slug: "notices-page", schoolIds: process.env.SCHOOL_ID }).lean() as IStaticPage | null;
+    const pageData = await StaticPage.findOne({ slug: "notices", schoolIds: process.env.SCHOOL_ID }).lean() as IStaticPage | null;
     const title = pageData?.title || "School Notice Board";
     const description = pageData?.description || "Access all official announcements, circulars, and events. Keep track of academic schedules and school happenings in real-time.";
 

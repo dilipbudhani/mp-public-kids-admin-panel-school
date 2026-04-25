@@ -8,7 +8,7 @@ import { getSchoolFilter, getSchoolId } from "@/lib/schoolFilter";
 export async function GET(req: NextRequest) {
     try {
         await dbConnect();
-        const filter = await getSchoolFilter(req);
+        const filter = getSchoolFilter(req, 'schoolIds');
         const stats = await Stat.find(filter).sort({ displayOrder: 1 });
         return NextResponse.json(stats);
     } catch (error) {

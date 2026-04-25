@@ -86,7 +86,7 @@ export default function FeeClient({
             {/* 1. Hero Section */}
             <section
                 data-hero-dark="true"
-                className="relative h-[400px] flex items-center bg-primary overflow-hidden pt-32 pb-16"
+                className="relative min-h-[400px] flex items-center bg-primary overflow-hidden pt-44 pb-24 md:pb-32"
             >
                 <div className="container relative z-10">
                     <motion.div
@@ -95,17 +95,19 @@ export default function FeeClient({
                         transition={{ duration: 0.6 }}
                         className="max-w-4xl"
                     >
-                        <div className="flex items-center gap-3 text-gold mb-4">
+                        <div className="flex items-center gap-3 text-gold mb-6 md:mb-8">
                             <Wallet className="w-8 h-8" />
                             <span className="text-sm font-bold tracking-[0.3em] uppercase">Investment in Excellence</span>
                         </div>
-                        <h1 className="text-4xl md:text-6xl font-playfair font-bold text-white mb-6 leading-tight">
+                        <h1 className="text-4xl md:text-6xl font-playfair font-bold text-white mb-8 md:mb-10 leading-[1.1]">
                             {heroTitle || 'Fee Structure'}
                             {academicYear && !heroTitle?.includes(academicYear) && (
-                                <span className="text-gold ml-3">{academicYear}</span>
+                                <span className="block mt-2 md:inline md:mt-0 md:ml-4 text-gold">
+                                    {academicYear}
+                                </span>
                             )}
                         </h1>
-                        <p className="text-xl text-white/70 font-inter leading-relaxed max-w-2xl mb-12">
+                        <p className="text-xl text-white/70 font-inter leading-relaxed max-w-2xl">
                             {heroDescription || 'We believe in maintaining complete transparency regarding school costs. Our fee structure is designed to reflect the quality of education and facilities provided.'}
                         </p>
                     </motion.div>
@@ -316,7 +318,7 @@ export default function FeeClient({
                                 <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center text-slate-500 group-hover:bg-primary group-hover:text-white transition-all duration-300">
                                     <Phone className="w-4 h-4" />
                                 </div>
-                                <span className="text-primary font-bold hidden sm:inline">+91 98765 43210</span>
+                                <span className="text-primary font-bold hidden sm:inline">+91 90919 29384</span>
                             </a>
                             <a href="mailto:admissions@mppublicschool.com" className="flex items-center gap-2 group">
                                 <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center text-slate-500 group-hover:bg-primary group-hover:text-white transition-all duration-300">

@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
+import { cn } from "@/lib/utils";
 
 interface Section {
     title?: string;
@@ -8,6 +10,8 @@ interface Section {
     body?: string;
     image?: string;
     order: number;
+    items?: any[];
+    key?: string;
 }
 
 export default function SectionRenderer({ section, index }: { section: Section, index: number }) {
@@ -16,10 +20,13 @@ export default function SectionRenderer({ section, index }: { section: Section, 
     const content = section.content || section.body;
 
     return (
-        <section className={index % 2 === 0 ? "py-24 bg-white" : "py-24 bg-slate-50"}>
+        <section className={cn("py-24", index % 2 === 0 ? "bg-white" : "bg-slate-50")}>
             <div className="container mx-auto px-4">
-                <div className={index % 2 === 0 ? "flex flex-col lg:flex-row items-center gap-16" : "flex flex-col lg:flex-row-reverse items-center gap-16"}>
-                    <div className="w-full lg:w-1/2">
+                <div className={cn(
+                    "flex flex-col gap-16",
+                    section.image ? (isEven ? "lg:flex-row" : "lg:flex-row-reverse") : "w-full text-center"
+                )}>
+                    <div className={cn(section.image ? "w-full lg:w-1/2" : "w-full max-w-4xl mx-auto")}>
                         {section.subheading && (
                             <span className="text-secondary font-black uppercase tracking-widest text-[10px] mb-4 inline-block">
                                 {section.subheading}
@@ -30,11 +37,26 @@ export default function SectionRenderer({ section, index }: { section: Section, 
                                 {title}
                             </h2>
                         )}
-                        <div
-                            className="text-slate-600 text-lg mb-8 leading-relaxed prose prose-slate max-w-none"
-                            dangerouslySetInnerHTML={{ __html: content || "" }}
-                        />
+                        {content && (
+                            <div className="text-slate-600 text-lg mb-8 leading-relaxed prose prose-slate max-w-none">
+                                <ReactMarkdown>{content}</ReactMarkdown>
+                            </div>
+                        )}
+
+                        {/* Rendering Structured Items (Grid) */}
+                        {section.items && section.items.length > 0 && (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+                                {section.items.map((item: any, i: number) => (
+                                    <div key={i} className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                                        {item.icon && <div className="text-primary mb-4">{item.icon}</div>}
+                                        {item.title && <h4 className="font-bold text-accent mb-2">{item.title}</h4>}
+                                        {item.content && <p className="text-sm text-slate-500 leading-relaxed">{item.content}</p>}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
+
                     {section.image && (
                         <div className="w-full lg:w-1/2 relative h-[500px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white group">
                             <img

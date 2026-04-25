@@ -1,7 +1,6 @@
 import React from "react";
 import { AboutPageLayout } from "@/components/about/AboutPageLayout";
 import SchoolHistory from "@/components/about/History";
-import { History } from "lucide-react";
 import { dbConnect } from "@/lib/mongodb";
 import StaticPage from "@/models/StaticPage";
 
@@ -13,8 +12,13 @@ export const metadata = {
 export default async function AboutHistoryPage() {
     await dbConnect();
 
+    const schoolId = process.env.SCHOOL_ID || "mp-public";
+
     // Fetch page content from MongoDB
-    const pageData = await StaticPage.findOne({ slug: "about-history" }).lean();
+    const pageData = await StaticPage.findOne({
+        slug: "about-history",
+        schoolIds: schoolId
+    }).lean();
 
     // Default legacy image if not provided in DB
     const defaultLegacyImage = "https://images.unsplash.com/photo-1523050853063-91503ff44c06?q=80&w=2000";
@@ -58,8 +62,6 @@ export default async function AboutHistoryPage() {
     };
 
     // Map sections to timeline format
-    // In StaticPage model, we might store the year in the section's title or added metadata
-    // For now, we'll try to extract year from title or just use the sections as they are
     const timeline = content.sections?.sort((a: any, b: any) => a.order - b.order).map((s: any) => ({
         year: s.title.match(/\d{4}/)?.[0] || 'Year',
         event: s.title.replace(/\d{4}/, '').trim() || s.title,

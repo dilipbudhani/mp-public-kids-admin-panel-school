@@ -58,7 +58,8 @@ export default function GalleryAdminPage() {
     const fetchGallery = async () => {
         setIsLoading(true);
         try {
-            const res = await fetch("/api/gallery");
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            const res = await fetch(`/api/gallery${schoolId ? `?schoolId=${schoolId}` : ""}`);
             if (res.ok) {
                 const data = await res.json();
                 setItems(data);
@@ -122,9 +123,13 @@ export default function GalleryAdminPage() {
             const method = editingId ? "PUT" : "POST";
             const url = editingId ? `/api/gallery/${editingId}` : "/api/gallery";
 
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
             const res = await fetch(url, {
                 method,
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(schoolId && { "x-school-id": schoolId })
+                },
                 body: JSON.stringify(dataToSave),
             });
 
@@ -147,8 +152,12 @@ export default function GalleryAdminPage() {
         if (!confirm("Are you sure you want to delete this item?")) return;
 
         try {
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
             const res = await fetch(`/api/gallery/${id}`, {
                 method: "DELETE",
+                headers: {
+                    ...(schoolId && { "x-school-id": schoolId })
+                }
             });
 
             if (res.ok) {

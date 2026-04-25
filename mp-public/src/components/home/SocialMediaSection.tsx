@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { Facebook, Instagram, Heart, MessageCircle, X } from 'lucide-react';
+import { Facebook, Instagram, Heart, MessageCircle, X, Youtube } from 'lucide-react';
 import Link from 'next/link';
 import { XIcon, YoutubeIcon } from "@/components/ui/Icons";
 
@@ -14,58 +14,74 @@ interface SocialMediaSectionProps {
     } | null;
     galleryItems?: {
         id: string;
+        platform?: 'INSTAGRAM' | 'YOUTUBE' | 'FACEBOOK';
         image: string;
+        thumbnail?: string;
         caption: string;
         likes: number;
         comments: number;
+        type?: string;
+        permalink?: string;
     }[];
 }
 
 export default function SocialMediaSection({ settings, galleryItems = [] }: SocialMediaSectionProps) {
-    const [lightboxImage, setLightboxImage] = useState<{ url: string, caption: string } | null>(null);
+    const [lightboxImage, setLightboxImage] = useState<{ url: string, caption: string, platform?: string, permalink?: string } | null>(null);
+    const [selectedTab, setSelectedTab] = useState<'INSTAGRAM' | 'YOUTUBE' | 'FACEBOOK'>('INSTAGRAM');
 
-    const SOCIAL_PLATFORMS = [
-        {
-            id: 'instagram',
+    const PLATFORMS_CONFIG = {
+        INSTAGRAM: {
+            id: 'INSTAGRAM',
             name: 'Instagram',
-            handle: '@mpkidsschool',
-            followers: '12.4K followers',
             icon: Instagram,
             color: 'text-pink-600',
-            link: settings?.instagramUrl || '#'
+            bgColor: 'bg-pink-50',
+            borderColor: 'border-pink-200',
+            activeBg: 'bg-pink-600',
+            link: settings?.instagramUrl
         },
-        {
-            id: 'facebook',
+        FACEBOOK: {
+            id: 'FACEBOOK',
             name: 'Facebook',
-            handle: '@mpkidsschool',
-            followers: '25K followers',
             icon: Facebook,
             color: 'text-blue-600',
-            link: settings?.facebookUrl || '#'
+            bgColor: 'bg-blue-50',
+            borderColor: 'border-blue-200',
+            activeBg: 'bg-blue-600',
+            link: settings?.facebookUrl
         },
-        {
-            id: 'youtube',
+        YOUTUBE: {
+            id: 'YOUTUBE',
             name: 'YouTube',
-            handle: '@mpkidsschool',
-            followers: '8.2K subscribers',
-            icon: YoutubeIcon,
+            icon: Youtube,
             color: 'text-red-600',
-            link: settings?.youtubeUrl || '#'
-        },
-        {
-            id: 'twitter',
-            name: 'X',
-            handle: '@mpkidsschool',
-            followers: '5.1K followers',
-            icon: XIcon,
-            color: 'text-neutral-800',
-            link: settings?.twitterUrl || '#'
-        },
-    ].filter(p => p.link !== '#');
+            bgColor: 'bg-red-50',
+            borderColor: 'border-red-200',
+            activeBg: 'bg-red-600',
+            link: settings?.youtubeUrl
+        }
+    };
+
+    const tabs = (Object.keys(PLATFORMS_CONFIG) as Array<keyof typeof PLATFORMS_CONFIG>).filter(key => {
+        // Show tab if we have posts for it OR if we have a URL for it
+        const hasPosts = galleryItems.some(item => item.platform === key);
+        const hasUrl = !!PLATFORMS_CONFIG[key].link;
+        return hasPosts || hasUrl;
+    });
+
+    const filteredItems = galleryItems.filter(item => item.platform === selectedTab);
+
+    // If current tab has no items but another one does, switch to the first one with items
+    React.useEffect(() => {
+        if (filteredItems.length === 0 && galleryItems.length > 0) {
+            const firstWithItems = tabs.find(t => galleryItems.some(item => item.platform === t));
+            if (firstWithItems) setSelectedTab(firstWithItems);
+        }
+    }, [galleryItems]);
 
     const MARQUEE_CAPTIONS = [
         "Annual Sports Day highlights",
-        "Science Exhibition 2025 winners announced!",
+        "Science Exhibition winners announced!",
         "Congratulations to our Board toppers!",
         "Admissions open for 2026-27",
         "Join our robotics workshop next weekend",
@@ -82,76 +98,117 @@ export default function SocialMediaSection({ settings, galleryItems = [] }: Soci
         return () => { document.body.style.overflow = 'unset'; };
     }, [lightboxImage]);
 
-    if (SOCIAL_PLATFORMS.length === 0 && galleryItems.length === 0) return null;
+    if (tabs.length === 0 && galleryItems.length === 0) return null;
 
     return (
         <section className="py-20 bg-neutral-50 relative overflow-hidden">
             <div className="container relative z-10 w-full px-4 text-center mx-auto">
-                <div className="text-center mb-12">
+                <div className="text-center mb-8">
                     <h2 className="text-primary text-4xl md:text-5xl font-bold font-playfair mb-4">
-                        Stay Connected with <span className="text-secondary">MP Public School</span>
+                        Our <span className="text-secondary">Social Feed</span>
                     </h2>
                     <p className="text-neutral-600 max-w-2xl mx-auto">
-                        Follow us on our social media platforms for the latest updates, event highlights, and glimpses of life at MP Public School.
+                        Follow our official handles for daily updates, event highlights and student achievements.
                     </p>
                 </div>
 
-                {/* Platform Cards */}
-                {SOCIAL_PLATFORMS.length > 0 && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 max-w-6xl mx-auto px-4">
-                        {SOCIAL_PLATFORMS.map((platform) => (
-                            <div key={platform.id} className="bg-white rounded-xl shadow-sm border border-neutral-100 p-6 flex flex-col items-center text-center hover:shadow-md transition-shadow">
-                                <div className={`w-14 h-14 rounded-full bg-neutral-50 flex items-center justify-center mb-4 ${platform.color}`}>
-                                    <platform.icon className="w-7 h-7" />
-                                </div>
-                                <h3 className="font-bold text-lg text-primary">{platform.name}</h3>
-                                <p className="text-sm font-medium text-neutral-500 mb-1">{platform.handle}</p>
-                                <p className="text-xs text-neutral-400 mb-6">{platform.followers}</p>
-                                <Link href={platform.link} target="_blank" className="mt-auto w-full py-3 px-4 bg-primary text-white hover:bg-secondary hover:text-white font-medium rounded-lg transition-colors text-sm">
-                                    Follow
-                                </Link>
-                            </div>
-                        ))}
-                    </div>
-                )}
+                {/* Tab Switcher */}
+                <div className="flex flex-wrap justify-center gap-2 mb-12">
+                    {tabs.map((tabId) => {
+                        const config = PLATFORMS_CONFIG[tabId];
+                        const isActive = selectedTab === tabId;
+                        return (
+                            <button
+                                key={tabId}
+                                onClick={() => setSelectedTab(tabId)}
+                                className={`flex items-center gap-2 px-6 py-3 rounded-full font-bold transition-all ${isActive
+                                    ? `${config.activeBg} text-white shadow-lg scale-105`
+                                    : 'bg-white text-neutral-500 hover:bg-neutral-100 border border-neutral-200'
+                                    }`}
+                            >
+                                <config.icon className="w-5 h-5" />
+                                {config.name}
+                            </button>
+                        );
+                    })}
+                </div>
 
-                {/* Instagram Style Grid */}
-                {galleryItems.length > 0 && (
-                    <div className="max-w-4xl mx-auto mb-16 px-4">
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
-                            {galleryItems.map((post) => (
+                {/* Grid */}
+                <div className="max-w-6xl mx-auto mb-16 px-4">
+                    {filteredItems.length > 0 ? (
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            {filteredItems.map((post) => (
                                 <div
                                     key={post.id}
-                                    className="relative aspect-square group cursor-pointer overflow-hidden rounded-lg md:rounded-xl bg-neutral-200"
-                                    onClick={() => setLightboxImage({ url: post.image, caption: post.caption })}
+                                    className="relative aspect-square group cursor-pointer overflow-hidden rounded-xl bg-neutral-200 shadow-sm"
+                                    onClick={() => setLightboxImage({
+                                        url: post.image,
+                                        caption: post.caption,
+                                        platform: post.platform,
+                                        permalink: post.permalink
+                                    })}
                                 >
-                                    <img src={post.image} alt={post.caption} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
+                                    {/* Video/Reel Indicator */}
+                                    {(post.type?.includes('VIDEO') || selectedTab === 'YOUTUBE') && (
+                                        <div className="absolute top-2 right-2 bg-black/50 text-white p-1.5 rounded-lg z-10 backdrop-blur-sm">
+                                            <Youtube className="w-4 h-4 fill-white" />
+                                        </div>
+                                    )}
+
+                                    <img
+                                        src={post.thumbnail || post.image}
+                                        alt={post.caption}
+                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                        loading="lazy"
+                                    />
 
                                     {/* Hover Overlay */}
-                                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
-                                        <div className="flex items-center gap-6 text-white font-bold mb-4">
+                                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-white">
+                                        <div className="flex items-center gap-6 font-bold mb-4">
                                             <div className="flex items-center gap-2">
-                                                <Heart className="w-6 h-6 fill-white text-white" />
+                                                <Heart className="w-6 h-6 fill-white" />
                                                 <span>{post.likes}</span>
                                             </div>
                                             <div className="flex items-center gap-2">
-                                                <MessageCircle className="w-6 h-6 fill-white text-white" />
+                                                <MessageCircle className="w-6 h-6 fill-white" />
                                                 <span>{post.comments}</span>
                                             </div>
                                         </div>
-                                        <p className="text-white text-sm text-center line-clamp-3 hidden md:block px-4">
+                                        <p className="text-xs text-center line-clamp-3 px-2">
                                             {post.caption}
                                         </p>
                                     </div>
                                 </div>
                             ))}
                         </div>
-                    </div>
-                )}
+                    ) : (
+                        <div className="py-20 bg-white rounded-3xl border border-dashed border-neutral-300">
+                            <p className="text-neutral-400 font-medium italic">No posts found for this platform yet.</p>
+                            {PLATFORMS_CONFIG[selectedTab].link && (
+                                <Link
+                                    href={PLATFORMS_CONFIG[selectedTab].link || '#'}
+                                    target="_blank"
+                                    className={`mt-4 inline-flex items-center gap-2 font-bold ${PLATFORMS_CONFIG[selectedTab].color}`}
+                                >
+                                    View Page Directly <X className="w-4 h-4 rotate-45" />
+                                </Link>
+                            )}
+                        </div>
+                    )}
+                </div>
+
+                <Link
+                    href={PLATFORMS_CONFIG[selectedTab].link || '#'}
+                    target="_blank"
+                    className={`inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-bold transition-all shadow-xl hover:-translate-y-1 ${PLATFORMS_CONFIG[selectedTab].activeBg} text-white`}
+                >
+                    Visit our {PLATFORMS_CONFIG[selectedTab].name}
+                    <X className="w-5 h-5 rotate-45" />
+                </Link>
             </div>
 
-            {/* CSS Marquee Ticker */}
-            <div className="relative w-full overflow-hidden bg-primary text-white py-4 border-y border-white/10 flex items-center group">
+            {/* Marquee Ticker */}
+            <div className="mt-20 relative w-full overflow-hidden bg-primary text-white py-4 flex items-center group">
                 <div className="flex animate-marquee-fast group-hover:[animation-play-state:paused]">
                     {[...Array(2)].map((_, i) => (
                         <div key={i} className="flex items-center gap-12 whitespace-nowrap px-6">
@@ -179,44 +236,51 @@ export default function SocialMediaSection({ settings, galleryItems = [] }: Soci
             {lightboxImage && (
                 <div className="fixed inset-0 z-100 bg-black/95 flex items-center justify-center p-4 md:p-8 backdrop-blur-sm" onClick={() => setLightboxImage(null)}>
                     <button
-                        className="absolute top-4 right-4 md:top-8 md:right-8 text-white/70 hover:text-white transition-colors z-110 p-2 bg-black/50 rounded-full"
+                        className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors z-110 p-2 bg-black/50 rounded-full"
                         onClick={(e) => { e.stopPropagation(); setLightboxImage(null); }}
                     >
-                        <X className="w-6 h-6 md:w-8 md:h-8" />
+                        <X className="w-6 h-6" />
                     </button>
                     <div
-                        className="relative max-w-5xl w-full max-h-[90vh] bg-white rounded-lg lg:rounded-2xl overflow-hidden flex flex-col md:flex-row shadow-2xl animate-in zoom-in-95 duration-200"
+                        className="relative max-w-5xl w-full max-h-[90vh] bg-white rounded-2xl overflow-hidden flex flex-col md:flex-row shadow-2xl animate-in zoom-in-95 duration-200"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        {/* Image Section */}
+                        {/* Media Section */}
                         <div className="w-full md:w-3/5 lg:w-2/3 h-[40vh] md:h-auto bg-black flex items-center justify-center relative">
-                            <img src={lightboxImage.url} alt={lightboxImage.caption} className="max-w-full max-h-full object-contain" />
+                            {lightboxImage.platform === 'YOUTUBE' ? (
+                                <iframe
+                                    src={`https://www.youtube.com/embed/${lightboxImage.url.split('v=')[1] || lightboxImage.url.split('/').pop()}`}
+                                    className="w-full h-full"
+                                    allowFullScreen
+                                />
+                            ) : (
+                                <img src={lightboxImage.url} alt={lightboxImage.caption} className="max-w-full max-h-full object-contain" />
+                            )}
                         </div>
 
-                        {/* Details Section */}
-                        <div className="w-full md:w-2/5 lg:w-1/3 bg-white flex flex-col h-[50vh] md:h-auto overflow-y-auto">
+                        {/* Info Section */}
+                        <div className="w-full md:w-2/5 lg:w-1/3 bg-white flex flex-col h-[50vh] md:h-auto">
                             <div className="p-4 flex items-center gap-3 border-b border-neutral-100 shrink-0">
-                                <div className="w-10 h-10 rounded-full bg-linear-to-tr from-yellow-400 via-pink-500 to-purple-500 p-[2px]">
-                                    <div className="w-full h-full bg-white rounded-full flex items-center justify-center">
-                                        <Instagram className="w-5 h-5 text-neutral-800" />
-                                    </div>
-                                </div>
-                                <div className="font-bold text-sm text-primary">@mpkidsschool</div>
+                                {lightboxImage.platform === 'INSTAGRAM' && <Instagram className="w-5 h-5 text-pink-600" />}
+                                {lightboxImage.platform === 'FACEBOOK' && <Facebook className="w-5 h-5 text-blue-600" />}
+                                {lightboxImage.platform === 'YOUTUBE' && <Youtube className="w-5 h-5 text-red-600" />}
+                                <div className="font-bold text-sm text-primary">MP School Feed</div>
                             </div>
-                            <div className="p-4 flex-1 overflow-y-auto">
+                            <div className="p-6 flex-1 overflow-y-auto">
                                 <p className="text-sm text-neutral-700 leading-relaxed whitespace-pre-wrap">
-                                    <span className="font-bold text-primary mr-2">mpkidsschool</span>
                                     {lightboxImage.caption}
                                 </p>
                             </div>
-                            <div className="p-4 border-t border-neutral-100 shrink-0">
-                                <div className="flex gap-4 mb-3">
-                                    <Heart className="w-6 h-6 text-neutral-800 cursor-pointer hover:text-red-500 transition-colors" />
-                                    <MessageCircle className="w-6 h-6 text-neutral-800 cursor-pointer hover:text-neutral-500 transition-colors" />
-                                </div>
-                                <div className="text-xs text-neutral-400 font-bold uppercase tracking-wider">
-                                    View on Instagram
-                                </div>
+                            <div className="p-6 border-t border-neutral-100 shrink-0">
+                                <Link
+                                    href={lightboxImage.permalink || "#"}
+                                    target="_blank"
+                                    className={`flex items-center justify-center gap-2 w-full py-3 rounded-xl font-bold text-white transition-all ${lightboxImage.platform === 'INSTAGRAM' ? 'bg-pink-600' :
+                                        lightboxImage.platform === 'FACEBOOK' ? 'bg-blue-600' : 'bg-red-600'
+                                        }`}
+                                >
+                                    View on {lightboxImage.platform}
+                                </Link>
                             </div>
                         </div>
                     </div>

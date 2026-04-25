@@ -53,7 +53,7 @@ export async function sendWhatsApp(to: string, message: string) {
 // --- Message Templates ---
 
 const SCHOOL_NAME = "MP Kids School";
-const CONTACT_PHONE = "+91 98765 43210";
+const CONTACT_PHONE = "+91 90919 29384";
 
 export const templates = {
     admissionReceived: (studentName: string, applicationNo: string, className: string) =>

@@ -17,6 +17,7 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import Modal from "@/components/Modal";
 import { motion, AnimatePresence } from "framer-motion";
+import CloudinaryUpload from "@/components/CloudinaryUpload";
 
 interface Circular {
     _id: string;
@@ -54,7 +55,8 @@ export default function DownloadsAdminPage() {
     const fetchCirculars = async () => {
         setIsLoading(true);
         try {
-            const res = await fetch("/api/circulars");
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            const res = await fetch(`/api/circulars${schoolId ? `?schoolId=${schoolId}` : ""}`);
             if (res.ok) {
                 const data = await res.json();
                 setItems(data);
@@ -98,9 +100,13 @@ export default function DownloadsAdminPage() {
             const method = editingId ? "PUT" : "POST";
             const url = editingId ? `/api/circulars/${editingId}` : "/api/circulars";
 
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
             const res = await fetch(url, {
                 method,
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(schoolId && { "x-school-id": schoolId })
+                },
                 body: JSON.stringify(formData),
             });
 
@@ -121,7 +127,13 @@ export default function DownloadsAdminPage() {
     const handleDelete = async (id: string) => {
         if (!confirm("Are you sure?")) return;
         try {
-            const res = await fetch(`/api/circulars/${id}`, { method: "DELETE" });
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            const res = await fetch(`/api/circulars/${id}`, {
+                method: "DELETE",
+                headers: {
+                    ...(schoolId && { "x-school-id": schoolId })
+                }
+            });
             if (res.ok) {
                 toast.success("Deleted successfully");
                 fetchCirculars();
@@ -142,15 +154,15 @@ export default function DownloadsAdminPage() {
         <div className="space-y-8">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-4xl font-black font-playfair bg-linear-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent">Downloads Center</h1>
-                    <p className="text-slate-500 text-sm mt-1 font-medium italic">Manage circulars, forms, and academic resources</p>
+                    <h1 className="text-4xl font-black font-playfair bg-linear-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent">Notice Board</h1>
+                    <p className="text-slate-500 text-sm mt-1 font-medium italic">Manage circulars, notices, and academic resources</p>
                 </div>
                 <button
                     onClick={() => handleOpenModal()}
                     className="flex items-center gap-3 bg-primary text-white px-8 py-4 rounded-2xl hover:bg-primary/90 transition-all font-bold shadow-xl shadow-primary/20 hover:-translate-y-1"
                 >
                     <Plus className="w-5 h-5" />
-                    New Download
+                    New Notice
                 </button>
             </div>
 
@@ -201,7 +213,13 @@ export default function DownloadsAdminPage() {
                                         <span className="px-3 py-1 bg-slate-100 text-slate-500 text-[10px] font-black uppercase tracking-widest rounded-lg">
                                             {item.category}
                                         </span>
-                                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                                        <span className={cn(
+                                            "px-2 py-0.5 text-[8px] font-black uppercase tracking-widest rounded-md",
+                                            item.isActive ? "bg-green-100 text-green-600" : "bg-slate-100 text-slate-400"
+                                        )}>
+                                            {item.isActive ? "Active" : "Inactive"}
+                                        </span>
+                                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-auto">
                                             {new Date(item.date).toLocaleDateString()}
                                         </span>
                                     </div>
@@ -238,7 +256,7 @@ export default function DownloadsAdminPage() {
             <Modal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
-                title={editingId ? "Edit Download" : "Create New Download"}
+                title={editingId ? "Edit Notice" : "Create New Notice"}
             >
                 <form onSubmit={handleSave} className="space-y-6">
                     <div className="space-y-4">
@@ -289,21 +307,44 @@ export default function DownloadsAdminPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">File URL / Attachment</label>
+                            <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Direct File Upload</label>
+                            <CloudinaryUpload
+                                value={formData.pdfUrl}
+                                onChange={(url) => setFormData({ ...formData, pdfUrl: url })}
+                                onRemove={() => setFormData({ ...formData, pdfUrl: "" })}
+                                folder="circulars"
+                            />
+                        </div>
+
+                        <div className="space-y-2">
+                            <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">File URL / Attachment (Manual Override)</label>
                             <input
                                 type="text"
                                 value={formData.pdfUrl}
                                 onChange={(e) => setFormData({ ...formData, pdfUrl: e.target.value })}
                                 className="w-full bg-slate-50 border-slate-100 rounded-2xl px-6 py-4 focus:ring-4 focus:ring-primary/10 transition-all font-mono text-xs text-slate-500"
-                                placeholder="Paste Google Drive/Cloudinary link or upload via News section"
+                                placeholder="Paste Google Drive/Cloudinary link if not using direct upload"
                             />
-                            <p className="text-[10px] text-slate-400 px-2 italic text-right">Tip: Use the News section to upload files if needed then copy the link here.</p>
                         </div>
+
+                        <div className="flex items-center gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-100/50">
+                            <input
+                                type="checkbox"
+                                id="isActive"
+                                checked={formData.isActive}
+                                onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
+                                className="w-5 h-5 rounded-lg border-slate-300 text-primary focus:ring-primary transition-all"
+                            />
+                            <label htmlFor="isActive" className="text-sm font-bold text-slate-700 cursor-pointer">
+                                Active (Show on Website Notice Board)
+                            </label>
+                        </div>
+
                     </div>
 
                     <div className="flex gap-4 pt-6 border-t border-slate-100">
                         <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 bg-white border border-slate-200 text-slate-500 font-black uppercase tracking-widest py-4 rounded-2xl hover:bg-slate-50 transition-all">Discard</button>
-                        <button type="submit" disabled={isSaving} className="flex-2 bg-primary text-white font-black uppercase tracking-widest py-4 rounded-2xl shadow-xl shadow-primary/20 hover:-translate-y-1 transition-all">{isSaving ? "Saving..." : (editingId ? "Update Download" : "Publish Download")}</button>
+                        <button type="submit" disabled={isSaving} className="flex-2 bg-primary text-white font-black uppercase tracking-widest py-4 rounded-2xl shadow-xl shadow-primary/20 hover:-translate-y-1 transition-all">{isSaving ? "Saving..." : (editingId ? "Update Notice" : "Publish Notice")}</button>
                     </div>
                 </form>
             </Modal>

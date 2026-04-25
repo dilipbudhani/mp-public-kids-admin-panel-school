@@ -24,6 +24,7 @@ import Program from "@/models/Program";
 import Facility from "@/models/Facility";
 import SiteSettings from "@/models/SiteSettings";
 import Gallery from "@/models/Gallery";
+import SocialPost from "@/models/SocialPost";
 
 import {
   HeroSlide as IHeroSlide,
@@ -47,7 +48,7 @@ export default async function Home() {
   let stats: IStatItem[] = [];
   let programs: IProgram[] = [];
   let facilities: IFacility[] = [];
-  let aboutData: any = null; // About data is still complex/dynamic
+  let aboutData: any = null;
   let settings: ISiteSettings | null = null;
   let galleryItems: IGalleryItem[] = [];
 
@@ -65,7 +66,8 @@ export default async function Home() {
       programsData,
       facilitiesData,
       settingsData,
-      galleryData
+      galleryData,
+      socialData
     ] = await Promise.all([
       HeroSlide.find({ isActive: true, schoolIds: process.env.SCHOOL_ID }).sort({ displayOrder: 1 }).lean(),
       Testimonial.find({ isActive: true, schoolIds: process.env.SCHOOL_ID }).sort({ displayOrder: 1 }).limit(6).lean(),
@@ -73,116 +75,58 @@ export default async function Home() {
       SchoolEvent.find({ isActive: true, schoolIds: process.env.SCHOOL_ID, date: { $gte: new Date() } }).sort({ date: 1 }).limit(5).lean(),
       Circular.find({ isActive: true, schoolIds: process.env.SCHOOL_ID }).sort({ date: -1 }).limit(3).lean(),
       Stat.find({ schoolIds: process.env.SCHOOL_ID }).sort({ displayOrder: 1 }).limit(4).lean(),
-      StaticPage.findOne({ slug: 'about-us', schoolIds: process.env.SCHOOL_ID }).lean(),
+      StaticPage.findOne({ slug: 'about-overview', schoolIds: process.env.SCHOOL_ID }).lean(),
       Program.find({ isActive: true, schoolIds: process.env.SCHOOL_ID }).sort({ displayOrder: 1 }).lean(),
       Facility.find({ isActive: true, schoolIds: process.env.SCHOOL_ID }).sort({ displayOrder: 1 }).lean(),
-      SiteSettings.findOne({ _id: process.env.SCHOOL_ID, schoolIds: process.env.SCHOOL_ID }).lean(),
-      Gallery.find({ type: 'image', schoolIds: process.env.SCHOOL_ID }).sort({ date: -1 }).limit(6).lean()
+      SiteSettings.findOne({ _id: process.env.SCHOOL_ID }).lean(),
+      Gallery.find({ type: 'image', schoolIds: process.env.SCHOOL_ID }).sort({ date: -1 }).limit(6).lean(),
+      SocialPost.find({ schoolId: process.env.SCHOOL_ID }).sort({ timestamp: -1 }).limit(30).lean()
     ]);
 
-    // Map to plain objects and convert ObjectIds to strings
-    slides = slidesData.map(slide => {
-      const s = slide as any;
-      return {
-        _id: s._id.toString(),
-        imageUrl: s.imageUrl,
-        badge: s.badge,
-        title: s.title,
-        highlight: s.highlight,
-        description: s.description,
-        cta1Text: s.cta1Text,
-        cta1Href: s.cta1Href,
-        cta2Text: s.cta2Text,
-        cta2Href: s.cta2Href,
-        statValue: s.statValue || "",
-        statLabel: s.statLabel || "",
-      };
-    }) as any;
+    slides = slidesData.map(s => ({
+      ...s,
+      _id: s._id.toString(),
+    })) as any;
 
-    testimonials = testimonialsData.map(t => {
-      const test = t as any;
-      return {
-        _id: test._id.toString(),
-        name: test.name,
-        role: test.role,
-        content: test.content,
-        rating: test.rating || 5,
-        avatarUrl: test.avatarUrl,
-      };
-    }) as any;
+    testimonials = testimonialsData.map(t => ({
+      ...t,
+      _id: t._id.toString(),
+    })) as any;
 
-    news = newsData.map(item => {
-      const i = item as any;
-      return {
-        _id: i._id.toString(),
-        title: i.title,
-        slug: i.slug,
-        image: i.imageUrl || i.image,
-        summary: i.summary || i.excerpt || "",
-        isFeatured: i.isFeatured || false,
-        category: i.category || "News",
-        publishedAt: i.date instanceof Date ? i.date.toISOString() : new Date().toISOString(),
-      };
-    }) as any;
+    news = newsData.map(i => ({
+      ...i,
+      _id: i._id.toString(),
+      image: i.imageUrl || i.image,
+      publishedAt: i.date instanceof Date ? i.date.toISOString() : new Date().toISOString(),
+    })) as any;
 
-    events = eventsData.map(event => {
-      const e = event as any;
-      return {
-        _id: e._id.toString(),
-        title: e.title,
-        location: e.location || "School Campus",
-        category: e.category || "General",
-        type: e.type || e.category || "Event",
-        date: e.date instanceof Date ? e.date.toISOString() : new Date().toISOString(),
-      };
-    }) as any;
+    events = eventsData.map(e => ({
+      ...e,
+      _id: e._id.toString(),
+      date: e.date instanceof Date ? e.date.toISOString() : new Date().toISOString(),
+    })) as any;
 
-    notices = noticesData.map(notice => {
-      const n = notice as any;
-      return {
-        _id: n._id.toString(),
-        id: n._id.toString(),
-        title: n.title,
-        category: n.category,
-        description: n.description || "",
-        fileUrl: n.fileUrl || n.pdfUrl || "",
-        pdfUrl: n.fileUrl || n.pdfUrl || "",
-        date: n.date instanceof Date ? n.date.toISOString() : new Date().toISOString(),
-      };
-    }) as any;
+    notices = noticesData.map(n => ({
+      ...n,
+      id: n._id.toString(),
+      _id: n._id.toString(),
+      date: n.date instanceof Date ? n.date.toISOString() : new Date().toISOString(),
+    })) as any;
 
-    stats = statsData.map(s => {
-      const st = s as any;
-      return {
-        _id: st._id.toString(),
-        label: st.label,
-        value: st.value,
-        suffix: st.suffix,
-      };
-    }) as any;
+    stats = statsData.map(st => ({
+      ...st,
+      _id: st._id.toString(),
+    })) as any;
 
-    programs = programsData.map(p => {
-      const pr = p as any;
-      return {
-        _id: pr._id.toString(),
-        title: pr.title,
-        description: pr.description,
-        icon: pr.icon,
-        href: pr.href,
-        color: pr.color,
-      };
-    }) as any;
+    programs = programsData.map(pr => ({
+      ...pr,
+      _id: pr._id.toString(),
+    })) as any;
 
-    facilities = facilitiesData.map(f => {
-      const fa = f as any;
-      return {
-        _id: fa._id.toString(),
-        title: fa.title,
-        description: fa.description,
-        icon: fa.icon,
-        image: fa.image,
-      };
-    }) as any;
+    facilities = facilitiesData.map(fa => ({
+      ...fa,
+      _id: fa._id.toString(),
+    })) as any;
 
     if (aboutPageData) {
       const ad = aboutPageData as any;
@@ -199,30 +143,40 @@ export default async function Home() {
     if (settingsData) {
       const s = settingsData as any;
       settings = {
+        ...s,
         _id: s._id.toString(),
-        schoolName: s.schoolName,
-        contactEmail: s.contactEmail,
-        contactPhone: s.contactPhone,
-        address: s.address,
-        facebookUrl: s.socialMedia?.facebook || s.facebookUrl,
-        instagramUrl: s.socialMedia?.instagram || s.instagramUrl,
-        twitterUrl: s.socialMedia?.twitter || s.twitterUrl,
-        youtubeUrl: s.socialMedia?.youtube || s.youtubeUrl,
-        admissionOpen: s.admissionOpen,
+        facebookUrl: s.facebookUrl,
+        instagramUrl: s.instagramUrl,
+        twitterUrl: s.twitterUrl,
+        youtubeUrl: s.youtubeUrl,
       };
     }
 
-    galleryItems = galleryData.map(item => {
-      const g = item as any;
-      return {
+    const socialPosts = socialData.map(p => ({
+      id: p._id.toString(),
+      platform: p.platform,
+      image: p.mediaUrl,
+      thumbnail: p.thumbnailUrl,
+      caption: p.caption || "",
+      type: p.type,
+      permalink: p.permalink,
+      likes: p.likes || 0,
+      comments: p.comments || 0,
+      date: p.timestamp
+    }));
+
+    if (socialPosts.length > 0) {
+      galleryItems = socialPosts;
+    } else {
+      galleryItems = galleryData.map(g => ({
         id: g._id.toString(),
         _id: g._id.toString(),
         image: g.imageUrl,
         caption: g.title,
-        likes: Math.floor(Math.random() * 500) + 100, // Placeholder
-        comments: Math.floor(Math.random() * 50) + 10,   // Placeholder
-      };
-    }) as any;
+        likes: 0,
+        comments: 0,
+      })) as any;
+    }
 
   } catch (error) {
     console.error("CRITICAL ERROR: Failed to fetch home data:", error);
@@ -230,7 +184,7 @@ export default async function Home() {
 
   return (
     <main className="flex flex-col">
-      <Hero slides={slides} />
+      <Hero slides={slides} settings={settings} />
       <StatsBar stats={stats} />
       <AboutPreview data={aboutData} />
       <AcademicsGrid programs={programs} />
@@ -240,7 +194,6 @@ export default async function Home() {
       <UpcomingEvents events={events} />
       <NoticeWidget notices={notices} />
       <SocialMediaSection settings={settings} galleryItems={galleryItems} />
-
       <HomeInquiry />
     </main>
   );

@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
         }
 
         await dbConnect();
-        const filter = await getSchoolFilter(req);
+        const filter = getSchoolFilter(req, 'schoolIds');
         const slides = await HeroSlide.find(filter).sort({ displayOrder: "asc" });
 
         return NextResponse.json(slides);

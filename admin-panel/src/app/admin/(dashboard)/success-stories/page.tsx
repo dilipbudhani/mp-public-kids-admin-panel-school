@@ -154,8 +154,12 @@ export default function SuccessStoriesAdminPage() {
         if (!confirm("Are you sure you want to delete this success story?")) return;
 
         try {
+            const schoolId = localStorage.getItem("selectedSchool") || "mp-kids-school";
             const res = await fetch(`/api/success-stories/${id}`, {
                 method: "DELETE",
+                headers: {
+                    "x-school-id": schoolId
+                }
             });
 
             if (res.ok) {

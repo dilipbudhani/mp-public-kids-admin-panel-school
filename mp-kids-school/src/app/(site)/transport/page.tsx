@@ -290,7 +290,7 @@ export default function TransportPage() {
                                                 <Phone className="w-5 h-5" />
                                             </div>
                                             <div>
-                                                <p className="text-lg font-bold">+91 98765 43210</p>
+                                                <p className="text-lg font-bold">+91 90919 29384</p>
                                                 <p className="text-xs text-white/40">Transport In-charge Desk</p>
                                             </div>
                                         </div>

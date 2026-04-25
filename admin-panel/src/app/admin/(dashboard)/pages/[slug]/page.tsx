@@ -59,7 +59,10 @@ const JsonEditor = ({ value, onChange, label }: { value: any, onChange: (v: any)
 interface Section {
     title: string;
     content?: string;
+    subheading?: string;
+    type?: string;
     image?: string;
+    quote?: string;
     order?: number;
     key?: string;
     items?: any[];
@@ -88,7 +91,12 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
     const fetchPage = async () => {
         try {
-            const res = await fetch(`/api/static-pages/${slug}`);
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            const res = await fetch(`/api/static-pages/${slug}`, {
+                headers: {
+                    ...(schoolId && { "x-school-id": schoolId })
+                }
+            });
             if (res.ok) {
                 const data = await res.json();
                 setPage(data);
@@ -106,9 +114,13 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
         if (!page) return;
         setIsSaving(true);
         try {
+            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
             const res = await fetch(`/api/static-pages/${slug}`, {
                 method: "PUT",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(schoolId && { "x-school-id": schoolId })
+                },
                 body: JSON.stringify(page),
             });
             if (res.ok) {
@@ -224,204 +236,243 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                         </p>
                     </div>
 
-                    {/* Content Sections */}
-                    <div className="space-y-6">
-                        <div className="flex justify-between items-center px-4">
-                            <h2 className="text-xl font-bold font-playfair text-slate-900 flex items-center gap-3">
-                                <div className="p-2.5 bg-amber-50 text-amber-600 rounded-xl">
-                                    <Layout className="w-5 h-5" />
-                                </div>
-                                Page Sections
-                            </h2>
-                            <button
-                                onClick={addSection}
-                                className="flex items-center gap-2 text-primary font-bold text-sm bg-primary/5 px-4 py-2.5 rounded-xl hover:bg-primary hover:text-white transition-all"
+                    <div className="space-y-4">
+                        {page.sections.map((section: any, idx) => (
+                            <div
+                                key={idx}
+                                className={cn(
+                                    "bg-white rounded-4xl border transition-all duration-300 overflow-hidden",
+                                    expandedSection === idx ? "border-primary shadow-xl scale-[1.01]" : "border-slate-50 shadow-sm"
+                                )}
                             >
-                                <Plus className="w-4 h-4" /> Add Section
-                            </button>
-                        </div>
-
-                        <div className="space-y-4">
-                            {page.sections.map((section, idx) => (
+                                {/* Section Header */}
                                 <div
-                                    key={idx}
                                     className={cn(
-                                        "bg-white rounded-4xl border transition-all duration-300 overflow-hidden",
-                                        expandedSection === idx ? "border-primary shadow-xl scale-[1.01]" : "border-slate-50 shadow-sm"
+                                        "flex items-center justify-between p-6 cursor-pointer select-none",
+                                        expandedSection === idx ? "bg-slate-50" : "hover:bg-slate-50/50"
                                     )}
+                                    onClick={() => setExpandedSection(expandedSection === idx ? null : idx)}
                                 >
-                                    {/* Section Header */}
-                                    <div
-                                        className={cn(
-                                            "flex items-center justify-between p-6 cursor-pointer select-none",
-                                            expandedSection === idx ? "bg-slate-50" : "hover:bg-slate-50/50"
-                                        )}
-                                        onClick={() => setExpandedSection(expandedSection === idx ? null : idx)}
-                                    >
-                                        <div className="flex items-center gap-4">
-                                            <div className="text-slate-300">
-                                                <GripVertical className="w-5 h-5" />
-                                            </div>
+                                    <div className="flex items-center gap-4">
+                                        <div className="text-slate-300">
+                                            <GripVertical className="w-5 h-5" />
+                                        </div>
+                                        <div className="flex items-center gap-3">
                                             <div>
                                                 <h3 className="font-bold text-slate-900">
                                                     {section.title || `Untitled Section ${idx + 1}`}
                                                 </h3>
-                                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-0.5">Section {idx + 1}</p>
+                                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-0.5">
+                                                    {section.type || 'Standard'} Section {idx + 1}
+                                                </p>
                                             </div>
-                                        </div>
-                                        <div className="flex items-center gap-3">
-                                            <div className="flex bg-white rounded-lg border border-slate-100 p-1">
-                                                <button
-                                                    onClick={(e) => { e.stopPropagation(); moveSection(idx, 'up'); }}
-                                                    disabled={idx === 0}
-                                                    className="p-1.5 hover:bg-slate-50 text-slate-400 disabled:opacity-30 disabled:hover:bg-transparent"
-                                                >
-                                                    <ChevronUp className="w-4 h-4" />
-                                                </button>
-                                                <div className="w-px bg-slate-100" />
-                                                <button
-                                                    onClick={(e) => { e.stopPropagation(); moveSection(idx, 'down'); }}
-                                                    disabled={idx === page.sections.length - 1}
-                                                    className="p-1.5 hover:bg-slate-50 text-slate-400 disabled:opacity-30 disabled:hover:bg-transparent"
-                                                >
-                                                    <ChevronDown className="w-4 h-4" />
-                                                </button>
-                                            </div>
-                                            <button
-                                                onClick={(e) => { e.stopPropagation(); removeSection(idx); }}
-                                                className="p-2.5 text-red-400 hover:bg-red-50 hover:text-red-500 rounded-xl transition-all"
-                                            >
-                                                <Trash2 className="w-5 h-5" />
-                                            </button>
+                                            {section.type && (
+                                                <span className="px-2 py-1 bg-primary/10 text-primary text-[8px] font-black uppercase tracking-tighter rounded-md">
+                                                    {section.type}
+                                                </span>
+                                            )}
                                         </div>
                                     </div>
+                                    <div className="flex items-center gap-3">
+                                        <div className="flex bg-white rounded-lg border border-slate-100 p-1">
+                                            <button
+                                                onClick={(e) => { e.stopPropagation(); moveSection(idx, 'up'); }}
+                                                disabled={idx === 0}
+                                                className="p-1.5 hover:bg-slate-50 text-slate-400 disabled:opacity-30 disabled:hover:bg-transparent"
+                                            >
+                                                <ChevronUp className="w-4 h-4" />
+                                            </button>
+                                            <div className="w-px bg-slate-100" />
+                                            <button
+                                                onClick={(e) => { e.stopPropagation(); moveSection(idx, 'down'); }}
+                                                disabled={idx === page.sections.length - 1}
+                                                className="p-1.5 hover:bg-slate-50 text-slate-400 disabled:opacity-30 disabled:hover:bg-transparent"
+                                            >
+                                                <ChevronDown className="w-4 h-4" />
+                                            </button>
+                                        </div>
+                                        <button
+                                            onClick={(e) => { e.stopPropagation(); removeSection(idx); }}
+                                            className="p-2.5 text-red-400 hover:bg-red-50 hover:text-red-500 rounded-xl transition-all"
+                                        >
+                                            <Trash2 className="w-5 h-5" />
+                                        </button>
+                                    </div>
+                                </div>
 
-                                    {/* Action Body */}
-                                    {expandedSection === idx && (
-                                        <div className="p-8 space-y-6 animate-in fade-in slide-in-from-top-4 duration-300 border-t border-slate-100">
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                                <div className="space-y-2">
-                                                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Section Title</label>
-                                                    <input
-                                                        type="text"
-                                                        placeholder="Section Header"
-                                                        value={section.title || ''}
-                                                        onChange={(e) => updateSection(idx, { title: e.target.value })}
-                                                        className="w-full bg-slate-50 border-slate-100 rounded-xl px-5 py-3.5 focus:ring-4 focus:ring-primary/5 transition-all font-bold text-slate-900"
-                                                    />
-                                                </div>
-                                                <div className="space-y-2">
-                                                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Section Key (Optional)</label>
-                                                    <input
-                                                        type="text"
-                                                        placeholder="e.g., core_facilities"
-                                                        value={section.key || ''}
-                                                        onChange={(e) => updateSection(idx, { key: e.target.value })}
-                                                        className="w-full bg-slate-50 border-slate-100 rounded-xl px-5 py-3.5 focus:ring-4 focus:ring-primary/5 transition-all font-mono text-sm text-slate-900"
-                                                    />
-                                                </div>
+                                {/* Action Body */}
+                                {expandedSection === idx && (
+                                    <div className="p-8 space-y-6 animate-in fade-in slide-in-from-top-4 duration-300 border-t border-slate-100">
+                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Section Title</label>
+                                                <input
+                                                    type="text"
+                                                    placeholder="Section Header"
+                                                    value={section.title || ''}
+                                                    onChange={(e) => updateSection(idx, { title: e.target.value })}
+                                                    className="w-full bg-slate-50 border-slate-100 rounded-xl px-5 py-3.5 focus:ring-4 focus:ring-primary/5 transition-all font-bold text-slate-900"
+                                                />
                                             </div>
-
-                                            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-                                                {section.items ? (
-                                                    <div className="md:col-span-12">
-                                                        <JsonEditor
-                                                            label="Structured Items (JSON)"
-                                                            value={section.items}
-                                                            onChange={(parsed) => updateSection(idx, { items: parsed })}
-                                                        />
-                                                    </div>
-                                                ) : null}
-
-                                                {section.content !== undefined || (!section.items && !section.key) ? (
-                                                    <div className="md:col-span-12 space-y-2">
-                                                        <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Full Content (Markdown)</label>
-                                                        <textarea
-                                                            rows={6}
-                                                            placeholder="Write section content here..."
-                                                            value={section.content || ''}
-                                                            onChange={(e) => updateSection(idx, { content: e.target.value })}
-                                                            className="w-full bg-slate-50 border-slate-100 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-primary/5 transition-all text-slate-700 leading-relaxed font-medium min-h-[150px]"
-                                                        />
-                                                    </div>
-                                                ) : null}
-                                                <div className="md:col-span-12 space-y-2">
-                                                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Section Visual (Optional)</label>
-                                                    <CloudinaryUpload
-                                                        value={section.image || ""}
-                                                        onChange={(url) => updateSection(idx, { image: url })}
-                                                        onRemove={() => updateSection(idx, { image: "" })}
-                                                        folder="pages"
-                                                    />
-                                                </div>
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Layout Type</label>
+                                                <select
+                                                    value={section.type || "standard"}
+                                                    onChange={(e) => updateSection(idx, { type: e.target.value })}
+                                                    className="w-full bg-slate-50 border-slate-100 rounded-xl px-5 py-3.5 focus:ring-4 focus:ring-primary/5 transition-all font-bold text-slate-900 appearance-none"
+                                                >
+                                                    <option value="standard">Standard (Content + Image)</option>
+                                                    <option value="grid">Grid (Icon + Text items)</option>
+                                                    <option value="accordion">Accordion (FAQ Style)</option>
+                                                    <option value="featured">Featured (Cards)</option>
+                                                </select>
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Section Key (Optional)</label>
+                                                <input
+                                                    type="text"
+                                                    placeholder="e.g., academic_overview"
+                                                    value={section.key || ''}
+                                                    onChange={(e) => updateSection(idx, { key: e.target.value })}
+                                                    className="w-full bg-slate-50 border-slate-100 rounded-xl px-5 py-3.5 focus:ring-4 focus:ring-primary/5 transition-all font-mono text-sm text-slate-900"
+                                                />
                                             </div>
                                         </div>
-                                    )}
-                                </div>
-                            ))}
-                        </div>
 
-                        <button
-                            onClick={addSection}
-                            className="w-full py-10 rounded-5xl border-4 border-dashed border-slate-100 hover:border-primary/20 hover:bg-primary/5 transition-all flex flex-col items-center justify-center gap-3 group"
-                        >
-                            <div className="w-14 h-14 rounded-full bg-slate-50 flex items-center justify-center text-slate-300 group-hover:bg-primary group-hover:text-white transition-all">
-                                <Plus className="w-8 h-8" />
+                                        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+                                            <div className="md:col-span-12 space-y-2">
+                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Hero Subheading (Optional)</label>
+                                                <input
+                                                    type="text"
+                                                    placeholder="e.g., OUR VISION"
+                                                    value={section.subheading || ''}
+                                                    onChange={(e) => updateSection(idx, { subheading: e.target.value })}
+                                                    className="w-full bg-slate-50 border-slate-100 rounded-xl px-5 py-3.5 focus:ring-4 focus:ring-primary/5 transition-all font-bold text-slate-900"
+                                                />
+                                            </div>
+
+                                            {section.type === 'grid' || section.items ? (
+                                                <div className="md:col-span-12">
+                                                    <div className="flex items-center justify-between mb-2">
+                                                        <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Structured Items (JSON)</label>
+                                                        <div className="flex gap-2">
+                                                            <button
+                                                                onClick={() => updateSection(idx, { items: [...(section.items || []), { title: "New Item", content: "Details...", icon: "Star" }] })}
+                                                                className="text-[10px] font-black uppercase tracking-widest text-primary hover:bg-primary/5 px-3 py-1 rounded-lg transition-all"
+                                                            >
+                                                                + Add Item
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <JsonEditor
+                                                        label=""
+                                                        value={section.items || []}
+                                                        onChange={(parsed) => updateSection(idx, { items: parsed })}
+                                                    />
+                                                    <p className="text-[10px] text-slate-400 font-bold mt-2 italic px-2">
+                                                        Items should follow format: {"{ title, content, icon }"}
+                                                    </p>
+                                                </div>
+                                            ) : null}
+
+                                            <div className="md:col-span-12 space-y-2">
+                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Body Text (Markdown Support)</label>
+                                                <textarea
+                                                    rows={6}
+                                                    placeholder="Write section content here..."
+                                                    value={section.content || ''}
+                                                    onChange={(e) => updateSection(idx, { content: e.target.value })}
+                                                    className="w-full bg-slate-50 border-slate-100 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-primary/5 transition-all text-slate-700 leading-relaxed font-medium min-h-[150px]"
+                                                />
+                                            </div>
+
+                                            <div className="md:col-span-12 space-y-2">
+                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Featured Quote (Optional)</label>
+                                                <textarea
+                                                    rows={3}
+                                                    placeholder="e.g., Education is the passport to the future..."
+                                                    value={section.quote || ''}
+                                                    onChange={(e) => updateSection(idx, { quote: e.target.value })}
+                                                    className="w-full bg-slate-50 border-slate-100 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-primary/5 transition-all text-slate-700 italic font-serif leading-relaxed"
+                                                />
+                                            </div>
+
+                                            <div className="md:col-span-12 space-y-2">
+                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Visual Asset (Optional)</label>
+                                                <CloudinaryUpload
+                                                    value={section.image || ""}
+                                                    onChange={(url) => updateSection(idx, { image: url })}
+                                                    onRemove={() => updateSection(idx, { image: "" })}
+                                                    folder="pages"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
-                            <span className="text-sm font-black uppercase tracking-[0.2em] text-slate-400 group-hover:text-primary transition-all">Add New Content Block</span>
-                        </button>
+                        ))}
                     </div>
+
+                    <button
+                        onClick={addSection}
+                        className="w-full py-10 rounded-5xl border-4 border-dashed border-slate-100 hover:border-primary/20 hover:bg-primary/5 transition-all flex flex-col items-center justify-center gap-3 group"
+                    >
+                        <div className="w-14 h-14 rounded-full bg-slate-50 flex items-center justify-center text-slate-300 group-hover:bg-primary group-hover:text-white transition-all">
+                            <Plus className="w-8 h-8" />
+                        </div>
+                        <span className="text-sm font-black uppercase tracking-[0.2em] text-slate-400 group-hover:text-primary transition-all">Add New Content Block</span>
+                    </button>
                 </div>
+            </div>
 
-                {/* Sidebar (SEO & Settings) */}
-                <div className="lg:col-span-4 space-y-8">
-                    <div className="bg-white rounded-5xl p-8 border border-slate-50 shadow-sm space-y-8 sticky top-32">
-                        <div className="flex items-center gap-3 mb-2">
-                            <div className="p-2.5 bg-blue-50 text-blue-600 rounded-xl">
-                                <Globe className="w-5 h-5" />
-                            </div>
-                            <h2 className="text-xl font-bold font-playfair text-slate-900">Search Presence</h2>
+            {/* Sidebar (SEO & Settings) */}
+            <div className="lg:col-span-4 space-y-8">
+                <div className="bg-white rounded-5xl p-8 border border-slate-50 shadow-sm space-y-8 sticky top-32">
+                    <div className="flex items-center gap-3 mb-2">
+                        <div className="p-2.5 bg-blue-50 text-blue-600 rounded-xl">
+                            <Globe className="w-5 h-5" />
+                        </div>
+                        <h2 className="text-xl font-bold font-playfair text-slate-900">Search Presence</h2>
+                    </div>
+
+                    <div className="space-y-6">
+                        <div className="space-y-2">
+                            <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Meta Title</label>
+                            <input
+                                type="text"
+                                value={page.metaTitle}
+                                onChange={(e) => setPage({ ...page, metaTitle: e.target.value })}
+                                className="w-full bg-slate-50 border-slate-100 rounded-xl px-4 py-3 focus:ring-4 focus:ring-primary/5 transition-all font-bold text-sm"
+                                placeholder="Page SEO Title"
+                            />
                         </div>
 
-                        <div className="space-y-6">
-                            <div className="space-y-2">
-                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Meta Title</label>
-                                <input
-                                    type="text"
-                                    value={page.metaTitle}
-                                    onChange={(e) => setPage({ ...page, metaTitle: e.target.value })}
-                                    className="w-full bg-slate-50 border-slate-100 rounded-xl px-4 py-3 focus:ring-4 focus:ring-primary/5 transition-all font-bold text-sm"
-                                    placeholder="Page SEO Title"
-                                />
-                            </div>
-
-                            <div className="space-y-2">
-                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Meta Description</label>
-                                <textarea
-                                    rows={4}
-                                    value={page.metaDescription}
-                                    onChange={(e) => setPage({ ...page, metaDescription: e.target.value })}
-                                    className="w-full bg-slate-50 border-slate-100 rounded-xl px-4 py-3 focus:ring-4 focus:ring-primary/5 transition-all text-sm font-medium leading-relaxed"
-                                    placeholder="Brief summary for Google search results..."
-                                />
-                            </div>
-
-                            {/* SEO Preview Card */}
-                            <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100">
-                                <p className="text-xs font-black uppercase tracking-tightest text-slate-400 mb-4 opacity-50">Search Preview</p>
-                                <h4 className="text-blue-600 font-medium text-lg truncate hover:underline cursor-pointer">{page.metaTitle || page.title} | MP Kids School</h4>
-                                <p className="text-emerald-700 text-xs mt-1 truncate">mpkidsschool.edu.in/{page.slug}</p>
-                                <p className="text-slate-500 text-xs mt-2 line-clamp-2 leading-relaxed">{page.metaDescription || "No description set yet. Search engines will generate one automatically."}</p>
-                            </div>
+                        <div className="space-y-2">
+                            <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Meta Description</label>
+                            <textarea
+                                rows={4}
+                                value={page.metaDescription}
+                                onChange={(e) => setPage({ ...page, metaDescription: e.target.value })}
+                                className="w-full bg-slate-50 border-slate-100 rounded-xl px-4 py-3 focus:ring-4 focus:ring-primary/5 transition-all text-sm font-medium leading-relaxed"
+                                placeholder="Brief summary for Google search results..."
+                            />
                         </div>
 
-                        <div className="pt-8 border-t border-slate-50">
-                            <div className="bg-amber-50 rounded-2xl p-4 border border-amber-100/50">
-                                <p className="text-[10px] text-amber-700 leading-relaxed font-bold uppercase tracking-widest text-center flex items-center justify-center gap-2">
-                                    <ImageIcon className="w-3.5 h-3.5" />
-                                    Dynamic CMS Content
-                                </p>
-                            </div>
+                        {/* SEO Preview Card */}
+                        <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100">
+                            <p className="text-xs font-black uppercase tracking-tightest text-slate-400 mb-4 opacity-50">Search Preview</p>
+                            <h4 className="text-blue-600 font-medium text-lg truncate hover:underline cursor-pointer">{page.metaTitle || page.title} | MP Kids School</h4>
+                            <p className="text-emerald-700 text-xs mt-1 truncate">mpkidsschool.edu.in/{page.slug}</p>
+                            <p className="text-slate-500 text-xs mt-2 line-clamp-2 leading-relaxed">{page.metaDescription || "No description set yet. Search engines will generate one automatically."}</p>
+                        </div>
+                    </div>
+
+                    <div className="pt-8 border-t border-slate-50">
+                        <div className="bg-amber-50 rounded-2xl p-4 border border-amber-100/50">
+                            <p className="text-[10px] text-amber-700 leading-relaxed font-bold uppercase tracking-widest text-center flex items-center justify-center gap-2">
+                                <ImageIcon className="w-3.5 h-3.5" />
+                                Dynamic CMS Content
+                            </p>
                         </div>
                     </div>
                 </div>

@@ -190,10 +190,11 @@ export function CoCurricularClient({ pageData }: CoCurricularClientProps) {
 
     const achievementsSection = pageData?.sections?.find(s => s.key === "achievements");
     const dynamicAchievements = achievementsSection?.items?.length
-        ? achievementsSection.items.map((i: any) => i.title || '')
+        ? achievementsSection.items.map((i: any) => typeof i === 'string' ? i : (i.title || i.name || ''))
         : defaultAchievements;
 
     const getIcon = (iconData: any) => {
+        if (!iconData) return <LucideIcons.Star className="w-6 h-6" />;
         if (typeof iconData !== 'string') return iconData;
         const IconComponent = (LucideIcons as any)[iconData] || LucideIcons.Star;
         return <IconComponent className="w-6 h-6" />;
@@ -283,15 +284,15 @@ export function CoCurricularClient({ pageData }: CoCurricularClientProps) {
                                     <div className={`w-14 h-14 ${act.color || 'bg-blue-500'} text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg transform group-hover:rotate-6 transition-transform`}>
                                         {getIcon(act.icon)}
                                     </div>
-                                    <h3 className="text-2xl font-serif font-bold text-primary mb-3">{act.name}</h3>
-                                    <p className="text-gray-500 text-sm leading-relaxed mb-6 h-10 line-clamp-2">{act.desc}</p>
+                                    <h3 className="text-2xl font-serif font-bold text-primary mb-3">{act.name || act.title}</h3>
+                                    <p className="text-gray-500 text-sm leading-relaxed mb-6 h-10 line-clamp-2">{act.desc || act.content}</p>
 
                                     <div className="flex items-center justify-between pt-6 border-t border-slate-50">
                                         <div className="flex items-center gap-2 text-xs font-bold text-primary uppercase">
-                                            <Users className="w-4 h-4" /> {act.age}
+                                            <Users className="w-4 h-4" /> {act.age || 'Class Any'}
                                         </div>
                                         <div className="flex items-center gap-2 text-xs font-bold text-gold uppercase">
-                                            <Clock className="w-4 h-4" /> {act.schedule?.split(',')[0]}
+                                            <Clock className="w-4 h-4" /> {act.schedule ? act.schedule.split(',')[0] : 'Any Time'}
                                         </div>
                                     </div>
                                 </motion.div>

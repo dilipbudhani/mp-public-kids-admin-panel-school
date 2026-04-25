@@ -119,5 +119,13 @@ export interface SiteSettings {
     ogImage?: string;
     whatsappNumber?: string;
     mapEmbedUrl?: string;
-    cbseAffiliation?: string;
+    affiliationNo?: string;
+    trustItem1Text?: string;
+    trustItem1Sub?: string;
+    trustItem2Text?: string;
+    trustItem2Sub?: string;
+    trustItem3Text?: string;
+    trustItem3Sub?: string;
+    trustItem4Text?: string;
+    trustItem4Sub?: string;
 }
