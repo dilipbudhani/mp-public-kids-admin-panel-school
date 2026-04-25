@@ -74,7 +74,8 @@ export default function GalleryAdminPage() {
             const res = await fetch(`/api/gallery${schoolId ? `?schoolId=${schoolId}` : ""}`);
             if (res.ok) {
                 const data = await res.json();
-                setItems(data);
+                // Ensure the data is an array before setting it
+                setItems(Array.isArray(data) ? data : []);
             }
         } catch (error) {
             toast.error("Failed to fetch gallery");
@@ -302,16 +303,20 @@ export default function GalleryAdminPage() {
                     ))
                 ) : filteredItems.map((item) => (
                     <div
-                        key={item._id}
+                        key={item._id.toString()}
                         onClick={() => setPreviewItem(item)}
                         className="bg-white rounded-3xl border border-gray-100 p-3 group transition-all hover:shadow-2xl hover:shadow-gray-200/50 hover:-translate-y-1 flex flex-col cursor-pointer"
                     >
                         <div className="aspect-4/3 relative overflow-hidden rounded-2xl bg-gray-50">
                             <Image
                                 fill
-                                src={item.type === 'video' ? (item.thumbnailUrl || (item.imageUrl?.includes('res.cloudinary.com') ? item.imageUrl.replace(/\.[^/.]+$/, ".jpg") : "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=400&auto=format&fit=crop")) : item.imageUrl}
-                                alt={item.title}
+                                src={item.type === 'video' ?
+                                    (item.thumbnailUrl || (item.imageUrl?.includes('res.cloudinary.com') ? item.imageUrl.replace(/\.[^/.]+$/, ".jpg") : "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=400&auto=format&fit=crop"))
+                                    : (item.imageUrl || "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=400&auto=format&fit=crop")
+                                }
+                                alt={item.title || "Gallery Item"}
                                 className="object-cover group-hover:scale-110 transition-transform duration-700"
+                                unoptimized={item.type === 'video'}
                             />
 
                             {/* Overlay Badges */}
@@ -364,7 +369,9 @@ export default function GalleryAdminPage() {
                             <div className="flex items-center gap-4 p-6 bg-linear-to-r from-primary to-indigo-600 text-white text-[11px] font-medium rounded-2xl">
                                 <div className="flex items-center gap-1.5">
                                     <Calendar className="w-3.5 h-3.5" />
-                                    {new Date(item.date).toLocaleDateString()}
+                                    <span className="opacity-80" suppressHydrationWarning>
+                                        {item.date ? new Date(item.date).toLocaleDateString() : 'N/A'}
+                                    </span>
                                 </div>
                                 <div className="w-1 h-1 rounded-full bg-white/30" />
                                 <div className="flex items-center gap-1.5 uppercase tracking-tighter">

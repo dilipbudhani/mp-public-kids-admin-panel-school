@@ -40,7 +40,7 @@ export function SchoolSwitcher() {
                 className="flex items-center gap-2 px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-lg hover:bg-gray-100 transition-all"
             >
                 <School className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium text-gray-700">{currentSchool.name}</span>
+                <span className="text-sm font-medium text-gray-700" suppressHydrationWarning>{currentSchool.name}</span>
                 <ChevronDown className={cn("w-4 h-4 text-gray-400 transition-transform", isOpen && "rotate-180")} />
             </button>
 

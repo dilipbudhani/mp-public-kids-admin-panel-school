@@ -27,7 +27,10 @@ export async function GET(req: NextRequest) {
         }
 
         const filter = getSchoolFilter(req, 'schoolIds');
+        console.log("[GALLERY_GET] Fetching with filter:", JSON.stringify(filter));
+
         const items = await Gallery.find(filter).sort({ date: -1 });
+        console.log(`[GALLERY_GET] Found ${items.length} items`);
 
         return NextResponse.json(items);
     } catch (error) {
