@@ -173,7 +173,7 @@ export default function GalleryAdminPage() {
 
         await Promise.allSettled(bulkItems.map((item, idx) => {
             const isVideo = bulkFormData.type === 'video';
-            const thumbUrl = isVideo ? item.imageUrl.replace(/\.[^/.]+$/, ".jpg") : "";
+            const thumbUrl = isVideo && item.imageUrl ? item.imageUrl.replace(/\.[^/.]+$/, ".jpg") : "";
 
             const dataToSave = {
                 title: `${bulkFormData.category} Upload ${idx + 1}`,
@@ -309,7 +309,7 @@ export default function GalleryAdminPage() {
                         <div className="aspect-4/3 relative overflow-hidden rounded-2xl bg-gray-50">
                             <Image
                                 fill
-                                src={item.type === 'video' ? (item.thumbnailUrl || (item.imageUrl.includes('res.cloudinary.com') ? item.imageUrl.replace(/\.[^/.]+$/, ".jpg") : "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=400&auto=format&fit=crop")) : item.imageUrl}
+                                src={item.type === 'video' ? (item.thumbnailUrl || (item.imageUrl?.includes('res.cloudinary.com') ? item.imageUrl.replace(/\.[^/.]+$/, ".jpg") : "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=400&auto=format&fit=crop")) : item.imageUrl}
                                 alt={item.title}
                                 className="object-cover group-hover:scale-110 transition-transform duration-700"
                             />
@@ -600,6 +600,7 @@ export default function GalleryAdminPage() {
                                 options={{
                                     maxFiles: 50,
                                     multiple: true,
+                                    uploadPreset: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "ml_default",
                                     folder: "gallery",
                                     resourceType: "auto",
                                 }}
@@ -624,7 +625,7 @@ export default function GalleryAdminPage() {
                         {bulkItems.length > 0 && (
                             <div className="grid grid-cols-4 sm:grid-cols-5 gap-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
                                 {bulkItems.map((item, idx) => {
-                                    const previewUrl = bulkFormData.type === 'video' ? item.imageUrl.replace(/\.[^/.]+$/, ".jpg") : item.imageUrl;
+                                    const previewUrl = bulkFormData.type === 'video' && item.imageUrl ? item.imageUrl.replace(/\.[^/.]+$/, ".jpg") : item.imageUrl;
                                     return (
                                         <div key={idx} className="relative aspect-square rounded-lg overflow-hidden border border-gray-100 group">
                                             <Image src={previewUrl} alt="upload-preview" fill className="object-cover" />

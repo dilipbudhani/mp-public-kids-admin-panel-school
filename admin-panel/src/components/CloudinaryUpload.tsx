@@ -62,6 +62,7 @@ export default function CloudinaryUpload({
                         signatureEndpoint="/api/cloudinary/sign"
                         options={{
                             maxFiles: 1,
+                            uploadPreset: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "ml_default",
                             folder: folder,
                             resourceType: "auto",
                         }}
