@@ -70,7 +70,7 @@ export default function GalleryAdminPage() {
     const fetchGallery = async () => {
         setIsLoading(true);
         try {
-            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            const schoolId = (typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null) || "mp-kids-school";
             const res = await fetch(`/api/gallery${schoolId ? `?schoolId=${schoolId}` : ""}`);
             if (res.ok) {
                 const data = await res.json();
@@ -136,7 +136,7 @@ export default function GalleryAdminPage() {
             const method = editingId ? "PUT" : "POST";
             const url = editingId ? `/api/gallery/${editingId}` : "/api/gallery";
 
-            const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+            const schoolId = (typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null) || "mp-kids-school";
             const res = await fetch(url, {
                 method,
                 headers: {
@@ -168,7 +168,7 @@ export default function GalleryAdminPage() {
             return;
         }
         setIsSaving(true);
-        const schoolId = typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null;
+        const schoolId = (typeof window !== 'undefined' ? localStorage.getItem("selectedSchool") : null) || "mp-kids-school";
         let successCount = 0;
         let failCount = 0;
 

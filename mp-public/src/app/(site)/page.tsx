@@ -152,7 +152,17 @@ export default async function Home() {
       };
     }
 
-    const socialPosts = socialData.map(p => ({
+    const mappedGalleryItems = galleryData.map(g => ({
+      id: g._id.toString(),
+      _id: g._id.toString(),
+      image: g.imageUrl,
+      caption: g.title,
+      likes: 0,
+      comments: 0,
+      date: g.date || (g as any).createdAt || new Date(),
+    }));
+
+    const mappedSocialPosts = socialData.map(p => ({
       id: p._id.toString(),
       platform: p.platform,
       image: p.mediaUrl,
@@ -165,18 +175,10 @@ export default async function Home() {
       date: p.timestamp
     }));
 
-    if (socialPosts.length > 0) {
-      galleryItems = socialPosts;
-    } else {
-      galleryItems = galleryData.map(g => ({
-        id: g._id.toString(),
-        _id: g._id.toString(),
-        image: g.imageUrl,
-        caption: g.title,
-        likes: 0,
-        comments: 0,
-      })) as any;
-    }
+    // Combine and sort by date (newest first)
+    galleryItems = [...mappedSocialPosts, ...mappedGalleryItems]
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      .slice(0, 12); // Show up to 12 items in the social/gallery section
 
   } catch (error) {
     console.error("CRITICAL ERROR: Failed to fetch home data:", error);
